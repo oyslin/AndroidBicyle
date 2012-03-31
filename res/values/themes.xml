@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BicyleTheme" parent="android:Theme">
+        <!-- window full screen -->
+		<item name="android:windowNoTitle">true</item>
+        <!-- item name="android:windowFullscreen">true</item-->
+        
+        <!-- window background -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+        
+        <!-- activity animation -->
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+    </style>
+    
+</resources>

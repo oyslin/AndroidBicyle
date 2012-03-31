@@ -3,5 +3,10 @@
 
     <string name="hello">Hello World, BicyleActivity!</string>
     <string name="app_name">Bicyle</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_map">Map</string>
+    <string name="tab_settings">Setting</string>
+    <string name="tab_info">Info</string>
+    <string name="tab_list">List</string>
 
 </resources>
