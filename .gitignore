@@ -6,3 +6,4 @@ Android*
 bin/
 .classpath
 .project
+.settings/
