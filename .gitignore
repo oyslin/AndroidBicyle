@@ -1,2 +1,7 @@
-/proguard-project.txt
-/project.properties
+proguard-project.txt
+project.properties
+gen
+Android*
+bin
+.classpath
+.project
