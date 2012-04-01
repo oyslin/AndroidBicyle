@@ -18,7 +18,6 @@
 			android:id="@android:id/tabs" 
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
-			android:padding="2dip"
 			android:background="@drawable/tab_bg"/>			
 	</LinearLayout>	
 </TabHost>
