@@ -5,7 +5,7 @@ public class Constants {
 	public interface TabSetting{
 		int IMAGE_ARRAY[] = {R.drawable.ic_tab_map,
 							 R.drawable.ic_tab_list,
-							 R.drawable.ic_tab_settings,
+							 R.drawable.ic_tab_setting,
 							 R.drawable.ic_tab_info};
 		int TEXT_ARRAY[] = {R.string.tab_map,
 							R.string.tab_list,
@@ -14,7 +14,7 @@ public class Constants {
 		@SuppressWarnings("rawtypes")
 		Class CONTENT_ARRAY[] = {BicyleMap.class,
 								 BicyleList.class,
-								 Settings.class,
-								 Infos.class};
+								 BicyleSetting.class,
+								 BicyleInfo.class};
 	}
 }

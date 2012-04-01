@@ -10,7 +10,7 @@
 	  android:id="@+id/imageview"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
-	  android:padding="3dp"
+	  android:padding="1dp"
 	  android:focusable="false" android:scaleType="fitXY">
 	  </ImageView>
 	  
@@ -18,7 +18,8 @@
 	  android:id="@+id/textview"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
-	  android:lines="1" android:ellipsize="marquee" android:textAppearance="@style/Bicyle.TextAppearance.SilverToWhiteMediumNormal">
+	  android:lines="1" android:ellipsize="marquee" 
+	  android:textAppearance="@style/Bicyle.TextAppearance.SilverToWhiteExtraSmallNormal">
 	  </TextView>
 
 </LinearLayout>

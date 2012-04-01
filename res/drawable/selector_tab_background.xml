@@ -5,11 +5,11 @@
     
      <item 
         android:state_pressed="true" 
-        android:drawable="@drawable/tab_item_p"/> 
+        android:drawable="@drawable/tab_item_pressed"/> 
         
     <item 
         android:state_selected="true" 
-        android:drawable="@drawable/tab_item_d"/> 
+        android:drawable="@drawable/tab_item_selected"/> 
     
 </selector>
 

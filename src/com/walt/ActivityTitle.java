@@ -22,7 +22,7 @@ public class ActivityTitle extends LinearLayout {
 	private void initTitle() {
 		LayoutInflater inflater = LayoutInflater.from(BicyleApp.getInstance());
 		inflater.inflate(R.layout.activity_title, this, true);
-		mTitleText = (TextView) findViewById(R.id.activity_title_text);
+		mTitleText = (TextView) findViewById(R.id.activity_title);
 	}
 	
 	/**

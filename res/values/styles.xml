@@ -22,7 +22,7 @@
     
     <!-- Extra Large font -->
     <style name="Bicyle.TextAppearance.WhiteExtraLargeBold">
-    	<item name="android:textSize">@dimen/extra_large_font_size</item>
+    	<item name="android:textSize">@dimen/xlarge_font_size</item>
     	<item name="android:textColor">@color/white</item>
     </style>
     
@@ -117,6 +117,7 @@
     	<item name="android:textColor">@color/dark_gray</item>
     </style>   
     
+    <!-- change font -->
     <style name="Bicyle.TextAppearance.BlackToWhiteLargeNormal">
 	   	<item name="android:textSize">@dimen/large_font_size</item>
 		<item name="android:textColor">@color/black_to_white</item>		
@@ -128,8 +129,13 @@
 		<item name="android:textColor">@color/black_to_white</item>		
 	</style>	
 	
-	<style name="Bicyle.TextAppearance.SilverToWhiteMediumNormal">
+	<style name="Bicyle.TextAppearance.SilverToWhiteSmallNormal">
 		<item name="android:textSize">@dimen/small_font_size</item>
+		<item name="android:textColor">@color/silver_to_white</item>
+	</style>
+	
+	<style name="Bicyle.TextAppearance.SilverToWhiteExtraSmallNormal">
+		<item name="android:textSize">@dimen/xsmall_font_size</item>
 		<item name="android:textColor">@color/silver_to_white</item>
 	</style>
     

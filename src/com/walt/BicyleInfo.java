@@ -3,11 +3,11 @@ package com.walt;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class BicyleList extends Activity {
+public class BicyleInfo extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.bicyle_list);
+		setContentView(R.layout.bicyle_info);
 	}
 }
