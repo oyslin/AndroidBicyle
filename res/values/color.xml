@@ -3,4 +3,10 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="transparent">#00000000</color>
+    <color name="silver">#ff999999</color>
+    <color name="gray">#ffcccccc</color>
+    <color name="dark_gray">#333333</color>
+    <color name="light_gray">#7f7f7f</color>
+    <color name="red">#ffff0000</color>
+    <color name="light_red">#D20000</color>
 </resources>

@@ -10,7 +10,7 @@
         <item name="android:colorBackground">@color/white</item>
         
         <!-- activity animation -->
-        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+        <item name="android:windowAnimationStyle">@style/Bicyle.ActivityAnimation</item>
     </style>
     
 </resources>

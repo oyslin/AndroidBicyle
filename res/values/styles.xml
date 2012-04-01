@@ -1,17 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ActivityAnimation" parent="android:Animation.Activity">
+    <!-- Pom style -->
+	<style name="Bicyle"/>
+	
+    <style name="Bicyle.ActivityAnimation" parent="android:Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
     
-    <style name="tab_item_text_style">
+    <style name="Bicyle.tab_item_text_style">
         <item name="android:textSize">10.0dip</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:ellipsize">marquee</item>       
         <item name="android:singleLine">true</item>
     </style>
+    
+    <!-- text appearance -->
+    <style name="Bicyle.TextAppearance" parent="@android:style/TextAppearance"/>
+    
+    <!-- Extra Large font -->
+    <style name="Bicyle.TextAppearance.WhiteExtraLargeBold">
+    	<item name="android:textSize">@dimen/extra_large_font_size</item>
+    	<item name="android:textColor">@color/white</item>
+    </style>
+    
+    <!-- Large font -->
+    <style name="Bicyle.TextAppearance.BlackLargeNormal">
+    	<item name="android:textSize">@dimen/large_font_size</item>    	
+    	<item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.BlackLargeBold">
+    	<item name="android:textSize">@dimen/large_font_size</item>
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/black</item>
+    </style>    
+        
+    <style name="Bicyle.TextAppearance.WhiteLargeNormal">
+    	<item name="android:textSize">@dimen/large_font_size</item>
+    	<item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.WhiteLargeBold">
+    	<item name="android:textSize">@dimen/large_font_size</item>
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/white</item>
+    </style>
+    
+    <!-- Medium font -->
+    <style name="Bicyle.TextAppearance.BlackMediumNormal">
+    	<item name="android:textSize">@dimen/medium_font_size</item>    	
+    	<item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.BlackMediumBold">
+    	<item name="android:textSize">@dimen/medium_font_size</item>
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.WhiteMediumNomal">
+    	<item name="android:textSize">@dimen/medium_font_size</item>    	
+    	<item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.LightGrayMediumNomal">
+    	<item name="android:textSize">@dimen/medium_font_size</item>    	
+    	<item name="android:textColor">@color/light_gray</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.WhiteMediumBold">
+    	<item name="android:textSize">@dimen/medium_font_size</item>
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.LightRedMediumNormal">
+    	<item name="android:textSize">@dimen/medium_font_size</item>    	
+    	<item name="android:textColor">@color/light_red</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.SilverMediumNormal">
+    	<item name="android:textSize">@dimen/medium_font_size</item>    	
+    	<item name="android:textColor">@color/silver</item>
+    </style>
+    
+    
+    
+    <!-- Small font -->
+    <style name="Bicyle.TextAppearance.BlackSmallNormal">
+    	<item name="android:textSize">@dimen/small_font_size</item>    	
+    	<item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.BlackSmallBold">
+    	<item name="android:textSize">@dimen/small_font_size</item>
+		<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.WhiteSmallNormal">
+    	<item name="android:textSize">@dimen/small_font_size</item>    	
+    	<item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="Bicyle.TextAppearance.WhiteSmallBold">
+    	<item name="android:textSize">@dimen/small_font_size</item>
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/white</item>
+    </style> 
+    
+    <style name="Bicyle.TextAppearance.DarkGraySmallNormal">
+    	<item name="android:textSize">@dimen/small_font_size</item>
+    	<item name="android:textColor">@color/dark_gray</item>
+    </style>   
+    
+    <style name="Bicyle.TextAppearance.BlackToWhiteLargeNormal">
+	   	<item name="android:textSize">@dimen/large_font_size</item>
+		<item name="android:textColor">@color/black_to_white</item>		
+	</style>
+    
+    <style name="Bicyle.TextAppearance.BlackToWhiteLargeBold">
+	   	<item name="android:textSize">@dimen/large_font_size</item>
+	   	<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/black_to_white</item>		
+	</style>	
+	
+	<style name="Bicyle.TextAppearance.SilverToWhiteMediumNormal">
+		<item name="android:textSize">@dimen/small_font_size</item>
+		<item name="android:textColor">@color/silver_to_white</item>
+	</style>
     
 </resources>

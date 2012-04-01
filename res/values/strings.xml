@@ -8,5 +8,10 @@
     <string name="tab_settings">Setting</string>
     <string name="tab_info">Info</string>
     <string name="tab_list">List</string>
+    <string name="title_home">Home</string>
+    <string name="title_map">Map</string>
+    <string name="title_setting">Setting</string>
+    <string name="title_list">List</string>
+    <string name="title_info">Information</string>
 
 </resources>
