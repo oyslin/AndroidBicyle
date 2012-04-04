@@ -1,22 +1,24 @@
 package com.walt.activity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.ConsoleHandler;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,8 +27,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -35,9 +35,11 @@ import android.widget.TextView;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.ItemizedOverlay;
+import com.baidu.mapapi.MKLocationManager;
 import com.baidu.mapapi.MapActivity;
 import com.baidu.mapapi.MapController;
 import com.baidu.mapapi.MapView;
+import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.OverlayItem;
 import com.walt.R;
@@ -62,6 +64,7 @@ public class BicycleMap extends MapActivity {
 	private Drawable mMarker = null;
 	private int mMarkerWidth = 0;
 	private int mMarkerHeight = 0;
+	private MyLocationOverlay myLocationOverlay = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +104,7 @@ public class BicycleMap extends MapActivity {
 				MapView.LayoutParams.BOTTOM));
 		mPopView.setVisibility(View.GONE);
 
-        List<Overlay> list = mMapView.getOverlays();
+        List<Overlay> overlayList = mMapView.getOverlays();
         
         mMarker = getResources().getDrawable(R.drawable.ic_marker);
         mMarkerHeight = mMarker.getIntrinsicHeight();
@@ -118,7 +121,20 @@ public class BicycleMap extends MapActivity {
         	bicycleOverlays.addOverlayItem(overlayItem);
         }
         
-        list.add(bicycleOverlays);
+        overlayList.add(bicycleOverlays);
+        overlayList.add(new BicyleOverlay());
+        
+        //Add my location
+        MKLocationManager mLocationManager = mBMapManager.getLocationManager();
+        
+        mLocationManager.enableProvider(MKLocationManager.MK_NETWORK_PROVIDER);
+        mLocationManager.disableProvider(MKLocationManager.MK_GPS_PROVIDER);
+        
+        myLocationOverlay = new MyLocationOverlay(this, mMapView);
+        myLocationOverlay.enableMyLocation();
+        myLocationOverlay.enableCompass();        
+        
+        overlayList.add(myLocationOverlay);
         
         //update bicycle info from server
         mThreadPool.execute(new Runnable() {			
@@ -157,18 +173,18 @@ public class BicycleMap extends MapActivity {
 	@Override
 	protected boolean isRouteDisplayed() {
 		return false;
-	}
+	}	
 	
 	/**
 	 * update bicycles info from server and save it to local
 	 */
 	private void getAllBicylesInfoFromServer(){
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Constants.HttpSetting.ALL_BICYLE_URL);
+		HttpGet httpGet = new HttpGet(Constants.HttpSetting.ALL_BICYCLE_URL);
 		String jsonStr = null;
 		try {			
 			HttpResponse response = httpClient.execute(httpGet);
-			jsonStr = EntityUtils.toString(response.getEntity());
+			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
 			if(jsonStr == null || jsonStr.equals("")){
 				throw new Exception();
@@ -177,19 +193,19 @@ public class BicycleMap extends MapActivity {
 			int firstBrace = jsonStr.indexOf("{");
 			jsonStr = jsonStr.substring(firstBrace);
 			
-			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, Utils.convertToUtf8Str(jsonStr));			
+			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, jsonStr);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 	}
 	
-	public BicycleStationInfo getSingleBicyleInfoFromHttp(int id){
+	private BicycleStationInfo getSingleBicyleInfoFromHttp(int id){
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Constants.HttpSetting.BICYLE_DETAIL_URL);
+		HttpGet httpGet = new HttpGet(Constants.HttpSetting.BICYCLE_DETAIL_URL + String.valueOf(id));
 		String jsonStr = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
-			jsonStr = EntityUtils.toString(response.getEntity());
+			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
 			
 			if(jsonStr == null || jsonStr.equals("")){
 				throw new Exception();
@@ -198,7 +214,7 @@ public class BicycleMap extends MapActivity {
 			int firstBrace = jsonStr.indexOf("{");
 			jsonStr = jsonStr.substring(firstBrace);
 			
-			JSONObject jsonObject = new JSONObject(Utils.convertToUtf8Str(jsonStr));	
+			JSONObject jsonObject = new JSONObject(jsonStr);	
 			JSONArray jsonArray = jsonObject.getJSONArray(Constants.JsonTag.STATION);
 			BicycleStationInfo bicycleInfo = null;
 			for(int i = 0, total = jsonArray.length(); i < total; i++){
@@ -212,8 +228,7 @@ public class BicycleMap extends MapActivity {
 				
 				bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);				
 			}
-			return bicycleInfo;
-			
+			return bicycleInfo;			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -221,12 +236,31 @@ public class BicycleMap extends MapActivity {
 		
 	}
 	
+	private String getJsonDataFromInputStream(InputStream inputStream){
+		String jsonStr = null;
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+			StringBuilder stringBuilder = new StringBuilder();
+			String line = null;
+			while((line= reader.readLine()) != null){
+				stringBuilder.append(line);
+			}
+			jsonStr = stringBuilder.toString();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonStr;
+	}
+	
 	class ItemizedBicycleOverlay extends ItemizedOverlay<OverlayItem>{
 		private ArrayList<OverlayItem> mOverlayItems = new ArrayList<OverlayItem>();
 		private OverlayItem mSelectedOverlayItem = null;
 		
 		public ItemizedBicycleOverlay(Drawable defaultMarker) {
-			super(boundCenter(defaultMarker));
+			super(boundCenterBottom(defaultMarker));
 		}
 		
 		public ItemizedBicycleOverlay(Drawable marker, Context context){
@@ -262,6 +296,11 @@ public class BicycleMap extends MapActivity {
 			Log.e("BicycleMap", "Address = " + bicycleStationInfo.getAddress());
 			
 			mMapPopAddress.setText(bicycleStationInfo.getAddress());
+			
+			Log.e("BicycleMap", "My location: lat = " + myLocationOverlay.getMyLocation().getLatitudeE6() + ", long = " + myLocationOverlay.getMyLocation().getLongitudeE6());
+			
+			Log.e("BicycleMap", "Point: lat = " + bicycleStationInfo.getLatitude());
+			Log.e("BicycleMap", "Point: long = " + bicycleStationInfo.getLongitude());
 			
 			GeoPoint geoPoint = this.mSelectedOverlayItem.getPoint();
 			Point point = mMapView.getProjection().toPixels(geoPoint, null);
@@ -319,29 +358,28 @@ public class BicycleMap extends MapActivity {
 		}		
 	}
 	
-	class BicyleOverlay extends Overlay{			
-        @Override
+	class BicyleOverlay extends Overlay{	
+		private GeoPoint mGeo;
+        public BicyleOverlay() {
+			super();
+			mGeo = new GeoPoint((int) (31.663098 * RAT), (int)(120.75511 * RAT));
+		}
+
+		@Override
         public boolean draw(Canvas canvas, MapView mapView, boolean shadow, long when){
             super.draw(canvas, mapView, shadow);
             Paint paint = new Paint();
             Point myScreenCoords = new Point();
            
-            mapView.getProjection().toPixels(mGeoPoint, myScreenCoords);
+            mapView.getProjection().toPixels(mGeo, myScreenCoords);
             paint.setStrokeWidth(1);
             paint.setARGB(255, 255, 0, 0);
             paint.setStyle(Paint.Style.STROKE);
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin);
             canvas.drawBitmap(bmp, myScreenCoords.x, myScreenCoords.y, paint);
-            canvas.drawText("天府广场", myScreenCoords.x, myScreenCoords.y, paint);
+            canvas.drawText("87", myScreenCoords.x, myScreenCoords.y, paint);
             return true;
-        }
-
-		@Override
-		public boolean onTap(GeoPoint p, MapView mapView) {
-			
-			return super.onTap(p, mapView);
-			
-		}        
+        }       
     }
 	
 	

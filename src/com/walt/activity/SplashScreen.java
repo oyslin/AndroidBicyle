@@ -39,7 +39,7 @@ public class SplashScreen extends Activity {
 					startActivity(new Intent(SplashScreen.this, Main.class));
 					finish();
 				}				
-			}			
+			}
 		};
 		
 		new Thread(new Runnable() {
@@ -50,7 +50,7 @@ public class SplashScreen extends Activity {
 		}).start();	
 	}
 	
-	private void getBicyleInfo(){
+	private void getBicyleInfo(){		
 		boolean success = loadFromLocal();
 		if(!success){
 			getBicyleInfoFromAssets();
@@ -71,7 +71,7 @@ public class SplashScreen extends Activity {
 		try {
 			InputStream inputStream = assetManager.open("bicycles.json", AssetManager.ACCESS_BUFFER);
 			StringBuilder stringBuilder = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 			String line = null;
 			while((line=reader.readLine()) != null){
 				stringBuilder.append(line);
@@ -97,9 +97,7 @@ public class SplashScreen extends Activity {
 				double longitude = jsonItem.getDouble(Constants.JsonTag.LONGITUDE);
 				int capacity = jsonItem.getInt(Constants.JsonTag.CAPACITY);
 				int available = jsonItem.getInt(Constants.JsonTag.AVAIABLE);
-				String address = jsonItem.getString(Constants.JsonTag.ADDRESS);
-				
-				Log.e("SplashScreen", "Address = " + Utils.convertToUtf8Str(address));
+				String address = jsonItem.getString(Constants.JsonTag.ADDRESS);				
 				
 				BicycleStationInfo bicyleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);
 				dataset.addBicyleInfo(id, bicyleInfo);

@@ -25,13 +25,15 @@ public class Constants {
 	}
 	
 	public interface HttpSetting{
-		String ALL_BICYLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-		String BICYLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+		String ALL_BICYCLE_URL_SZ = "http://www.subicycle.com/szmap/ibikestation.asp";
+		String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		String BICYCLE_DETAIL_URL_SZ = "http://www.subicycle.com/szmap/ibikestation.asp?id=";
 	}
 	
 	public interface LocalSetting{
-		double DEFAULT_LATITUDE = 31.653893;
-		double DEFAULT_LONGITUDE = 120.754509;
+		double DEFAULT_LATITUDE = 31.303917;//31.653893;
+		double DEFAULT_LONGITUDE = 120.622737;//120.754509;
 	}
 	
 	public interface JsonTag{
