@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/map_bubble">
+
+    <TextView
+        android:id="@+id/map_pop_available_bicycles_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/map_pop_available_bicycles" android:layout_below="@+id/map_pop_name"/>
+
+    <TextView
+        android:id="@+id/map_pop_available_bicycles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" android:layout_alignTop="@id/map_pop_available_bicycles_label" android:layout_toRightOf="@id/map_pop_available_bicycles_label"/>
+
+    <TextView
+        android:id="@+id/map_pop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/map_pop_available_parks_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map_pop_available_bicycles_label"
+        android:text="@string/map_pop_available_parks" />
+
+    <TextView
+        android:id="@+id/map_pop_available_parks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/map_pop_available_parks_label" android:layout_alignTop="@id/map_pop_available_parks_label"/>
+
+    <TextView
+        android:id="@+id/map_pop_address_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map_pop_available_parks_label"
+        android:text="@string/map_pop_address" />
+
+    <TextView
+        android:id="@+id/map_pop_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/map_pop_address_label" android:layout_alignTop="@id/map_pop_address_label"/>
+
+</RelativeLayout>

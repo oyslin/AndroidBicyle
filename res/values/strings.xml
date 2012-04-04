@@ -13,5 +13,9 @@
     <string name="title_setting">Setting</string>
     <string name="title_list">List</string>
     <string name="title_info">Information</string>
+    <string name="map_pop_available_bicycles">Available Bicycles: </string>
+    <string name="map_pop_available_parks">Available Parks: </string>
+    <string name="map_pop_address">Address: </string>
+    <string name="progress_dialog_msg">Quering Bicycle Info, please wait...</string>
 
 </resources>

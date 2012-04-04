@@ -8,9 +8,7 @@
         android:background="@drawable/activity_title_bg"
         android:gravity="center"
         android:text="@string/title_home"
-        android:textAppearance="@style/Bicyle.TextAppearance.WhiteLargeBold" >
-
-        <requestFocus />
+        android:textAppearance="@style/Bicycle.TextAppearance.WhiteLargeBold" >       
     </TextView>
 
 </merge>

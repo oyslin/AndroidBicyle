@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BicyleTheme" parent="android:Theme">
+    <style name="BicycleTheme" parent="android:Theme">
         <!-- window full screen -->
 		<item name="android:windowNoTitle">true</item>
         <!-- item name="android:windowFullscreen">true</item-->
@@ -10,7 +10,7 @@
         <item name="android:colorBackground">@color/white</item>
         
         <!-- activity animation -->
-        <item name="android:windowAnimationStyle">@style/Bicyle.ActivityAnimation</item>
+        <item name="android:windowAnimationStyle">@style/Bicycle.ActivityAnimation</item>
     </style>
     
 </resources>
