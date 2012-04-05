@@ -6,11 +6,12 @@
     <dimen name="xsmall_font_size">14sp</dimen>
     <dimen name="xlarge_font_size">26sp</dimen>
     
-    <dimen name="title_bar_height">50dip</dimen>
+    <dimen name="activity_title_height">40dip</dimen>
+    <dimen name="activity_title_image_width">40dip</dimen>
+    
     <dimen name="bicycle_listview_height">70dip</dimen>
     <dimen name="bicycle_listview_name_height">30dip</dimen>
     <dimen name="bicycle_listview_count_height">20dip</dimen>
     <dimen name="bicycle_listview_address_height">20dip</dimen>
-    <dimen name="bicycle_listview_index_width">50dip</dimen>
-    <dimen name="bicycle_listview_refresh_width">50dip</dimen>
+    <dimen name="bicycle_listview_index_width">50dip</dimen>    
 </resources>

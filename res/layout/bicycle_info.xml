@@ -5,7 +5,7 @@
     <com.walt.activity.ActivityTitle
         android:id="@+id/bicycle_title"
         android:layout_width="match_parent"
-        android:layout_height="40dip"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
     </com.walt.activity.ActivityTitle>
 

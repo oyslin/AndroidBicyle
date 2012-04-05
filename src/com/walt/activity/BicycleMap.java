@@ -1,23 +1,11 @@
 package com.walt.activity;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,6 +14,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -34,6 +23,7 @@ import android.widget.TextView;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.ItemizedOverlay;
+import com.baidu.mapapi.LocationListener;
 import com.baidu.mapapi.MKLocationManager;
 import com.baidu.mapapi.MapActivity;
 import com.baidu.mapapi.MapController;
@@ -42,13 +32,16 @@ import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.OverlayItem;
 import com.walt.R;
+import com.walt.activity.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.walt.dataset.BicycleDataset;
 import com.walt.util.Constants;
-import com.walt.util.Utils;
+import com.walt.util.HttpUtils;
 import com.walt.vo.BicycleStationInfo;
 
 public class BicycleMap extends MapActivity {
 	private BMapManager mBMapManager = null;
+	private MKLocationManager mLocationManager = null;
+	private LocationListener mLocationListener = null;
 	private MapView mMapView = null;
 	private View mPopView = null;
 	private MapController mMapController = null;
@@ -63,8 +56,10 @@ public class BicycleMap extends MapActivity {
 	private Drawable mMarker = null;
 	private int mMarkerWidth = 0;
 	private int mMarkerHeight = 0;
-	private MyLocationOverlay myLocationOverlay = null;
+	private MyLocationOverlay mMyLocationOverlay = null;
 	private ActivityTitle mActivityTitle = null;
+	private boolean mMyLocationAdded = false;
+	private boolean mMyLocationEnabled = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +103,71 @@ public class BicycleMap extends MapActivity {
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, null,
 				MapView.LayoutParams.BOTTOM));
 		mPopView.setVisibility(View.GONE);
+		
 
         List<Overlay> overlayList = mMapView.getOverlays();
         
-        mMarker = getResources().getDrawable(R.drawable.ic_marker);
+        addAddBicycleMarks(overlayList);
+        
+        //update bicycle info from server
+        mThreadPool.execute(new Runnable() {			
+			public void run() {
+				HttpUtils.getAllBicylesInfoFromServer();
+			}
+		});        
+
+		IActivityTitleRightImageClickEvent rightImageClickEvent = new IActivityTitleRightImageClickEvent() {			
+			public void onRightImageClicked() {
+				BicycleMap.this.onRightImageClicked();		
+			}
+		};
+		mActivityTitle.setRightImage(R.drawable.ic_locate, rightImageClickEvent);
+	}
+	
+	private void onRightImageClicked(){
+		if (!mMyLocationAdded) {
+			addMyLocation();
+		}
+
+		if (mMyLocationEnabled) {
+			mMyLocationOverlay.disableMyLocation();
+			mMyLocationOverlay.disableCompass();
+			mLocationManager.removeUpdates(mLocationListener);
+			mMyLocationEnabled = false;
+		} else {
+			mMyLocationOverlay.enableCompass();
+			mMyLocationOverlay.enableMyLocation();
+			mLocationManager.requestLocationUpdates(mLocationListener);
+			mMyLocationEnabled = true;
+		}
+	}
+	
+	private void addMyLocation(){
+		//Add my location
+        mLocationManager = mBMapManager.getLocationManager();
+        
+        mLocationManager.enableProvider(MKLocationManager.MK_NETWORK_PROVIDER);
+        mLocationManager.enableProvider(MKLocationManager.MK_GPS_PROVIDER);
+        
+        mMyLocationOverlay = new MyLocationOverlay(this, mMapView);
+        
+        mLocationListener = new LocationListener() {			
+			public void onLocationChanged(Location location) {				
+				mMapController.animateTo(new GeoPoint((int)(location.getLatitude() * RAT), (int)(location.getLongitude() * RAT)));
+			}
+		};
+		
+        mMapView.getOverlays().add(mMyLocationOverlay);
+        mMyLocationAdded = true;
+	}
+	
+	
+	/**
+	 * add all the bicycle marks in map
+	 * @param overlayList
+	 */
+	private void addAddBicycleMarks(List<Overlay> overlayList){
+		mMarker = getResources().getDrawable(R.drawable.ic_marker);
         mMarkerHeight = mMarker.getIntrinsicHeight();
         mMarkerWidth = mMarker.getIntrinsicWidth();
         mMarker.setBounds(0, 0, mMarkerWidth, mMarkerHeight);
@@ -127,31 +183,15 @@ public class BicycleMap extends MapActivity {
         }
         
         overlayList.add(bicycleOverlays);
-        
-        //Add my location
-        MKLocationManager mLocationManager = mBMapManager.getLocationManager();
-        
-        mLocationManager.enableProvider(MKLocationManager.MK_NETWORK_PROVIDER);
-        mLocationManager.disableProvider(MKLocationManager.MK_GPS_PROVIDER);
-        
-        myLocationOverlay = new MyLocationOverlay(this, mMapView);
-        myLocationOverlay.enableMyLocation();
-        myLocationOverlay.enableCompass();
-        
-        overlayList.add(myLocationOverlay);
-        
-        //update bicycle info from server
-        mThreadPool.execute(new Runnable() {			
-			public void run() {
-				getAllBicylesInfoFromServer();
-			}
-		});
 	}
 	
 	
 	@Override
 	protected void onDestroy() {
 		if(mBMapManager != null){
+			if(mLocationManager != null){
+				mLocationManager.removeUpdates(mLocationListener);
+			}			
 			mBMapManager.destroy();
 			mBMapManager = null;
 		}
@@ -160,7 +200,10 @@ public class BicycleMap extends MapActivity {
 
 	@Override
 	protected void onPause() {
-		if(mBMapManager != null){
+		if (mBMapManager != null) {
+			if (mLocationManager != null) {
+				mLocationManager.removeUpdates(mLocationListener);
+			}
 			mBMapManager.stop();
 		}
 		super.onPause();
@@ -168,7 +211,10 @@ public class BicycleMap extends MapActivity {
 
 	@Override
 	protected void onResume() {
-		if(mBMapManager != null){
+		if (mBMapManager != null) {
+			if (mLocationManager != null) {
+				mLocationManager.requestLocationUpdates(mLocationListener);
+			}
 			mBMapManager.start();
 		}
 		super.onResume();
@@ -179,88 +225,7 @@ public class BicycleMap extends MapActivity {
 		return false;
 	}	
 	
-	/**
-	 * update bicycles info from server and save it to local
-	 */
-	private void getAllBicylesInfoFromServer(){
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Constants.HttpSetting.ALL_BICYCLE_URL);
-		String jsonStr = null;
-		try {			
-			HttpResponse response = httpClient.execute(httpGet);
-			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
-			
-			if(jsonStr == null || jsonStr.equals("")){
-				throw new Exception();
-			}
-			
-			int firstBrace = jsonStr.indexOf("{");
-			jsonStr = jsonStr.substring(firstBrace);
-			
-			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, jsonStr);
-			Utils.setToDataset(jsonStr);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-	}
-	
-	private BicycleStationInfo getSingleBicyleInfoFromHttp(int id){
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Constants.HttpSetting.BICYCLE_DETAIL_URL + String.valueOf(id));
-		String jsonStr = null;
-		try {
-			HttpResponse response = httpClient.execute(httpGet);
-			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
-			
-			if(jsonStr == null || jsonStr.equals("")){
-				throw new Exception();
-			}
-			
-			int firstBrace = jsonStr.indexOf("{");
-			jsonStr = jsonStr.substring(firstBrace);
-			
-			JSONObject jsonObject = new JSONObject(jsonStr);	
-			JSONArray jsonArray = jsonObject.getJSONArray(Constants.JsonTag.STATION);
-			BicycleStationInfo bicycleInfo = null;
-			for(int i = 0, total = jsonArray.length(); i < total; i++){
-				JSONObject jsonItem = jsonArray.getJSONObject(i);				
-				String name = jsonItem.getString(Constants.JsonTag.NAME);
-				double latitude = jsonItem.getDouble(Constants.JsonTag.LATITUDE);
-				double longitude = jsonItem.getDouble(Constants.JsonTag.LONGITUDE);
-				int capacity = jsonItem.getInt(Constants.JsonTag.CAPACITY);
-				int available = jsonItem.getInt(Constants.JsonTag.AVAIABLE);
-				String address = jsonItem.getString(Constants.JsonTag.ADDRESS);
-				
-				bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);				
-			}
-			return bicycleInfo;			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
-	
-	private String getJsonDataFromInputStream(InputStream inputStream){
-		String jsonStr = null;
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-			StringBuilder stringBuilder = new StringBuilder();
-			String line = null;
-			while((line= reader.readLine()) != null){
-				stringBuilder.append(line);
-			}
-			jsonStr = stringBuilder.toString();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return jsonStr;
-	}
-	
-	class ItemizedBicycleOverlay extends ItemizedOverlay<OverlayItem>{
+	private class ItemizedBicycleOverlay extends ItemizedOverlay<OverlayItem>{
 		private ArrayList<OverlayItem> mOverlayItems = new ArrayList<OverlayItem>();
 		private OverlayItem mSelectedOverlayItem = null;
 		
@@ -349,7 +314,7 @@ public class BicycleMap extends MapActivity {
 		}
 
 		public BicycleStationInfo call() throws Exception {
-			BicycleStationInfo bicycleInfo = getSingleBicyleInfoFromHttp(id);			
+			BicycleStationInfo bicycleInfo = HttpUtils.getSingleBicyleInfoFromHttp(id);			
 			return bicycleInfo;
 		}		
 	}

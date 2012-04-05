@@ -8,6 +8,6 @@
         android:id="@+id/spashImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splashscreen" android:scaleType="fitXY"/>
+        android:src="@drawable/splash_screen" android:scaleType="fitXY"/>
 
 </LinearLayout>

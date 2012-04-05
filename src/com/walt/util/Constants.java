@@ -9,10 +9,10 @@ import com.walt.activity.BicycleSetting;
 
 public class Constants {
 	public interface TabSetting{
-		int IMAGE_ARRAY[] = {R.drawable.ic_tab_bicycle_selected,
-							 R.drawable.ic_tab_list_selected,
-							 R.drawable.ic_tab_setting_selected,
-							 R.drawable.ic_tab_info_selected};
+		int IMAGE_ARRAY[] = {R.drawable.ic_tab_bicycle,
+							 R.drawable.ic_tab_list,
+							 R.drawable.ic_tab_setting,
+							 R.drawable.ic_tab_info};
 		int TEXT_ARRAY[] = {R.string.tab_map,
 							R.string.tab_list,
 							R.string.tab_settings,
