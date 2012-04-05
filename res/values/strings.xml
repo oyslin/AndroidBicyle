@@ -9,13 +9,15 @@
     <string name="tab_info">Info</string>
     <string name="tab_list">List</string>
     <string name="title_home">Home</string>
-    <string name="title_map">Map</string>
+    <string name="title_map">Bicycle Map</string>
     <string name="title_setting">Setting</string>
-    <string name="title_list">List</string>
+    <string name="title_list">Bicycle List</string>
     <string name="title_info">Information</string>
     <string name="map_pop_available_bicycles">Available Bicycles: </string>
     <string name="map_pop_available_parks">Available Parks: </string>
     <string name="map_pop_address">Address: </string>
     <string name="progress_dialog_msg">Quering Bicycle Info, please wait...</string>
+    <string name="list_avaibike">可借车数: </string>
+    <string name="list_avaipark">可停车位: </string>
 
 </resources>

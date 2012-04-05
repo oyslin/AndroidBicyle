@@ -10,13 +10,6 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
     
-    <style name="Bicycle.tab_item_text_style">
-        <item name="android:textSize">10.0dip</item>
-        <item name="android:textColor">#ffffffff</item>
-        <item name="android:ellipsize">marquee</item>       
-        <item name="android:singleLine">true</item>
-    </style>
-    
     <!-- text appearance -->
     <style name="Bicycle.TextAppearance" parent="@android:style/TextAppearance"/>
     
@@ -66,9 +59,19 @@
     	<item name="android:textColor">@color/white</item>
     </style>
     
-    <style name="Bicycle.TextAppearance.LightGrayMediumNomal">
+    <style name="Bicycle.TextAppearance.GreyMediumNomal">
     	<item name="android:textSize">@dimen/medium_font_size</item>    	
-    	<item name="android:textColor">@color/light_gray</item>
+    	<item name="android:textColor">@color/grey</item>
+    </style>
+    
+    <style name="Bicycle.TextAppearance.DarkGreyMediumNomal">
+    	<item name="android:textSize">@dimen/medium_font_size</item>    	
+    	<item name="android:textColor">@color/dark_grey</item>
+    </style>
+    
+    <style name="Bicycle.TextAppearance.LightGraeMediumNomal">
+    	<item name="android:textSize">@dimen/medium_font_size</item>    	
+    	<item name="android:textColor">@color/light_grey</item>
     </style>
     
     <style name="Bicycle.TextAppearance.WhiteMediumBold">
@@ -111,22 +114,50 @@
     	<item name="android:textStyle">bold</item>
     	<item name="android:textColor">@color/white</item>
     </style> 
-    
-    <style name="Bicycle.TextAppearance.WhiteExtraSmallNormal">
-    	<item name="android:textSize">@dimen/xsmall_font_size</item>    	
-    	<item name="android:textColor">@color/white</item>
+  
+    <style name="Bicycle.TextAppearance.DarkGreySmallNormal">
+    	<item name="android:textSize">@dimen/small_font_size</item>
+    	<item name="android:textColor">@color/dark_grey</item>
     </style>
     
+    <style name="Bicycle.TextAppearance.GreySmallNormal">
+    	<item name="android:textSize">@dimen/small_font_size</item>
+    	<item name="android:textColor">@color/grey</item>
+    </style> 
+
+    
+    <style name="Bicycle.TextAppearance.LightGreySmallNormal">
+    	<item name="android:textSize">@dimen/small_font_size</item>
+    	<item name="android:textColor">@color/light_grey</item>
+    </style>
+    
+    <!-- extra small font -->
     <style name="Bicycle.TextAppearance.WhiteExtraSmallBold">
     	<item name="android:textSize">@dimen/xsmall_font_size</item>
     	<item name="android:textStyle">bold</item>
     	<item name="android:textColor">@color/white</item>
     </style>
     
-    <style name="Bicycle.TextAppearance.DarkGraySmallNormal">
-    	<item name="android:textSize">@dimen/small_font_size</item>
-    	<item name="android:textColor">@color/dark_gray</item>
-    </style>   
+    <style name="Bicycle.TextAppearance.WhiteExtraSmallNormal">
+    	<item name="android:textSize">@dimen/xsmall_font_size</item> 	
+    	<item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="Bicycle.TextAppearance.BlackExtraSmallNormal">
+    	<item name="android:textSize">@dimen/xsmall_font_size</item> 	
+    	<item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="Bicycle.TextAppearance.DarkGreyExtraSmallNormal">
+    	<item name="android:textSize">@dimen/xsmall_font_size</item> 	
+    	<item name="android:textColor">@color/dark_grey</item>
+    </style>
+    
+    <style name="Bicycle.TextAppearance.GreyExtraSmallNormal">
+    	<item name="android:textSize">@dimen/xsmall_font_size</item> 	
+    	<item name="android:textColor">@color/grey</item>
+    </style>  
+ 
     
     <!-- change font -->
     <style name="Bicycle.TextAppearance.BlackToWhiteLargeNormal">

@@ -27,7 +27,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
@@ -65,6 +64,7 @@ public class BicycleMap extends MapActivity {
 	private int mMarkerWidth = 0;
 	private int mMarkerHeight = 0;
 	private MyLocationOverlay myLocationOverlay = null;
+	private ActivityTitle mActivityTitle = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +82,19 @@ public class BicycleMap extends MapActivity {
 		
 		mDataset = BicycleDataset.getInstance();
 		
+		mActivityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
+		mActivityTitle.setActivityTitle(getText(R.string.title_map));
+		
 		mMapView = (MapView) findViewById(R.id.bicycle_mapview);			
 		mMapView.setEnabled(true);
 		mMapView.setClickable(true);
 		mMapView.setBuiltInZoomControls(true);
 		
 		mMapController = mMapView.getController();
-		mGeoPoint = new GeoPoint((int)(Constants.LocalSetting.DEFAULT_LATITUDE * RAT), (int) (Constants.LocalSetting.DEFAULT_LONGITUDE * RAT));
-		
+		mGeoPoint = new GeoPoint(
+				(int) ((Constants.LocalSetting.DEFAULT_LATITUDE + Constants.LocalSetting.OFFSET_LATITUDE) * RAT),
+				(int) ((Constants.LocalSetting.DEFAULT_LONGITUDE + Constants.LocalSetting.OFFSET_LONGITUDE) * RAT));
+
 		mMapController.setCenter(mGeoPoint);
 		mMapController.setZoom(15);
 		
@@ -97,7 +102,7 @@ public class BicycleMap extends MapActivity {
 		mMapPopName = (TextView) mPopView.findViewById(R.id.map_pop_name);
 		mMapPopAvailBicyles = (TextView) mPopView.findViewById(R.id.map_pop_available_bicycles);
 		mMapPopAvailParks = (TextView) mPopView.findViewById(R.id.map_pop_available_parks);
-		mMapPopAddress = (TextView) mPopView.findViewById(R.id.map_pop_address);
+		mMapPopAddress = (TextView) mPopView.findViewById(R.id.map_pop_address);		
 		
 		mMapView.addView(mPopView, new MapView.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, null,
@@ -116,13 +121,12 @@ public class BicycleMap extends MapActivity {
         
         for(int i = 0, count = bicycleInfos.size(); i < count; i++){
         	BicycleStationInfo bicycleInfo = bicycleInfos.get(i);
-        	GeoPoint point = new GeoPoint((int)(bicycleInfo.getLatitude() * RAT), (int)(bicycleInfo.getLongitude() * RAT));
+        	GeoPoint point = new GeoPoint((int)((Constants.LocalSetting.OFFSET_LATITUDE + bicycleInfo.getLatitude()) * RAT), (int)((Constants.LocalSetting.OFFSET_LONGITUDE + bicycleInfo.getLongitude()) * RAT));
         	OverlayItem overlayItem = new OverlayItem(point, String.valueOf(bicycleInfo.getId()), bicycleInfo.getName());
         	bicycleOverlays.addOverlayItem(overlayItem);
         }
         
         overlayList.add(bicycleOverlays);
-        overlayList.add(new BicyleOverlay());
         
         //Add my location
         MKLocationManager mLocationManager = mBMapManager.getLocationManager();
@@ -132,16 +136,16 @@ public class BicycleMap extends MapActivity {
         
         myLocationOverlay = new MyLocationOverlay(this, mMapView);
         myLocationOverlay.enableMyLocation();
-        myLocationOverlay.enableCompass();        
+        myLocationOverlay.enableCompass();
         
         overlayList.add(myLocationOverlay);
         
         //update bicycle info from server
         mThreadPool.execute(new Runnable() {			
 			public void run() {
-				getAllBicylesInfoFromServer();				
+				getAllBicylesInfoFromServer();
 			}
-		});       
+		});
 	}
 	
 	
@@ -193,7 +197,8 @@ public class BicycleMap extends MapActivity {
 			int firstBrace = jsonStr.indexOf("{");
 			jsonStr = jsonStr.substring(firstBrace);
 			
-			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, jsonStr);			
+			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, jsonStr);
+			Utils.setToDataset(jsonStr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -292,15 +297,8 @@ public class BicycleMap extends MapActivity {
 		private void showPopContent(BicycleStationInfo bicycleStationInfo){
 			mMapPopName.setText(bicycleStationInfo.getName());
 			mMapPopAvailBicyles.setText(String.valueOf(bicycleStationInfo.getAvailable()));
-			mMapPopAvailParks.setText(String.valueOf(bicycleStationInfo.getCapacity() - bicycleStationInfo.getAvailable()));
-			Log.e("BicycleMap", "Address = " + bicycleStationInfo.getAddress());
-			
+			mMapPopAvailParks.setText(String.valueOf(bicycleStationInfo.getCapacity() - bicycleStationInfo.getAvailable()));			
 			mMapPopAddress.setText(bicycleStationInfo.getAddress());
-			
-			Log.e("BicycleMap", "My location: lat = " + myLocationOverlay.getMyLocation().getLatitudeE6() + ", long = " + myLocationOverlay.getMyLocation().getLongitudeE6());
-			
-			Log.e("BicycleMap", "Point: lat = " + bicycleStationInfo.getLatitude());
-			Log.e("BicycleMap", "Point: long = " + bicycleStationInfo.getLongitude());
 			
 			GeoPoint geoPoint = this.mSelectedOverlayItem.getPoint();
 			Point point = mMapView.getProjection().toPixels(geoPoint, null);
@@ -310,12 +308,10 @@ public class BicycleMap extends MapActivity {
 			
 			mMapView.updateViewLayout(mPopView, new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
 					toShowPoint, MapView.LayoutParams.BOTTOM));
-			mPopView.setVisibility(View.VISIBLE);
-			Log.e("BicycleMap", "showPopContent: lat ");
+			mPopView.setVisibility(View.VISIBLE);			
 		}
 		
 		private void refreshBicyleInfo(final int id) {
-			
 			GetBicycleInfoTask task = new GetBicycleInfoTask(id);
 			Future<BicycleStationInfo> future = mThreadPool.submit(task);
 			try {
@@ -353,14 +349,14 @@ public class BicycleMap extends MapActivity {
 		}
 
 		public BicycleStationInfo call() throws Exception {
-			BicycleStationInfo bicycleInfo = getSingleBicyleInfoFromHttp(id);
+			BicycleStationInfo bicycleInfo = getSingleBicyleInfoFromHttp(id);			
 			return bicycleInfo;
 		}		
 	}
 	
-	class BicyleOverlay extends Overlay{	
+	class BicycleOverlay extends Overlay{	
 		private GeoPoint mGeo;
-        public BicyleOverlay() {
+        public BicycleOverlay() {
 			super();
 			mGeo = new GeoPoint((int) (31.663098 * RAT), (int)(120.75511 * RAT));
 		}

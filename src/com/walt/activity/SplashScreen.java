@@ -62,7 +62,7 @@ public class SplashScreen extends Activity {
 		if(jsonStr == null || jsonStr.equals("")){
 			return false;
 		}		
-		setToDataset(jsonStr);
+		Utils.setToDataset(jsonStr);
 		return true;
 	}	
 	
@@ -78,33 +78,10 @@ public class SplashScreen extends Activity {
 			}
 			String jsonStr = stringBuilder.toString();
 			
-			setToDataset(jsonStr);
+			Utils.setToDataset(jsonStr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private void setToDataset(String jsonStr){
-		try {
-			BicycleDataset dataset = BicycleDataset.getInstance();
-			JSONObject jsonObject = new JSONObject(jsonStr);	
-			JSONArray jsonArray = jsonObject.getJSONArray(Constants.JsonTag.STATION);
-			for(int i = 0, total = jsonArray.length(); i < total; i++){
-				JSONObject jsonItem = jsonArray.getJSONObject(i);
-				int id = jsonItem.getInt(Constants.JsonTag.ID);
-				String name = jsonItem.getString(Constants.JsonTag.NAME);
-				double latitude = jsonItem.getDouble(Constants.JsonTag.LATITUDE);
-				double longitude = jsonItem.getDouble(Constants.JsonTag.LONGITUDE);
-				int capacity = jsonItem.getInt(Constants.JsonTag.CAPACITY);
-				int available = jsonItem.getInt(Constants.JsonTag.AVAIABLE);
-				String address = jsonItem.getString(Constants.JsonTag.ADDRESS);				
-				
-				BicycleStationInfo bicyleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);
-				dataset.addBicyleInfo(id, bicyleInfo);
-			}
-		} catch (Exception e) {			
-			Log.d("SplashScreen", "Set to Dataset failed!");
-			e.printStackTrace();
-		}		
-	}	
+		
 }

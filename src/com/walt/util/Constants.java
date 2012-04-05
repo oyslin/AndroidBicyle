@@ -32,8 +32,10 @@ public class Constants {
 	}
 	
 	public interface LocalSetting{
-		double DEFAULT_LATITUDE = 31.303917;//31.653893;
-		double DEFAULT_LONGITUDE = 120.622737;//120.754509;
+		double DEFAULT_LATITUDE = 31.653893;
+		double DEFAULT_LONGITUDE = 120.754509;
+		double OFFSET_LATITUDE = 0.005983; //Latitude offset need to add
+		double OFFSET_LONGITUDE = 0.006450; //Longitude offset need to add
 	}
 	
 	public interface JsonTag{
