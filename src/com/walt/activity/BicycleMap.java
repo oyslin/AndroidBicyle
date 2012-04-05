@@ -212,7 +212,7 @@ public class BicycleMap extends MapActivity {
 	@Override
 	protected void onResume() {
 		if (mBMapManager != null) {
-			if (mLocationManager != null) {
+			if (mLocationManager != null && mMyLocationEnabled) {
 				mLocationManager.requestLocationUpdates(mLocationListener);
 			}
 			mBMapManager.start();
