@@ -13,8 +13,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.walt.vo.BicycleStationInfo;
 
 public class HttpUtils {	
@@ -97,7 +95,6 @@ public class HttpUtils {
 				stringBuilder.append(line);
 			}
 			jsonStr = stringBuilder.toString();
-			Log.e("HttpUtils", "jsonStr = " + jsonStr);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
