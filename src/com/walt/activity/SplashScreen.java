@@ -10,7 +10,6 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.walt.R;
 import com.walt.util.Constants;
@@ -57,7 +56,6 @@ public class SplashScreen extends Activity {
 		if(jsonStr == null || jsonStr.equals("")){
 			return false;
 		}
-		Log.e("SplashScreen", "Local jsonStr = " + jsonStr);
 		Utils.setToDataset(jsonStr);
 		return true;
 	}	
@@ -73,7 +71,6 @@ public class SplashScreen extends Activity {
 				stringBuilder.append(line);
 			}
 			String jsonStr = stringBuilder.toString();
-			Log.e("SplashScreen", "Assets jsonStr = " + jsonStr);
 			Utils.setToDataset(jsonStr);
 		} catch (Exception e) {
 			e.printStackTrace();

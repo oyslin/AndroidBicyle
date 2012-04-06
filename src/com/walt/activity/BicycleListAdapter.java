@@ -54,7 +54,7 @@ public class BicycleListAdapter extends BaseAdapter {
 		
 		BicycleStationInfo bicycleStationInfo = mBicycleStationInfos.get(position);
 		if(bicycleStationInfo != null){
-			holder.bicycleIndex.setText(String.valueOf(bicycleStationInfo.getId()));
+			holder.bicycleIndex.setText(String.valueOf(position + 1));
 			holder.bicycleName.setText(bicycleStationInfo.getName());
 			String avaibike = Utils.getText(R.string.list_avaibike);
 			String avaipark = Utils.getText(R.string.list_avaipark);

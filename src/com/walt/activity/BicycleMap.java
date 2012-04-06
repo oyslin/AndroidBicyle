@@ -2,20 +2,16 @@ package com.walt.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
@@ -60,7 +56,7 @@ public class BicycleMap extends MapActivity {
 	private MyLocationOverlay mMyLocationOverlay = null;
 	private ActivityTitle mActivityTitle = null;
 	private boolean mMyLocationAdded = false;
-	private boolean mMyLocationEnabled = false;
+	private boolean mMyLocationEnabled = false;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +112,7 @@ public class BicycleMap extends MapActivity {
 			}
 		};
 		mActivityTitle.setRightImage(R.drawable.ic_titlebar_locate, rightImageClickEvent);
+
 	}
 	
 	private void onRightImageClicked(){
@@ -222,14 +219,35 @@ public class BicycleMap extends MapActivity {
 	private class ItemizedBicycleOverlay extends ItemizedOverlay<OverlayItem>{
 		private ArrayList<OverlayItem> mOverlayItems = new ArrayList<OverlayItem>();
 		private OverlayItem mSelectedOverlayItem = null;
+		private boolean mHttpCallReturned = true;
+		private BicycleStationInfo mReturnedBicycleInfo = null;
+		private int mSelectedId = -1;
+		private Handler mHandler = null;
+		private final static int HTTP_CALL_RETURNED = 0;
 		
 		public ItemizedBicycleOverlay(Drawable defaultMarker) {
 			super(boundCenterBottom(defaultMarker));
+			init();
 		}
 		
 		public ItemizedBicycleOverlay(Drawable marker, Context context){
 			super(boundCenterBottom(marker));
-		}		
+			init();
+		}
+		
+		private void init(){
+			mHandler = new Handler(){
+				@Override
+				public void handleMessage(Message msg) {
+					if(msg.what == HTTP_CALL_RETURNED){
+						mHttpCallReturned = true;
+						//update pop view
+						showPopContent(mReturnedBicycleInfo);
+						mDataset.updateBicycleInfo(mSelectedId, mReturnedBicycleInfo);
+					}
+				}				
+			};
+		}
 
 		@Override
 		protected OverlayItem createItem(int i) {
@@ -244,11 +262,12 @@ public class BicycleMap extends MapActivity {
 			setFocus(overlayItem);
 			
 			int bicycleId = Integer.parseInt(overlayItem.getTitle());
-//			BicycleStationInfo bicycleStationInfo = mDataset.getBicyleInfo(bicycleId);
-//			
-//			showPopContent(bicycleStationInfo);
 			
-			refreshBicyleInfo(bicycleId);
+			if(mHttpCallReturned){
+				mHttpCallReturned = false;
+				mSelectedId = bicycleId;
+				refreshBicyleInfo(bicycleId);
+			}			
 			
 			return true;
 		}
@@ -271,15 +290,12 @@ public class BicycleMap extends MapActivity {
 		}
 		
 		private void refreshBicyleInfo(final int id) {
-			GetBicycleInfoTask task = new GetBicycleInfoTask(id);
-			Future<BicycleStationInfo> future = mThreadPool.submit(task);
-			try {
-				BicycleStationInfo bicycleStationInfo = future.get();
-				showPopContent(bicycleStationInfo);
-				mDataset.updateBicycleInfo(id, bicycleStationInfo);				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			mThreadPool.execute(new Runnable() {				
+				public void run() {					
+					mReturnedBicycleInfo = HttpUtils.getSingleBicyleInfoFromHttp(id);
+					mHandler.sendEmptyMessage(HTTP_CALL_RETURNED);
+				}
+			});
 		}
 
 		@Override
@@ -299,43 +315,4 @@ public class BicycleMap extends MapActivity {
 			this.populate();
 		}
 	}
-	
-	class GetBicycleInfoTask implements Callable<BicycleStationInfo>{
-		private int id;
-		public GetBicycleInfoTask(int id){
-			this.id = id;
-		}
-
-		public BicycleStationInfo call() throws Exception {
-			BicycleStationInfo bicycleInfo = HttpUtils.getSingleBicyleInfoFromHttp(id);			
-			return bicycleInfo;
-		}		
-	}
-	
-	class BicycleOverlay extends Overlay{	
-		private GeoPoint mGeo;
-        public BicycleOverlay() {
-			super();
-			mGeo = new GeoPoint((int) (31.663098 * RAT), (int)(120.75511 * RAT));
-		}
-
-		@Override
-        public boolean draw(Canvas canvas, MapView mapView, boolean shadow, long when){
-            super.draw(canvas, mapView, shadow);
-            Paint paint = new Paint();
-            Point myScreenCoords = new Point();
-           
-            mapView.getProjection().toPixels(mGeo, myScreenCoords);
-            paint.setStrokeWidth(1);
-            paint.setARGB(255, 255, 0, 0);
-            paint.setStyle(Paint.Style.STROKE);
-            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin);
-            canvas.drawBitmap(bmp, myScreenCoords.x, myScreenCoords.y, paint);
-            canvas.drawText("87", myScreenCoords.x, myScreenCoords.y, paint);
-            return true;
-        }       
-    }
-	
-	
-
 }
