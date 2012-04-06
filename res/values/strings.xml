@@ -14,6 +14,10 @@
     <string name="title_list">停放点列表</string>
     <string name="title_info">关于</string>
     
+    <string name="title_map_setting">地图</string>
+    <string name="title_search_setting">查找</string>
+    <string name="title_favorite_setting">收藏</string>
+    
     <string name="map_pop_available_bicycles">可借车数: </string>
     <string name="map_pop_available_parks">可停车位: </string>
     <string name="map_pop_address">地址: </string>

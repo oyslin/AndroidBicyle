@@ -9,15 +9,12 @@
         android:layout_height="match_parent"
         android:gravity="center"        
         android:textAppearance="@style/Bicycle.TextAppearance.WhiteLargeBold" android:text="Title">       
-    </TextView>
-	
-    <ImageView 
+    </TextView><ImageView
         android:id="@+id/activity_title_right_image"
         android:layout_width="@dimen/activity_title_image_width"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true" 
-        android:scaleType="fitCenter" 
-        android:layout_marginRight="1dip" 
-        
-        android:visibility="gone" android:layout_marginTop="1dip"/>
+        android:layout_alignParentRight="true"
+        android:scaleType="fitCenter"
+        android:visibility="gone" android:layout_margin="2dip"/>
+
 </RelativeLayout>

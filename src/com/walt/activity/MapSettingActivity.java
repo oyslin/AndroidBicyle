@@ -1,6 +1,7 @@
 package com.walt.activity;
 
 import com.walt.R;
+import com.walt.view.ActivityTitle;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,5 +13,11 @@ public class MapSettingActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map_setting);
+		init();
+	}
+	
+	private void init(){
+		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
+		activityTitle.setActivityTitle(R.string.title_map_setting);
 	}
 }
