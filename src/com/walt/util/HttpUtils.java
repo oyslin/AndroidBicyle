@@ -85,7 +85,7 @@ public class HttpUtils {
 	private static String getJsonDataFromInputStream(InputStream inputStream){
 		String jsonStr = null;
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
 			StringBuilder stringBuilder = new StringBuilder();
 			String line = null;
 			while((line= reader.readLine()) != null){

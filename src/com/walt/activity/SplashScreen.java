@@ -65,7 +65,7 @@ public class SplashScreen extends Activity {
 		try {
 			InputStream inputStream = assetManager.open("bicycles.json", AssetManager.ACCESS_BUFFER);
 			StringBuilder stringBuilder = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
 			String line = null;
 			while((line=reader.readLine()) != null){
 				stringBuilder.append(line);
