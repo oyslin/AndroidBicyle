@@ -28,18 +28,23 @@ public class SettingListAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mArrayList.get(position); 
-		if(mArrayList.size() > 1){
-			if(position == 0){
-				view.setBackgroundResource(R.drawable.setting_listitem_bg_top);
-			}else if(position < mArrayList.size() -1){
-				view.setBackgroundResource(R.drawable.setting_listitem_bg_middle);
+		View view = null;
+		if(convertView == null){
+			view = mArrayList.get(position);
+			if(mArrayList.size() > 1){
+				if(position == 0){
+					view.setBackgroundResource(R.drawable.setting_listitem_bg_top);
+				}else if(position < mArrayList.size() -1){
+					view.setBackgroundResource(R.drawable.setting_listitem_bg_middle);
+				}else {
+					view.setBackgroundResource(R.drawable.setting_listitem_bg_bottom);
+				}
 			}else {
-				view.setBackgroundResource(R.drawable.setting_listitem_bg_bottom);
+				view.setBackgroundResource(R.drawable.setting_listitem_bg_whole);
 			}
 		}else {
-			view.setBackgroundResource(R.drawable.setting_listitem_bg_whole);
-		}
+			view = convertView;
+		}		
 		return view;
 	}
 

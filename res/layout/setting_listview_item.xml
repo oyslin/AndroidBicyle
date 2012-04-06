@@ -17,13 +17,14 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/setting_listview_item_image"
-        android:text="TextView" android:layout_margin="5dip" android:gravity="center_vertical" android:layout_toLeftOf="@+id/setting_listview_item_next_indicator"/>
+        android:text="TextView" android:layout_margin="5dip" android:gravity="center_vertical" android:layout_toLeftOf="@+id/setting_listview_item_next_indicator" android:textAppearance="@style/Bicycle.TextAppearance.GreyMediumNomal"/>
 
     <ImageView
         android:id="@+id/setting_listview_item_next_indicator"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@drawable/activity_bg" android:layout_margin="10dip" android:scaleType="center"/>
+        android:src="@drawable/ic_setting_next_indicator" 
+        android:scaleType="centerInside" android:layout_centerVertical="true" android:layout_margin="13dip"/>
 
 </RelativeLayout>

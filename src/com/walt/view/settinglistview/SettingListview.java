@@ -29,5 +29,6 @@ public class SettingListview extends ListView {
 		setCacheColorHint(Utils.getColor(R.color.transparent));
 		setDivider(Utils.getDrawable(R.drawable.setting_listview_divider));
 		setDividerHeight(1);
+		setPadding(1, 1, 1, 1);
 	}
 }

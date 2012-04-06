@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" 
     	android:shape="rectangle">
-    <corners android:topLeftRadius="4dip"
-        android:topRightRadius="4dip"/>
+    <corners android:topLeftRadius="6dip"
+        android:topRightRadius="6dip"/>
     <size android:width="20dip"
         android:height="20dip"/>
     <solid android:color="@color/setting_listview_bg_color"/>    
