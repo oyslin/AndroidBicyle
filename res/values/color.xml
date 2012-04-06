@@ -10,4 +10,7 @@
     <color name="red">#ffff0000</color>
     <color name="light_red">#D20000</color>
     <color name="light_green">#66C537</color>
+    <color name="setting_listview_bg_color">#F5F5F5</color>
+    <color name="setting_listview_border_color">#CECECE</color>
+    <color name="setting_listview_divider_color">#CECECE</color>
 </resources>

@@ -1,10 +1,15 @@
 package com.walt.util;
 
+import android.app.Activity;
+
 import com.walt.R;
 import com.walt.activity.BicycleInfo;
 import com.walt.activity.BicycleList;
 import com.walt.activity.BicycleMap;
 import com.walt.activity.BicycleSetting;
+import com.walt.activity.FavoriteSettingActivity;
+import com.walt.activity.MapSettingActivity;
+import com.walt.activity.SearchSettingActivity;
 
 
 public class Constants {
@@ -54,10 +59,31 @@ public class Constants {
 	}
 	
 	public interface BaiduApi{
-		String KEY = "C65DFF635413A9E83E638C6EBA2C414CDF4E77E8";
+		String KEY = "A5FD8EB09C29A97B537DC78BB3A29608F1873BA4";
 	}
 	
 	public interface AssetsFileName{
 		String BICYLE_JSON = "bicycles.json";
+	}
+	
+	public interface SettingListViewItem{
+		int[] SETTING_ITEM_IMAGE = {
+									R.drawable.ic_setting_map,
+									R.drawable.ic_setting_search,
+									R.drawable.ic_setting_favorite
+		};
+		String[] SETTING_ITEM_TEXT = {
+									Utils.getText(R.string.setting_map),
+									Utils.getText(R.string.setting_search),
+									Utils.getText(R.string.setting_favorite)
+		};
+		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
+		
+		@SuppressWarnings("rawtypes")
+		Class NEXT_ACTIVITY_ARRAY[] = {
+			MapSettingActivity.class,
+			SearchSettingActivity.class,
+			FavoriteSettingActivity.class
+		};
 	}
 }

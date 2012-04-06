@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="10dip">
+    <ListView
+        android:id="@+id/setting_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/listview_bg"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@color/setting_listview_divider_color"
+        android:dividerHeight="@dimen/setting_listview_divider_height" >
+    </ListView>
+
+</LinearLayout>

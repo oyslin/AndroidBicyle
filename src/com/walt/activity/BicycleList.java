@@ -31,7 +31,7 @@ public class BicycleList extends Activity {
 			}
 		};
 		
-		mActivityTitle.setRightImage(R.drawable.ic_refresh, rightImageClickEvent);
+		mActivityTitle.setRightImage(R.drawable.ic_titlebar_refresh, rightImageClickEvent);
 		
 		mListView = (ListView) findViewById(R.id.bicycle_listview);		
 		mAdapter = new BicycleListAdapter();

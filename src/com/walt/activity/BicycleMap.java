@@ -121,7 +121,7 @@ public class BicycleMap extends MapActivity {
 				BicycleMap.this.onRightImageClicked();		
 			}
 		};
-		mActivityTitle.setRightImage(R.drawable.ic_locate, rightImageClickEvent);
+		mActivityTitle.setRightImage(R.drawable.ic_titlebar_locate, rightImageClickEvent);
 	}
 	
 	private void onRightImageClicked(){

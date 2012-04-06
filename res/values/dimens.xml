@@ -13,5 +13,9 @@
     <dimen name="bicycle_listview_name_height">30dip</dimen>
     <dimen name="bicycle_listview_count_height">20dip</dimen>
     <dimen name="bicycle_listview_address_height">20dip</dimen>
-    <dimen name="bicycle_listview_index_width">50dip</dimen>    
+    <dimen name="bicycle_listview_index_width">50dip</dimen>
+    
+    <dimen name="setting_listitem_height">50dip</dimen>
+    <dimen name="setting_listview_divider_height">0.5dip</dimen>
+    <dimen name="setting_listview_border_width">0.5dip</dimen>
 </resources>

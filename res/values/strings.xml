@@ -2,22 +2,28 @@
 <resources>
 
     <string name="hello">Hello World, BicyleActivity!</string>
-    <string name="app_name">Bicyle</string>
-    <string name="tab_home">Home</string>
-    <string name="tab_map">Map</string>
-    <string name="tab_settings">Setting</string>
-    <string name="tab_info">Info</string>
-    <string name="tab_list">List</string>
-    <string name="title_home">Home</string>
-    <string name="title_map">Bicycle Map</string>
-    <string name="title_setting">Setting</string>
-    <string name="title_list">Bicycle List</string>
-    <string name="title_info">Information</string>
-    <string name="map_pop_available_bicycles">Available Bicycles: </string>
-    <string name="map_pop_available_parks">Available Parks: </string>
-    <string name="map_pop_address">Address: </string>
+    <string name="app_name">常熟自行车</string>
+    
+    <string name="tab_map">地图</string>
+    <string name="tab_settings">设置</string>
+    <string name="tab_info">关于</string>
+    <string name="tab_list">列表</string>
+    
+    <string name="title_map">自行车地图</string>    
+    <string name="title_setting">设置</string>
+    <string name="title_list">停放点列表</string>
+    <string name="title_info">关于</string>
+    
+    <string name="map_pop_available_bicycles">可借车数: </string>
+    <string name="map_pop_available_parks">可停车位: </string>
+    <string name="map_pop_address">地址: </string>
     <string name="progress_dialog_msg">Quering Bicycle Info, please wait...</string>
+    
     <string name="list_avaibike">可借车数: </string>
     <string name="list_avaipark">可停车位: </string>
+    
+    <string name="setting_search">查找</string>
+    <string name="setting_map">地图</string>
+    <string name="setting_favorite">收藏</string>
 
 </resources>

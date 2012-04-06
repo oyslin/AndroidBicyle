@@ -4,22 +4,16 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.walt.R;
-import com.walt.dataset.BicycleDataset;
 import com.walt.util.Constants;
 import com.walt.util.Utils;
-import com.walt.vo.BicycleStationInfo;
 
 public class SplashScreen extends Activity {
 	private Handler mHandler = null;
