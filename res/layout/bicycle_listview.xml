@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="TextView" android:textAppearance="@style/Bicycle.TextAppearance.GreyMediumNomal"/>
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal"/>
 
     <TextView
         android:id="@+id/bicycle_listview_name"
@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/bicycle_listview_index"
         android:gravity="center_vertical"
-        android:text="TextView" android:textAppearance="@style/Bicycle.TextAppearance.GreyMediumNomal"/>
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal"/>
 
     <LinearLayout
         android:id="@+id/bicycle_listview_count_line"
@@ -33,12 +33,12 @@
         <TextView
             android:id="@+id/bicycle_listview_avaibike"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" android:textAppearance="@style/Bicycle.TextAppearance.GreyExtraSmallNormal"/>
+            android:layout_height="match_parent" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
         <TextView
             android:id="@+id/bicycle_listview_avaipark"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" android:layout_marginLeft="10dip" android:textAppearance="@style/Bicycle.TextAppearance.GreyExtraSmallNormal"/>
+            android:layout_height="match_parent" android:layout_marginLeft="10dip" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
     </LinearLayout>
 
     <TextView
@@ -47,6 +47,6 @@
         android:layout_height="@dimen/bicycle_listview_address_height"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/bicycle_listview_index"
-        android:text="TextView" android:textAppearance="@style/Bicycle.TextAppearance.GreyExtraSmallNormal"/>
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
 </RelativeLayout>

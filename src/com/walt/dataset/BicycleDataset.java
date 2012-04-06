@@ -13,41 +13,58 @@ public class BicycleDataset {
 		mBicycleMap = new HashMap<Integer, BicycleStationInfo>();		
 	}
 	
-	public static BicycleDataset getInstance(){
+	public synchronized static BicycleDataset getInstance(){
 		if(mInstance == null){
 			mInstance = new BicycleDataset();
 		}
 		return mInstance;
 	}
 	
-	public void addBicyleInfo(int id, BicycleStationInfo bicyleInfo){
+	/**
+	 * add bicycle station info to map, if already in map, update it
+	 * @param id
+	 * @param bicyleInfo
+	 */
+	public synchronized void addBicyleInfo(int id, BicycleStationInfo bicyleInfo){
 		if(!mBicycleMap.containsKey(id)){
 			mBicycleMap.put(id, bicyleInfo);
-		}		
+		}else {
+			mBicycleMap.remove(id);
+			mBicycleMap.put(id, bicyleInfo);
+		}
 	}
 	
-	public void delBicyleInfo(int id){
+	/**
+	 * remove a bicycle station info from map
+	 * @param id
+	 */
+	public synchronized void delBicyleInfo(int id){
 		if(mBicycleMap.containsKey(id)){
 			mBicycleMap.remove(id);
 		}
 	}
 	
-	public void updateBicycleInfo(int id, BicycleStationInfo newBicycleInfo){
+	/**
+	 * update a bicycle station info
+	 * @param id
+	 * @param newBicycleInfo
+	 */
+	public synchronized void updateBicycleInfo(int id, BicycleStationInfo newBicycleInfo){
 		if(mBicycleMap.containsKey(id)){
 			mBicycleMap.remove(id);
 		}
 		mBicycleMap.put(id, newBicycleInfo);
 	}
 	
-	public BicycleStationInfo getBicyleInfo(int id){
+	public synchronized BicycleStationInfo getBicyleInfo(int id){
 		return mBicycleMap.get(id);
 	}
 	
-	public int getBicyleCount(){
+	public synchronized int getBicyleCount(){
 		return mBicycleMap.keySet().size();
 	}
 	
-	public ArrayList<BicycleStationInfo> getBicyleStationInfos(){
+	public synchronized ArrayList<BicycleStationInfo> getBicyleStationInfos(){
 		ArrayList<BicycleStationInfo> arrayList = new ArrayList<BicycleStationInfo>();
 		arrayList.addAll(mBicycleMap.values());		
 		return arrayList;

@@ -108,14 +108,7 @@ public class BicycleMap extends MapActivity {
 
         List<Overlay> overlayList = mMapView.getOverlays();
         
-        addAddBicycleMarks(overlayList);
-        
-        //update bicycle info from server
-        mThreadPool.execute(new Runnable() {			
-			public void run() {
-				HttpUtils.getAllBicylesInfoFromServer();
-			}
-		});        
+        addAddBicycleMarks(overlayList);        
 
 		IActivityTitleRightImageClickEvent rightImageClickEvent = new IActivityTitleRightImageClickEvent() {			
 			public void onRightImageClicked() {
@@ -291,8 +284,7 @@ public class BicycleMap extends MapActivity {
 
 		@Override
 		public boolean onTap(GeoPoint point, MapView mapView) {
-			mPopView.setVisibility(View.GONE);
-			
+			mPopView.setVisibility(View.GONE);			
 			return super.onTap(point, mapView);
 		}
 

@@ -32,6 +32,7 @@ public class Constants {
 		String ALL_BICYCLE_URL_SZ = "http://www.subicycle.com/szmap/ibikestation.asp";
 		String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
 		String BICYCLE_DETAIL_URL_SZ = "http://www.subicycle.com/szmap/ibikestation.asp?id=";
+		String HTTP_CONT_ENCODE = "UTF-8";
 	}
 	
 	public interface LocalSetting{

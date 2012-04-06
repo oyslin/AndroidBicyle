@@ -5,6 +5,7 @@
     <dimen name="small_font_size">16sp</dimen>
     <dimen name="xsmall_font_size">14sp</dimen>
     <dimen name="xlarge_font_size">26sp</dimen>
+    <dimen name="tiny_font_size">12sp</dimen>
     
     <dimen name="activity_title_height">40dip</dimen>
     <dimen name="activity_title_image_width">40dip</dimen>

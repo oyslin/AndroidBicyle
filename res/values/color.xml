@@ -8,6 +8,7 @@
     <color name="dark_grey">#333333</color>
     <color name="light_grey">#7f7f7f</color>
     <color name="red">#ffff0000</color>
+    <color name="blue">#0000ff</color>
     <color name="light_red">#D20000</color>
     <color name="light_green">#66C537</color>
     <color name="listview_divider_color">#CECECE</color>

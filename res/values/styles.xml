@@ -158,6 +158,11 @@
     	<item name="android:textColor">@color/grey</item>
     </style>  
  
+    <!-- tiny font-->
+    <style name="Bicycle.TextAppearance.DarkGreyTinyNormal">
+        <item name="android:textSize">@dimen/tiny_font_size</item> 	
+    	<item name="android:textColor">@color/dark_grey</item>
+    </style>
     
     <!-- change font -->
     <style name="Bicycle.TextAppearance.BlackToWhiteLargeNormal">
@@ -179,6 +184,17 @@
 	<style name="Bicycle.TextAppearance.SilverToWhiteExtraSmallNormal">
 		<item name="android:textSize">@dimen/xsmall_font_size</item>
 		<item name="android:textColor">@color/silver_to_white</item>
+	</style>
+	
+	<!-- link font -->
+	<style name="Bicycle.TextAppearance.ExtraSmallLink">
+	    <item name="android:textSize">@dimen/xsmall_font_size</item>
+	    <item name="android:textColor">@color/blue</item>	   
+	</style>
+	
+	<style name="Bicycle.TextAppearance.ExtraSmallPhone">
+	    <item name="android:textSize">@dimen/xsmall_font_size</item>
+	    <item name="android:textColor">@color/blue</item>	    
 	</style>
     
 </resources>

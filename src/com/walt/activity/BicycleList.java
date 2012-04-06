@@ -28,7 +28,7 @@ public class BicycleList extends Activity {
 		IActivityTitleRightImageClickEvent rightImageClickEvent = new IActivityTitleRightImageClickEvent() {			
 			public void onRightImageClicked() {
 				HttpUtils.getAllBicylesInfoFromServer();
-				mAdapter.updateDataset();				
+				mAdapter.updateDataset();
 			}
 		};
 		

@@ -1,5 +1,8 @@
 package com.walt.activity;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import com.walt.R;
 import com.walt.util.Constants;
+import com.walt.util.HttpUtils;
 
 public class Main extends TabActivity {
 	private TabHost mTabHost;
@@ -26,8 +30,11 @@ public class Main extends TabActivity {
     }
     
     private void init(){
+    	//first load bicycle station info from server
+    	loadBicycleInfoFromServer();
+    	
     	mTabHost = getTabHost();
-    	mLayoutInflater = LayoutInflater.from(this);    	
+    	mLayoutInflater = LayoutInflater.from(this);
     	
     	int childrenCount = Constants.TabSetting.IMAGE_ARRAY.length;
     	for(int i = 0; i < childrenCount; i++){
@@ -44,11 +51,8 @@ public class Main extends TabActivity {
 			tabImage.setImageResource(Constants.TabSetting.IMAGE_ARRAY[index]);
 		}
 		
-		TextView textView = (TextView) view.findViewById(R.id.tab_item_text);
-		
+		TextView textView = (TextView) view.findViewById(R.id.tab_item_text);		
 		textView.setText(Constants.TabSetting.TEXT_ARRAY[index]);
-//		Drawable tabIcon = getResources().getDrawable(Constants.TabSetting.IMAGE_ARRAY[index]);
-//		textView.setCompoundDrawables(null, tabIcon, null, null);
 	
 		return view;
     }
@@ -56,5 +60,18 @@ public class Main extends TabActivity {
     private Intent getTabItemIntent(int index){
     	Intent intent = new Intent(this, Constants.TabSetting.CONTENT_ARRAY[index]);    	
     	return intent;
+    }
+    
+    /**
+     * load bicycles info from server via thread
+     */
+    private void loadBicycleInfoFromServer(){
+    	ExecutorService executorService = Executors.newCachedThreadPool();
+    	
+    	executorService.execute(new Runnable() {			
+			public void run() {
+				HttpUtils.getAllBicylesInfoFromServer();				
+			}
+		});
     }
 }

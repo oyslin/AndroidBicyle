@@ -10,6 +10,7 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.walt.R;
 import com.walt.util.Constants;
@@ -42,11 +43,11 @@ public class SplashScreen extends Activity {
 				mHandler.sendEmptyMessage(SUCESS);
 			}
 		}).start();	
-	}
+	}	
 	
-	private void getBicyleInfo(){		
-		boolean success = loadFromLocal();
-		if(!success){
+	private void getBicyleInfo(){
+		boolean localSuccess = loadFromLocal();		
+		if(!localSuccess){			 
 			getBicyleInfoFromAssets();
 		}
 	}
@@ -55,7 +56,8 @@ public class SplashScreen extends Activity {
 		String jsonStr = Utils.getDataFromLocal(Constants.LocalStoreTag.ALL_BICYLE);
 		if(jsonStr == null || jsonStr.equals("")){
 			return false;
-		}		
+		}
+		Log.e("SplashScreen", "Local jsonStr = " + jsonStr);
 		Utils.setToDataset(jsonStr);
 		return true;
 	}	
@@ -65,17 +67,16 @@ public class SplashScreen extends Activity {
 		try {
 			InputStream inputStream = assetManager.open("bicycles.json", AssetManager.ACCESS_BUFFER);
 			StringBuilder stringBuilder = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
 			String line = null;
 			while((line=reader.readLine()) != null){
 				stringBuilder.append(line);
 			}
 			String jsonStr = stringBuilder.toString();
-			
+			Log.e("SplashScreen", "Assets jsonStr = " + jsonStr);
 			Utils.setToDataset(jsonStr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-		
 }

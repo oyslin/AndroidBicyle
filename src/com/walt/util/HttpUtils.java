@@ -13,17 +13,20 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.walt.vo.BicycleStationInfo;
 
-public class HttpUtils {
+public class HttpUtils {	
 	/**
 	 * update bicycles info from server and save it to local
 	 */
-	public static void getAllBicylesInfoFromServer(){
+	public static boolean getAllBicylesInfoFromServer(){
+		boolean success = false;
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(Constants.HttpSetting.ALL_BICYCLE_URL);
 		String jsonStr = null;
-		try {			
+		try {
 			HttpResponse response = httpClient.execute(httpGet);
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
@@ -34,11 +37,13 @@ public class HttpUtils {
 			int firstBrace = jsonStr.indexOf("{");
 			jsonStr = jsonStr.substring(firstBrace);
 			
-			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, jsonStr);
 			Utils.setToDataset(jsonStr);
+			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, jsonStr);
+			success = true;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
+		return success;
 	}
 	
 	/**
@@ -85,13 +90,14 @@ public class HttpUtils {
 	private static String getJsonDataFromInputStream(InputStream inputStream){
 		String jsonStr = null;
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
 			StringBuilder stringBuilder = new StringBuilder();
 			String line = null;
 			while((line= reader.readLine()) != null){
 				stringBuilder.append(line);
 			}
 			jsonStr = stringBuilder.toString();
+			Log.e("HttpUtils", "jsonStr = " + jsonStr);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

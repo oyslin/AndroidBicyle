@@ -12,8 +12,108 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/bicycle_title"
-        android:layout_centerHorizontal="true" android:background="@drawable/activity_bg">
+        android:background="@drawable/activity_bg" >
+
+        <ImageView
+            android:id="@+id/bicycle_info_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/info_logo" />
+
+        <TextView
+            android:id="@+id/bicycle_info_version_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bicycle_info_logo"
+            android:layout_below="@+id/bicycle_info_logo"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/info_version_label"
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" />
+
+        <TextView
+            android:id="@+id/bicycle_info_homepage_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bicycle_info_version_label"
+            android:layout_below="@+id/bicycle_info_version_label"
+            android:text="@string/info_homepage_label"
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" />
+
+        <TextView
+            android:id="@+id/bicycle_info_homepage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bicycle_info_homepage_label"
+            android:layout_toRightOf="@+id/bicycle_info_homepage_label"
+            android:text="@string/info_homepage"
+            android:textAppearance="@style/Bicycle.TextAppearance.ExtraSmallLink" android:layout_marginLeft="4dip"/>
+
+        <TextView
+            android:id="@+id/bicycle_info_service_call_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bicycle_info_homepage_label"
+            android:layout_below="@+id/bicycle_info_homepage_label"
+            android:text="@string/info_server_call_label"
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" />
+
+        <TextView
+            android:id="@+id/bicycle_info_service_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bicycle_info_service_call_label"
+            android:layout_alignBottom="@+id/bicycle_info_service_call_label"
+            android:layout_toRightOf="@+id/bicycle_info_service_call_label"
+            android:text="@string/info_server_call"
+            android:textAppearance="@style/Bicycle.TextAppearance.ExtraSmallPhone" android:layout_marginLeft="4dip"/>
+
+        <TextView
+            android:id="@+id/bicycle_info_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bicycle_info_homepage"
+            android:layout_alignLeft="@+id/bicycle_info_homepage"
+            android:text="@string/info_version"
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreySmallNormal"/>
+
+        <TextView
+            android:id="@+id/bicycle_info_address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bicycle_info_service_call_label"
+            android:layout_below="@+id/bicycle_info_service_call_label"
+            android:text="@string/info_address_label" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+
+        <TextView
+            android:id="@+id/bicycle_info_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bicycle_info_service_call"
+            android:text="@string/info_address" android:layout_toRightOf="@id/bicycle_info_address_label" android:layout_marginLeft="4dip" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginRight="35dip"/>
+
+        <TextView
+            android:id="@+id/bicycle_info_copyright"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bicycle_info_logo"
+            android:layout_alignParentBottom="true"
+            android:text="@string/info_copyright_en" android:layout_marginBottom="10px" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyTinyNormal" android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/bicycle_info_copyright_zh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bicycle_info_copyright"
+            android:text="@string/info_copyright_zh" android:gravity="center" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyTinyNormal"/>
+
     </RelativeLayout>
 
 </RelativeLayout>
