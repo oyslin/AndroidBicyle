@@ -3,7 +3,5 @@
     	android:shape="rectangle">   
     <size android:width="20dip"
         android:height="20dip"/>
-    <solid android:color="#F5F5F5"/>
-    <stroke android:width="0.2dip"
-        android:color="#CECECE"/>   
+    <solid android:color="@color/setting_listview_bg_color"/>    
 </shape>

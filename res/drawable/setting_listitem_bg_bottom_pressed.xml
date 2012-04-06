@@ -5,7 +5,5 @@
         android:bottomRightRadius="4dip"/>
     <size android:width="20dip"
         android:height="20dip"/>
-    <solid android:color="@color/light_green"/>
-    <stroke android:width="0.5dip"
-        android:color="#CECECE"/>
+    <solid android:color="@color/light_green"/>   
 </shape>

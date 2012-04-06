@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.walt.R;
+
 public class SettingListAdapter extends BaseAdapter {
 	ArrayList<View> mArrayList = null;
 	
@@ -25,8 +27,20 @@ public class SettingListAdapter extends BaseAdapter {
 		return 0;
 	}
 
-	public View getView(int position, View convertView, ViewGroup parent) {		
-		return mArrayList.get(position);
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View view = mArrayList.get(position); 
+		if(mArrayList.size() > 1){
+			if(position == 0){
+				view.setBackgroundResource(R.drawable.setting_listitem_bg_top);
+			}else if(position < mArrayList.size() -1){
+				view.setBackgroundResource(R.drawable.setting_listitem_bg_middle);
+			}else {
+				view.setBackgroundResource(R.drawable.setting_listitem_bg_bottom);
+			}
+		}else {
+			view.setBackgroundResource(R.drawable.setting_listitem_bg_whole);
+		}
+		return view;
 	}
 
 }

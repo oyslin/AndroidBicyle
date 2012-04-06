@@ -1,7 +1,5 @@
 package com.walt.util;
 
-import android.app.Activity;
-
 import com.walt.R;
 import com.walt.activity.BicycleInfo;
 import com.walt.activity.BicycleList;

@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.walt.BicycleApp;
 import com.walt.dataset.BicycleDataset;
@@ -29,6 +29,17 @@ public class Utils {
 	
 	public static String getText(int resId){
 		return BicycleApp.getInstance().getText(resId).toString();
+	}
+	
+	public static Drawable getDrawable(int resId){
+		if(resId != 0){
+			return BicycleApp.getInstance().getResources().getDrawable(resId);
+		}
+		return null;
+	}
+	
+	public static int getColor(int resId){
+		return BicycleApp.getInstance().getResources().getColor(resId);
 	}
 	
 	public static void setToDataset(String jsonStr){
