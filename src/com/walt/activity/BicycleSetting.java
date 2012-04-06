@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.walt.R;
 import com.walt.util.Constants;
+import com.walt.view.ActivityTitle;
 import com.walt.view.settinglistview.SettingListAdapter;
 import com.walt.view.settinglistview.SettingListview;
 

@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.walt.R;
-import com.walt.activity.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.walt.util.HttpUtils;
+import com.walt.view.ActivityTitle;
+import com.walt.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 
 public class BicycleList extends Activity {
 	private ActivityTitle mActivityTitle = null;

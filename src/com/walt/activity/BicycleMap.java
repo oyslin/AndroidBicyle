@@ -32,10 +32,11 @@ import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.OverlayItem;
 import com.walt.R;
-import com.walt.activity.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.walt.dataset.BicycleDataset;
 import com.walt.util.Constants;
 import com.walt.util.HttpUtils;
+import com.walt.view.ActivityTitle;
+import com.walt.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.walt.vo.BicycleStationInfo;
 
 public class BicycleMap extends MapActivity {
