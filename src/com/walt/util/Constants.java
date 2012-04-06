@@ -69,12 +69,14 @@ public class Constants {
 		int[] SETTING_ITEM_IMAGE = {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_search,
-									R.drawable.ic_setting_favorite
+									R.drawable.ic_setting_favorite,
+									R.drawable.ic_setting_share
 		};
 		String[] SETTING_ITEM_TEXT = {
 									Utils.getText(R.string.setting_map),
 									Utils.getText(R.string.setting_search),
-									Utils.getText(R.string.setting_favorite)
+									Utils.getText(R.string.setting_favorite),
+									Utils.getText(R.string.setting_share)
 		};
 		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
 		
@@ -82,7 +84,8 @@ public class Constants {
 		Class NEXT_ACTIVITY_ARRAY[] = {
 			MapSettingActivity.class,
 			SearchSettingActivity.class,
-			FavoriteSettingActivity.class
+			FavoriteSettingActivity.class,
+			null
 		};
 	}
 }

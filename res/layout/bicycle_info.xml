@@ -25,15 +25,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dip"
             android:scaleType="centerInside"
-            android:src="@drawable/info_logo" />
+            android:src="@drawable/info_logo" android:layout_marginLeft="20dip" android:layout_marginRight="20dip"/>
 
         <TextView
             android:id="@+id/bicycle_info_version_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/bicycle_info_logo"
             android:layout_below="@+id/bicycle_info_logo"
-            android:layout_marginLeft="42dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="48dp"
             android:text="@string/info_version_label"
             android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" />
@@ -97,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bicycle_info_service_call"
-            android:text="@string/info_address" android:layout_toRightOf="@id/bicycle_info_address_label" android:layout_marginLeft="4dip" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginRight="35dip"/>
+            android:text="@string/info_address" android:layout_toRightOf="@id/bicycle_info_address_label" android:layout_marginLeft="4dip" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginRight="50dip"/>
 
         <TextView
             android:id="@+id/bicycle_info_copyright"

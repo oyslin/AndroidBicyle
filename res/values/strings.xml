@@ -29,6 +29,7 @@
     <string name="setting_search">搜索</string>
     <string name="setting_map">地图</string>
     <string name="setting_favorite">收藏</string>
+    <string name="setting_share">分享</string>
     
     <string name="info_version_label">软件版本：</string>
     <string name="info_version">1.0</string>   
@@ -41,4 +42,8 @@
     
     <string name="info_copyright_en">Copyright © 2012 Walt Ouyang. All Rights Reserved</string>
 	<string name="info_copyright_zh">软件版权归欧阳森林个人所有</string>
+	
+	<string name="share_title">分享</string>
+	<string name="share_message">Hi, 我刚使用了常熟公共自行车手机客户端查看自行车站点分布，还可以实时查询各站点的自行车情况，真的很方便呢。你也来试试吧，在Google Android市场搜索常熟自行车即可下载。</string>
+	<string name="share_chooser_title">请选择分享方式</string>
 </resources>

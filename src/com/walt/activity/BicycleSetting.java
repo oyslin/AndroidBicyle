@@ -49,17 +49,46 @@ public class BicycleSetting extends Activity {
 			
 			imageView.setImageResource(Constants.SettingListViewItem.SETTING_ITEM_IMAGE[i]);
 			textView.setText(Constants.SettingListViewItem.SETTING_ITEM_TEXT[i]);
-			indicator.setImageResource(Constants.SettingListViewItem.SETTING_ITEM_NEXT_INDICATOR);
+			indicator.setImageResource(Constants.SettingListViewItem.SETTING_ITEM_NEXT_INDICATOR);			
 			
-			final Intent intent = new Intent(this, Constants.SettingListViewItem.NEXT_ACTIVITY_ARRAY[i]);
-					
-			view.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					startActivity(intent);					
-				}
-			});
+			view.setOnClickListener(getOnClickListener(i));
+			
 			arrayList.add(view);
 		}
 		return arrayList;
-	}	
+	}
+	
+	private OnClickListener getOnClickListener(int index){
+		OnClickListener listener = null;
+		switch (index) {
+		case 0:
+		case 1:
+		case 2:
+			final Intent intent = new Intent(this, Constants.SettingListViewItem.NEXT_ACTIVITY_ARRAY[index]);
+			listener = new OnClickListener() {				
+				public void onClick(View v) {
+					startActivity(intent);					
+				}
+			};
+			break;
+		case 3:
+			listener = new OnClickListener() {				
+				public void onClick(View v) {					
+					shareToFriend();
+				}
+			};
+			break;
+		default:
+			break;
+		}
+		return listener;
+	}
+	
+	private void shareToFriend(){
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.putExtra(Intent.EXTRA_TEXT, getText(R.string.share_message));
+		intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.share_title));
+		intent.setType("text/plain");
+		startActivity(Intent.createChooser(intent, getText(R.string.share_chooser_title)));
+	}
 }
