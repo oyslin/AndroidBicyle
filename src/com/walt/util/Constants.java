@@ -1,9 +1,9 @@
 package com.walt.util;
 
 import com.walt.R;
-import com.walt.activity.BicycleInfo;
 import com.walt.activity.BicycleList;
 import com.walt.activity.BicycleMap;
+import com.walt.activity.BicycleQuery;
 import com.walt.activity.BicycleSetting;
 import com.walt.activity.FavoriteSettingActivity;
 import com.walt.activity.MapSettingActivity;
@@ -14,20 +14,85 @@ public class Constants {
 	public interface TabSetting{
 		int IMAGE_ARRAY[] = {R.drawable.ic_tab_bicycle,
 							 R.drawable.ic_tab_list,
-							 R.drawable.ic_tab_setting,
-							 R.drawable.ic_tab_info};
+							 R.drawable.ic_tab_query,
+							 R.drawable.ic_tab_setting
+							 };
 		int TEXT_ARRAY[] = {R.string.tab_map,
 							R.string.tab_list,
-							R.string.tab_settings,
-							R.string.tab_info};
+							R.string.tab_query,
+							R.string.tab_settings
+							};
 		@SuppressWarnings("rawtypes")
 		Class CONTENT_ARRAY[] = {BicycleMap.class,
 								 BicycleList.class,
-								 BicycleSetting.class,
-								 BicycleInfo.class};
+								 BicycleQuery.class,
+								 BicycleSetting.class
+								};
+		
+	}
+	
+	public interface CityTabSetting{
+		int[] SUZHOU = new int[]{0, 1, 2, 3};
+		int[] CHANGSHU = new int[]{0, 1, 3};
+		int[] KUNSHAN = new int[]{0, 1, 3};
+		int[] NANTONG = new int[]{0, 1, 2, 3};
+		int[] SONGJIANG = new int[]{0, 1, 2, 3};
+		int[] ZHONGSHAN = new int[]{0, 1, 2, 3};
+		int[] SHAOXING = new int[]{0, 1, 2, 3};
+		int[] WUJIANG = new int[]{0, 1, 2, 3};
+	}
+	
+	public interface CityTagSetting{
+		String SUZHOU = "suzhou";
+		String CHANGSHU = "changshu";
+		String KUNSHAN = "kunshan";
+		String NANTONG = "nantong";
+		String SONGJIANG = "songjiang";
+		String ZHONGSHAN = "zhongshan";
+		String SHAOXING = "shaoxing";
+		String WUJIANG = "wujiang";		
 	}
 	
 	public interface HttpSetting{
+		interface Suzhou{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
+		
+		interface Changshu{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
+		
+		interface Kunshan{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
+		
+		interface Nantong{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
+		
+		interface Songjiang{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
+		
+		interface Zhongshan{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
+		
+		interface Shaoxing{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
+		
+		interface Wujiang{
+			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
+			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
+		}
 		String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
 		String ALL_BICYCLE_URL_SZ = "http://www.subicycle.com/szmap/ibikestation.asp";
 		String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
@@ -48,7 +113,7 @@ public class Constants {
 		String NAME = "name";
 		String LATITUDE = "lat";
 		String LONGITUDE = "lng";
-		String CAPACITY = "capacity";		
+		String CAPACITY = "capacity";
 		String AVAIABLE = "availBike";
 		String ADDRESS = "address";
 	}

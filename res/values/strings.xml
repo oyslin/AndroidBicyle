@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, BicyleActivity!</string>
-    <string name="app_name">常熟自行车</string>
+    <string name="app_name">环保自行车</string>
+    
+    <string name="city_name_suzhou">苏州</string>
+    <string name="city_name_changshu">常熟</string>
+    <string name="city_name_kunshan">昆山</string>
+    <string name="city_name_nantong">南通</string>
+    <string name="city_name_songjiang">上海松江</string>
+    <string name="city_name_zhongshan">中山</string>
+    <string name="city_name_shaoxing">绍兴</string>
+    <string name="city_name_wujiang">吴江</string>
     
     <string name="tab_map">地图</string>
     <string name="tab_settings">设置</string>
-    <string name="tab_info">关于</string>
+    <string name="tab_query">信息查询</string>
     <string name="tab_list">列表</string>
     
     <string name="title_map">自行车地图</string>    
     <string name="title_setting">设置</string>
     <string name="title_list">停放点列表</string>
     <string name="title_info">关于</string>
+    <string name="title_query">信息查询</string>
+    <string name="title_select_city">选择城市</string>
     
     <string name="title_map_setting">地图设置</string>
     <string name="title_search_setting">搜索设置</string>

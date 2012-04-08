@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@drawable/activity_bg">
+    <com.walt.view.ActivityTitle
+        android:id="@+id/bicycle_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">      
+
+    </com.walt.view.ActivityTitle><ListView
+        android:id="@+id/select_city_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dip"
+        android:background="@drawable/listview_bg"
+        android:cacheColorHint="@color/transparent"
+        android:choiceMode="singleChoice"
+        android:divider="@drawable/setting_listview_divider"
+        android:dividerHeight="1dip"
+        android:listSelector="@drawable/listview_selector"
+        android:padding="1dip" >
+    </ListView>
+
+</LinearLayout>

@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import com.walt.BicycleApp;
 import com.walt.dataset.BicycleDataset;
 import com.walt.vo.BicycleStationInfo;
+import com.walt.vo.CitySetting;
 
 public class Utils {	
 	private static SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(BicycleApp.getInstance());
@@ -79,10 +80,14 @@ public class Utils {
 		return mBicycleApp.getResources().getColor(resId);
 	}
 	
+	public static CitySetting getCitySetting(){
+		return null;
+	}
+	
 	public static void setToDataset(String jsonStr){
 		try {
 			BicycleDataset dataset = BicycleDataset.getInstance();
-			JSONObject jsonObject = new JSONObject(jsonStr);	
+			JSONObject jsonObject = new JSONObject(jsonStr);			
 			JSONArray jsonArray = jsonObject.getJSONArray(Constants.JsonTag.STATION);
 			for(int i = 0, total = jsonArray.length(); i < total; i++){
 				JSONObject jsonItem = jsonArray.getJSONObject(i);
