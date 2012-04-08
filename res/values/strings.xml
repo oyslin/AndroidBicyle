@@ -11,6 +11,8 @@
     <string name="city_name_shaoxing">绍兴</string>
     <string name="city_name_wujiang">吴江</string>
     
+    <string name="btn_next">下一步</string>
+    
     <string name="tab_map">地图</string>
     <string name="tab_settings">设置</string>
     <string name="tab_query">信息查询</string>

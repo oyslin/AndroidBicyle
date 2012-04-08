@@ -31,83 +31,27 @@ public class Constants {
 		
 	}
 	
-	public interface CityTabSetting{
-		int[] SUZHOU = new int[]{0, 1, 2, 3};
-		int[] CHANGSHU = new int[]{0, 1, 3};
-		int[] KUNSHAN = new int[]{0, 1, 3};
-		int[] NANTONG = new int[]{0, 1, 2, 3};
-		int[] SONGJIANG = new int[]{0, 1, 2, 3};
-		int[] ZHONGSHAN = new int[]{0, 1, 2, 3};
-		int[] SHAOXING = new int[]{0, 1, 2, 3};
-		int[] WUJIANG = new int[]{0, 1, 2, 3};
+	public interface CitySetting{
+		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "songjiang", "zhongshan", "shaoxing"};
+		int CITY_NAME_RESID[] = {
+				R.string.city_name_suzhou,
+				R.string.city_name_changshu,
+				R.string.city_name_kunshan,
+				R.string.city_name_nantong,
+				R.string.city_name_wujiang,
+				R.string.city_name_songjiang,
+				R.string.city_name_zhongshan,
+				R.string.city_name_shaoxing
+		};
 	}
+
+	public static final String CITY_SETTING_FILENAME = "setting/citysetting.json";
 	
-	public interface CityTagSetting{
-		String SUZHOU = "suzhou";
-		String CHANGSHU = "changshu";
-		String KUNSHAN = "kunshan";
-		String NANTONG = "nantong";
-		String SONGJIANG = "songjiang";
-		String ZHONGSHAN = "zhongshan";
-		String SHAOXING = "shaoxing";
-		String WUJIANG = "wujiang";		
-	}
-	
-	public interface HttpSetting{
-		interface Suzhou{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		
-		interface Changshu{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		
-		interface Kunshan{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		
-		interface Nantong{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		
-		interface Songjiang{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		
-		interface Zhongshan{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		
-		interface Shaoxing{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		
-		interface Wujiang{
-			String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-			String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		}
-		String ALL_BICYCLE_URL = "http://www.csbike01.com/csmap/ibikestation.asp";
-		String ALL_BICYCLE_URL_SZ = "http://www.subicycle.com/szmap/ibikestation.asp";
-		String BICYCLE_DETAIL_URL = "http://www.csbike01.com/csmap/ibikestation.asp?id=";
-		String BICYCLE_DETAIL_URL_SZ = "http://www.subicycle.com/szmap/ibikestation.asp?id=";
+	public interface HttpSetting{		
 		String HTTP_CONT_ENCODE = "UTF-8";
 	}
-	
-	public interface LocalSetting{
-		double DEFAULT_LATITUDE = 31.653893;
-		double DEFAULT_LONGITUDE = 120.754509;
-		double OFFSET_LATITUDE = 0.005983; //Latitude offset need to add
-		double OFFSET_LONGITUDE = 0.006450; //Longitude offset need to add
-	}
-	
-	public interface JsonTag{
+
+	public interface BicycleJsonTag{
 		String STATION = "station";
 		String ID = "id";
 		String NAME = "name";
@@ -118,16 +62,24 @@ public class Constants {
 		String ADDRESS = "address";
 	}
 	
+	public interface SettingJsonTag{
+		String TABS = "tabs";
+		String ALL_BICYCLES_URL = "allBicyclesUrl";
+		String BICYCLE_DETAIL_URL= "bicycleDetailUrl";
+		String DEFAULT_LATITUDE = "defaultLatitude";
+		String DEFAULT_LONGITUDE= "defaultLongitude";
+		String OFFSET_LATITUDE= "offsetLatitude";
+		String OFFSET_LONGITUDE= "offsetLongitude";
+		String ASSETS_FILE_NAME= "assetsFileName";
+	}
+	
 	public interface LocalStoreTag{
-		String ALL_BICYLE = "all_bicyle";
+		String ALL_BICYCLE = "all_bicyCle";
+		String CITY_NAME = "city_name";
 	}
 	
 	public interface BaiduApi{
-		String KEY = "A5FD8EB09C29A97B537DC78BB3A29608F1873BA4";
-	}
-	
-	public interface AssetsFileName{
-		String BICYLE_JSON = "bicycles.json";
+		String KEY = "1ABD83087C2F91F0F12E912BA87705648F714363";
 	}
 	
 	public interface SettingListViewItem{

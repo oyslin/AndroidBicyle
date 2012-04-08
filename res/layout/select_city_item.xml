@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/setting_listitem_height" >
+    android:layout_height="@dimen/select_city_listitem_height" >
 
     <TextView
         android:id="@+id/select_city_item_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal"/>
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" android:layout_toLeftOf="@+id/select_city_item_check" android:gravity="center_vertical" android:paddingLeft="15dip"/>
+
+    <ImageView
+        android:id="@+id/select_city_item_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="25dp"
+        android:src="@drawable/select_city_check" />
 
 </RelativeLayout>

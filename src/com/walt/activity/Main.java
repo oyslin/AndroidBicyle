@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.walt.R;
 import com.walt.util.Constants;
 import com.walt.util.HttpUtils;
+import com.walt.util.Utils;
 
 public class Main extends TabActivity {
 	private TabHost mTabHost;
@@ -37,11 +38,26 @@ public class Main extends TabActivity {
     	mLayoutInflater = LayoutInflater.from(this);
     	
     	int childrenCount = Constants.TabSetting.IMAGE_ARRAY.length;
+    	int tabIndex = 0;
     	for(int i = 0; i < childrenCount; i++){
+    		if(!isInArray(i, Utils.getCitySetting().getTabs())){
+    			continue;
+    		}
     		TabSpec tabSpec = mTabHost.newTabSpec(getString(Constants.TabSetting.TEXT_ARRAY[i])).setIndicator(getTabItemView(i)).setContent(getTabItemIntent(i));
-    		mTabHost.addTab(tabSpec);
-    		mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
+    		mTabHost.addTab(tabSpec);    		
+    		mTabHost.getTabWidget().getChildAt(tabIndex++).setBackgroundResource(R.drawable.selector_tab_background);
     	}
+    }
+    
+    private boolean isInArray(int data, int[] array){
+    	boolean result = false;
+    	for(int i = 0; i < array.length; i++){
+    		if(data == array[i]){
+    			result = true;
+    			break;
+    		}
+    	}
+    	return result;
     }
     
     private View getTabItemView(int index){
@@ -70,7 +86,7 @@ public class Main extends TabActivity {
     	
     	executorService.execute(new Runnable() {			
 			public void run() {
-				HttpUtils.getAllBicylesInfoFromServer();				
+				HttpUtils.getAllBicyclesInfoFromServer();				
 			}
 		});
     }

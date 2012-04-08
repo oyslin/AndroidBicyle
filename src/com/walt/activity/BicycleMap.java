@@ -31,6 +31,7 @@ import com.walt.R;
 import com.walt.dataset.BicycleDataset;
 import com.walt.util.Constants;
 import com.walt.util.HttpUtils;
+import com.walt.util.Utils;
 import com.walt.view.ActivityTitle;
 import com.walt.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.walt.vo.BicycleStationInfo;
@@ -46,7 +47,7 @@ public class BicycleMap extends MapActivity {
 	private BicycleDataset mDataset = null;
 	private final static int RAT = 1000000;
 	private TextView mMapPopName = null;
-	private TextView mMapPopAvailBicyles = null;
+	private TextView mMapPopAvailBicycles = null;
 	private TextView mMapPopAvailParks = null;
 	private TextView mMapPopAddress = null;
 	private ExecutorService mThreadPool = Executors.newCachedThreadPool();
@@ -84,15 +85,15 @@ public class BicycleMap extends MapActivity {
 		
 		mMapController = mMapView.getController();
 		mGeoPoint = new GeoPoint(
-				(int) ((Constants.LocalSetting.DEFAULT_LATITUDE + Constants.LocalSetting.OFFSET_LATITUDE) * RAT),
-				(int) ((Constants.LocalSetting.DEFAULT_LONGITUDE + Constants.LocalSetting.OFFSET_LONGITUDE) * RAT));
+				(int) ((Utils.getCitySetting().getDefaultLatitude() + Utils.getCitySetting().getOffsetLatitude()) * RAT),
+				(int) ((Utils.getCitySetting().getDefaultLongitude() + Utils.getCitySetting().getOffsetLongitude()) * RAT));
 
 		mMapController.setCenter(mGeoPoint);
 		mMapController.setZoom(15);
 		
 		mPopView = getLayoutInflater().inflate(R.layout.map_pop, null);
 		mMapPopName = (TextView) mPopView.findViewById(R.id.map_pop_name);
-		mMapPopAvailBicyles = (TextView) mPopView.findViewById(R.id.map_pop_available_bicycles);
+		mMapPopAvailBicycles = (TextView) mPopView.findViewById(R.id.map_pop_available_bicycles);
 		mMapPopAvailParks = (TextView) mPopView.findViewById(R.id.map_pop_available_parks);
 		mMapPopAddress = (TextView) mPopView.findViewById(R.id.map_pop_address);		
 		
@@ -164,11 +165,11 @@ public class BicycleMap extends MapActivity {
         mMarker.setBounds(0, 0, mMarkerWidth, mMarkerHeight);
         
         ItemizedBicycleOverlay bicycleOverlays = new ItemizedBicycleOverlay(mMarker, this);
-        ArrayList<BicycleStationInfo> bicycleInfos = mDataset.getBicyleStationInfos();
+        ArrayList<BicycleStationInfo> bicycleInfos = mDataset.getBicycleStationInfos();
         
         for(int i = 0, count = bicycleInfos.size(); i < count; i++){
         	BicycleStationInfo bicycleInfo = bicycleInfos.get(i);
-        	GeoPoint point = new GeoPoint((int)((Constants.LocalSetting.OFFSET_LATITUDE + bicycleInfo.getLatitude()) * RAT), (int)((Constants.LocalSetting.OFFSET_LONGITUDE + bicycleInfo.getLongitude()) * RAT));
+        	GeoPoint point = new GeoPoint((int)((Utils.getCitySetting().getOffsetLatitude() + bicycleInfo.getLatitude()) * RAT), (int)((Utils.getCitySetting().getOffsetLongitude() + bicycleInfo.getLongitude()) * RAT));
         	OverlayItem overlayItem = new OverlayItem(point, String.valueOf(bicycleInfo.getId()), bicycleInfo.getName());
         	bicycleOverlays.addOverlayItem(overlayItem);
         }
@@ -266,7 +267,7 @@ public class BicycleMap extends MapActivity {
 			if(mHttpCallReturned){
 				mHttpCallReturned = false;
 				mSelectedId = bicycleId;
-				refreshBicyleInfo(bicycleId);
+				refreshBicycleInfo(bicycleId);
 			}			
 			
 			return true;
@@ -274,7 +275,7 @@ public class BicycleMap extends MapActivity {
 		
 		private void showPopContent(BicycleStationInfo bicycleStationInfo){
 			mMapPopName.setText(bicycleStationInfo.getName());
-			mMapPopAvailBicyles.setText(String.valueOf(bicycleStationInfo.getAvailable()));
+			mMapPopAvailBicycles.setText(String.valueOf(bicycleStationInfo.getAvailable()));
 			mMapPopAvailParks.setText(String.valueOf(bicycleStationInfo.getCapacity() - bicycleStationInfo.getAvailable()));			
 			mMapPopAddress.setText(bicycleStationInfo.getAddress());
 			
@@ -289,10 +290,10 @@ public class BicycleMap extends MapActivity {
 			mPopView.setVisibility(View.VISIBLE);			
 		}
 		
-		private void refreshBicyleInfo(final int id) {
+		private void refreshBicycleInfo(final int id) {
 			mThreadPool.execute(new Runnable() {				
 				public void run() {					
-					mReturnedBicycleInfo = HttpUtils.getSingleBicyleInfoFromHttp(id);
+					mReturnedBicycleInfo = HttpUtils.getSingleBicycleInfoFromHttp(id);
 					mHandler.sendEmptyMessage(HTTP_CALL_RETURNED);
 				}
 			});

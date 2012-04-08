@@ -23,14 +23,14 @@ public class BicycleDataset {
 	/**
 	 * add bicycle station info to map, if already in map, update it
 	 * @param id
-	 * @param bicyleInfo
+	 * @param BicycleInfo
 	 */
-	public synchronized void addBicyleInfo(int id, BicycleStationInfo bicyleInfo){
+	public synchronized void addBicycleInfo(int id, BicycleStationInfo BicycleInfo){
 		if(!mBicycleMap.containsKey(id)){
-			mBicycleMap.put(id, bicyleInfo);
+			mBicycleMap.put(id, BicycleInfo);
 		}else {
 			mBicycleMap.remove(id);
-			mBicycleMap.put(id, bicyleInfo);
+			mBicycleMap.put(id, BicycleInfo);
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class BicycleDataset {
 	 * remove a bicycle station info from map
 	 * @param id
 	 */
-	public synchronized void delBicyleInfo(int id){
+	public synchronized void delBicycleInfo(int id){
 		if(mBicycleMap.containsKey(id)){
 			mBicycleMap.remove(id);
 		}
@@ -56,15 +56,15 @@ public class BicycleDataset {
 		mBicycleMap.put(id, newBicycleInfo);
 	}
 	
-	public synchronized BicycleStationInfo getBicyleInfo(int id){
+	public synchronized BicycleStationInfo getBicycleInfo(int id){
 		return mBicycleMap.get(id);
 	}
 	
-	public synchronized int getBicyleCount(){
+	public synchronized int getBicycleCount(){
 		return mBicycleMap.keySet().size();
 	}
 	
-	public synchronized ArrayList<BicycleStationInfo> getBicyleStationInfos(){
+	public synchronized ArrayList<BicycleStationInfo> getBicycleStationInfos(){
 		ArrayList<BicycleStationInfo> arrayList = new ArrayList<BicycleStationInfo>();
 		arrayList.addAll(mBicycleMap.values());		
 		return arrayList;

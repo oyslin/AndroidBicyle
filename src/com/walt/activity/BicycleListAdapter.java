@@ -21,12 +21,12 @@ public class BicycleListAdapter extends BaseAdapter {
 	
 	public BicycleListAdapter(){
 		mBicycleDataset = BicycleDataset.getInstance();
-		mBicycleStationInfos = mBicycleDataset.getBicyleStationInfos();
+		mBicycleStationInfos = mBicycleDataset.getBicycleStationInfos();
 		mInflater = LayoutInflater.from(BicycleApp.getInstance());
 	}
 	
 	public void updateDataset(){
-		mBicycleStationInfos = mBicycleDataset.getBicyleStationInfos();
+		mBicycleStationInfos = mBicycleDataset.getBicycleStationInfos();
 		this.notifyDataSetChanged();
 	}
 

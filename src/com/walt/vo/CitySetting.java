@@ -25,7 +25,7 @@ public class CitySetting {
 	}
 	
 	private int[] convertToArray(String tabStr){
-		String[] strArrayStrings = tabStr.split("|");
+		String[] strArrayStrings = tabStr.split("\\|");
 		int arrayLength = strArrayStrings.length;
 		int[] result = new int[arrayLength];
 		for(int i = 0; i < arrayLength; i++){

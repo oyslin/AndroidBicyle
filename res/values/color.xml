@@ -14,4 +14,8 @@
     <color name="listview_divider_color">#CECECE</color>
     <color name="setting_listview_bg_color">#F5F5F5</color>
     <color name="setting_listview_border_color">#CECECE</color>
+    
+    <color name="green_btn_start_color">#96CA13</color>
+    <color name="green_btn_end_color">#66C537</color>
+    <color name="green_btn_border_color">#338709</color>
 </resources>

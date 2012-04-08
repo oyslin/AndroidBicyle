@@ -19,10 +19,10 @@ public class HttpUtils {
 	/**
 	 * update bicycles info from server and save it to local
 	 */
-	public static boolean getAllBicylesInfoFromServer(){
+	public static boolean getAllBicyclesInfoFromServer(){
 		boolean success = false;
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Constants.HttpSetting.ALL_BICYCLE_URL);
+		HttpGet httpGet = new HttpGet(Utils.getCitySetting().getAllBicyclesUrl());
 		String jsonStr = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
@@ -36,7 +36,7 @@ public class HttpUtils {
 			jsonStr = jsonStr.substring(firstBrace);
 			
 			Utils.setToDataset(jsonStr);
-			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYLE, jsonStr);
+			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYCLE, jsonStr);
 			success = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,9 +49,9 @@ public class HttpUtils {
 	 * @param id
 	 * @return
 	 */
-	public static BicycleStationInfo getSingleBicyleInfoFromHttp(int id){
+	public static BicycleStationInfo getSingleBicycleInfoFromHttp(int id){
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Constants.HttpSetting.BICYCLE_DETAIL_URL + String.valueOf(id));
+		HttpGet httpGet = new HttpGet(Utils.getCitySetting().getBicycleDetailUrl() + String.valueOf(id));
 		String jsonStr = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
@@ -65,16 +65,16 @@ public class HttpUtils {
 			jsonStr = jsonStr.substring(firstBrace);
 			
 			JSONObject jsonObject = new JSONObject(jsonStr);	
-			JSONArray jsonArray = jsonObject.getJSONArray(Constants.JsonTag.STATION);
+			JSONArray jsonArray = jsonObject.getJSONArray(Constants.BicycleJsonTag.STATION);
 			BicycleStationInfo bicycleInfo = null;
 			for(int i = 0, total = jsonArray.length(); i < total; i++){
 				JSONObject jsonItem = jsonArray.getJSONObject(i);				
-				String name = jsonItem.getString(Constants.JsonTag.NAME);
-				double latitude = jsonItem.getDouble(Constants.JsonTag.LATITUDE);
-				double longitude = jsonItem.getDouble(Constants.JsonTag.LONGITUDE);
-				int capacity = jsonItem.getInt(Constants.JsonTag.CAPACITY);
-				int available = jsonItem.getInt(Constants.JsonTag.AVAIABLE);
-				String address = jsonItem.getString(Constants.JsonTag.ADDRESS);
+				String name = jsonItem.getString(Constants.BicycleJsonTag.NAME);
+				double latitude = jsonItem.getDouble(Constants.BicycleJsonTag.LATITUDE);
+				double longitude = jsonItem.getDouble(Constants.BicycleJsonTag.LONGITUDE);
+				int capacity = jsonItem.getInt(Constants.BicycleJsonTag.CAPACITY);
+				int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
+				String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);
 				
 				bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);				
 			}

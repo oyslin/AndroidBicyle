@@ -1,12 +1,7 @@
 package com.walt.activity;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +9,7 @@ import android.os.Message;
 import com.walt.R;
 import com.walt.util.Constants;
 import com.walt.util.Utils;
+import com.walt.vo.CitySetting;
 
 public class SplashScreen extends Activity {
 	private Handler mHandler = null;
@@ -26,54 +22,45 @@ public class SplashScreen extends Activity {
 	}
 	
 	private void init(){
-		mHandler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == SUCESS){
-					startActivity(new Intent(SplashScreen.this, Main.class));
-					finish();
-				}				
-			}
-		};
+		CitySetting citySetting = Utils.loadCitySetting();
 		
-		new Thread(new Runnable() {
-			public void run() {
-				getBicyleInfo();
-				mHandler.sendEmptyMessage(SUCESS);
-			}
-		}).start();	
+		//If setting exists, load setting, otherwise load select city activity
+		if(citySetting != null){
+			mHandler = new Handler(){
+				@Override
+				public void handleMessage(Message msg) {
+					if(msg.what == SUCESS){
+						startActivity(new Intent(SplashScreen.this, Main.class));
+						finish();
+					}
+				}
+			};
+			
+			new Thread(new Runnable() {
+				public void run() {
+					getBicycleInfo();
+					mHandler.sendEmptyMessage(SUCESS);
+				}
+			}).start();
+		}else {
+			startActivity(new Intent(this, SelectCityActivity.class));
+			finish();
+		}		
 	}	
 	
-	private void getBicyleInfo(){
+	private void getBicycleInfo(){
 		boolean localSuccess = loadFromLocal();		
 		if(!localSuccess){			 
-			getBicyleInfoFromAssets();
+			Utils.getBicycleInfoFromAssets();
 		}
 	}
 	
 	private boolean loadFromLocal(){
-		String jsonStr = Utils.getDataFromLocal(Constants.LocalStoreTag.ALL_BICYLE);
+		String jsonStr = Utils.getDataFromLocal(Constants.LocalStoreTag.ALL_BICYCLE);
 		if(jsonStr == null || jsonStr.equals("")){
 			return false;
 		}
 		Utils.setToDataset(jsonStr);
 		return true;
 	}	
-	
-	private void getBicyleInfoFromAssets(){
-		AssetManager assetManager = getAssets();
-		try {
-			InputStream inputStream = assetManager.open("bicycles.json", AssetManager.ACCESS_BUFFER);
-			StringBuilder stringBuilder = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
-			String line = null;
-			while((line=reader.readLine()) != null){
-				stringBuilder.append(line);
-			}
-			String jsonStr = stringBuilder.toString();
-			Utils.setToDataset(jsonStr);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
