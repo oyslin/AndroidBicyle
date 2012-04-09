@@ -1,4 +1,4 @@
-package com.walt.util;
+package com.dreamcather.bicycle.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.walt.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.vo.BicycleStationInfo;
 
 public class HttpUtils {	
 	/**
@@ -78,7 +78,7 @@ public class HttpUtils {
 				
 				bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);				
 			}
-			return bicycleInfo;			
+			return bicycleInfo;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

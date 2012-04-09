@@ -1,4 +1,4 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.walt.R;
-import com.walt.util.Constants;
-import com.walt.util.Utils;
-import com.walt.vo.CitySetting;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.util.Utils;
+import com.dreamcather.bicycle.vo.CitySetting;
 
 public class SplashScreen extends Activity {
 	private Handler mHandler = null;

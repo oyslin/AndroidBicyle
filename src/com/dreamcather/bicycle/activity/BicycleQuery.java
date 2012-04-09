@@ -1,10 +1,10 @@
-package com.walt.activity;
-
-import com.walt.R;
-import com.walt.view.ActivityTitle;
+package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.view.ActivityTitle;
 
 public class BicycleQuery extends Activity {
 

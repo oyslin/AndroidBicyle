@@ -1,4 +1,4 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,10 +13,10 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
-import com.walt.R;
-import com.walt.util.Constants;
-import com.walt.util.HttpUtils;
-import com.walt.util.Utils;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.util.HttpUtils;
+import com.dreamcather.bicycle.util.Utils;
 
 public class Main extends TabActivity {
 	private TabHost mTabHost;

@@ -1,11 +1,11 @@
-package com.walt.view.settinglistview;
+package com.dreamcather.bicycle.view.settinglistview;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-import com.walt.R;
-import com.walt.util.Utils;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.util.Utils;
 
 public class SettingListview extends ListView {
 

@@ -1,4 +1,4 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.walt.R;
-import com.walt.util.Utils;
-import com.walt.view.ActivityTitle;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.util.Utils;
+import com.dreamcather.bicycle.view.ActivityTitle;
 
 public class BicycleInfo extends Activity {
 	@Override

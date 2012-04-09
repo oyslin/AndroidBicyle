@@ -1,4 +1,4 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.walt.R;
-import com.walt.util.Constants;
-import com.walt.util.Utils;
-import com.walt.view.ActivityTitle;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.util.Utils;
+import com.dreamcather.bicycle.view.ActivityTitle;
 
 public class SelectCityActivity extends Activity {
 	private LayoutInflater mInflater = null;

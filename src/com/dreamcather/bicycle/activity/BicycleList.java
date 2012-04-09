@@ -1,13 +1,13 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.walt.R;
-import com.walt.util.HttpUtils;
-import com.walt.view.ActivityTitle;
-import com.walt.view.ActivityTitle.IActivityTitleRightImageClickEvent;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.util.HttpUtils;
+import com.dreamcather.bicycle.view.ActivityTitle;
+import com.dreamcather.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 
 public class BicycleList extends Activity {
 	private ActivityTitle mActivityTitle = null;

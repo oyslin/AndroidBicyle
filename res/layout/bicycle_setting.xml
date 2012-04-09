@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@drawable/activity_bg">
-    <com.walt.view.ActivityTitle
+    <com.dreamcather.bicycle.view.ActivityTitle
         android:id="@+id/bicycle_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
-    </com.walt.view.ActivityTitle>
-    <com.walt.view.settinglistview.SettingListview
+    </com.dreamcather.bicycle.view.ActivityTitle>
+    <com.dreamcather.bicycle.view.settinglistview.SettingListview
         android:id="@+id/bicycle_setting_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bicycle_title" android:layout_margin="20dip">
-    </com.walt.view.settinglistview.SettingListview>
+    </com.dreamcather.bicycle.view.settinglistview.SettingListview>
 </RelativeLayout>

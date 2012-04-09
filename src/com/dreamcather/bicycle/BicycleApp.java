@@ -1,4 +1,4 @@
-package com.walt;
+package com.dreamcather.bicycle;
 
 import android.app.Application;
 

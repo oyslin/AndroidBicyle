@@ -1,4 +1,4 @@
-package com.walt.vo;
+package com.dreamcather.bicycle.vo;
 
 public class BicycleStationInfo {
 	private int mId = 1;

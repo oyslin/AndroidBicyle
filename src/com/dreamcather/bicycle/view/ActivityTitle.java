@@ -1,4 +1,4 @@
-package com.walt.view;
+package com.dreamcather.bicycle.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.walt.BicycleApp;
-import com.walt.R;
+import com.dreamcather.bicycle.BicycleApp;
+import com.dreamcather.bicycle.R;
 
 public class ActivityTitle extends LinearLayout {
 	private TextView mTitleText = null;

@@ -1,4 +1,4 @@
-package com.walt.util;
+package com.dreamcather.bicycle.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -16,10 +16,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
-import com.walt.BicycleApp;
-import com.walt.dataset.BicycleDataset;
-import com.walt.vo.BicycleStationInfo;
-import com.walt.vo.CitySetting;
+import com.dreamcather.bicycle.BicycleApp;
+import com.dreamcather.bicycle.dataset.BicycleDataset;
+import com.dreamcather.bicycle.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.vo.CitySetting;
 
 public class Utils {	
 	private static SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(BicycleApp.getInstance());

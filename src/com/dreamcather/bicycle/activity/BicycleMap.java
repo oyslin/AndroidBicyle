@@ -1,4 +1,4 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +27,14 @@ import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.OverlayItem;
-import com.walt.R;
-import com.walt.dataset.BicycleDataset;
-import com.walt.util.Constants;
-import com.walt.util.HttpUtils;
-import com.walt.util.Utils;
-import com.walt.view.ActivityTitle;
-import com.walt.view.ActivityTitle.IActivityTitleRightImageClickEvent;
-import com.walt.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.dataset.BicycleDataset;
+import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.util.HttpUtils;
+import com.dreamcather.bicycle.util.Utils;
+import com.dreamcather.bicycle.view.ActivityTitle;
+import com.dreamcather.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
+import com.dreamcather.bicycle.vo.BicycleStationInfo;
 
 public class BicycleMap extends MapActivity {
 	private BMapManager mBMapManager = null;

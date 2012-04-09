@@ -1,4 +1,4 @@
-package com.walt.view.settinglistview;
+package com.dreamcather.bicycle.view.settinglistview;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.walt.R;
+import com.dreamcather.bicycle.R;
 
 public class SettingListAdapter extends BaseAdapter {
 	ArrayList<View> mArrayList = null;

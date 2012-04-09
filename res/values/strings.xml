@@ -32,7 +32,7 @@
     <string name="map_pop_available_bicycles">可借车数: </string>
     <string name="map_pop_available_parks">可停车位: </string>
     <string name="map_pop_address">地址: </string>
-    <string name="progress_dialog_msg">Quering Bicycle Info, please wait</string>
+    <string name="progress_dialog_msg">正在更新数据，请稍等...</string>
     
     <string name="list_avaibike">可借车数: </string>
     <string name="list_avaipark">可停车位: </string>
@@ -51,10 +51,10 @@
     <string name="info_address_label">中心地址：</string>
     <string name="info_address">城管执法大队琴湖中队富义路6号（卫生局、安监局北面）</string>
     
-    <string name="info_copyright_en">Copyright © 2012 Walt Ouyang. All Rights Reserved</string>
-	<string name="info_copyright_zh">软件版权归欧阳森林个人所有</string>
+    <string name="info_copyright_en">Copyright © 2012 Dream Cather Studio. All Rights Reserved</string>
+	<string name="info_copyright_zh">追梦人工作室版权所有</string>
 	
 	<string name="share_title">分享</string>
-	<string name="share_message">Hi, 我刚使用了常熟公共自行车手机客户端查看自行车站点分布，还可以实时查询各站点的自行车情况，真的很方便呢。你也来试试吧，在Google Android市场搜索常熟自行车即可下载。</string>
+	<string name="share_message">Hi, 我刚使用了环保自行车手机客户端查看自行车站点分布，还可以实时查询各站点的自行车借还情况，真的很方便呢。你也来试试吧，在Google Android市场搜索环保自行车即可下载。</string>
 	<string name="share_chooser_title">请选择分享方式</string>
 </resources>

@@ -1,13 +1,13 @@
-package com.walt.util;
+package com.dreamcather.bicycle.util;
 
-import com.walt.R;
-import com.walt.activity.BicycleList;
-import com.walt.activity.BicycleMap;
-import com.walt.activity.BicycleQuery;
-import com.walt.activity.BicycleSetting;
-import com.walt.activity.FavoriteSettingActivity;
-import com.walt.activity.MapSettingActivity;
-import com.walt.activity.SearchSettingActivity;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.activity.BicycleList;
+import com.dreamcather.bicycle.activity.BicycleMap;
+import com.dreamcather.bicycle.activity.BicycleQuery;
+import com.dreamcather.bicycle.activity.BicycleSetting;
+import com.dreamcather.bicycle.activity.FavoriteSettingActivity;
+import com.dreamcather.bicycle.activity.MapSettingActivity;
+import com.dreamcather.bicycle.activity.SearchSettingActivity;
 
 
 public class Constants {

@@ -1,9 +1,9 @@
-package com.walt.dataset;
+package com.dreamcather.bicycle.dataset;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.walt.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.vo.BicycleStationInfo;
 
 public class BicycleDataset {
 	private HashMap<Integer, BicycleStationInfo> mBicycleMap = null;

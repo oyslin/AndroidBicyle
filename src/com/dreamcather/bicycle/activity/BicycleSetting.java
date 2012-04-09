@@ -1,4 +1,4 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import java.util.ArrayList;
 
@@ -11,11 +11,11 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.walt.R;
-import com.walt.util.Constants;
-import com.walt.view.ActivityTitle;
-import com.walt.view.settinglistview.SettingListAdapter;
-import com.walt.view.settinglistview.SettingListview;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.view.ActivityTitle;
+import com.dreamcather.bicycle.view.settinglistview.SettingListAdapter;
+import com.dreamcather.bicycle.view.settinglistview.SettingListview;
 
 public class BicycleSetting extends Activity {
 	private SettingListview mListview = null;

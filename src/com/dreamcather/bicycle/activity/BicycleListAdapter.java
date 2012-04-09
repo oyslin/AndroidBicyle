@@ -1,4 +1,4 @@
-package com.walt.activity;
+package com.dreamcather.bicycle.activity;
 
 import java.util.ArrayList;
 
@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.walt.BicycleApp;
-import com.walt.R;
-import com.walt.dataset.BicycleDataset;
-import com.walt.util.Utils;
-import com.walt.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.BicycleApp;
+import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.dataset.BicycleDataset;
+import com.dreamcather.bicycle.util.Utils;
+import com.dreamcather.bicycle.vo.BicycleStationInfo;
 
 public class BicycleListAdapter extends BaseAdapter {
 	private ArrayList<BicycleStationInfo> mBicycleStationInfos = null;
