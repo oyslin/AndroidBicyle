@@ -1,7 +1,6 @@
 package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.adapter.CityListAdapter;
@@ -62,7 +60,7 @@ public class SelectCityActivity extends Activity implements IAssetsEvent{
 			}
 		};
 		
-		CityListAdapter adapter = new CityListAdapter(citySelectEvent);
+		CityListAdapter adapter = new CityListAdapter(citySelectEvent, 0);
 		
 		listView.setAdapter(adapter);
 		

@@ -18,11 +18,13 @@ public class CityListAdapter extends BaseAdapter {
 	private int[] cityNameResIdArray = null;
 	private View selectedView = null;
 	private ICityListEvent mCityListEvent;
+	private int mDefaultSelection = -1;
 	
-	public CityListAdapter(ICityListEvent cityListEvent){
+	public CityListAdapter(ICityListEvent cityListEvent, int defaultSelectiono){
 		cityNameResIdArray = Constants.CitySetting.CITY_NAME_RESID;
 		mLayoutInflater = LayoutInflater.from(BicycleApp.getInstance());
 		mCityListEvent = cityListEvent;
+		mDefaultSelection = defaultSelectiono;
 	}		
 	
 	public int getCount() {
@@ -40,12 +42,17 @@ public class CityListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null){
 			final int index = position;
-			convertView = mLayoutInflater.inflate(R.layout.select_city_item, parent, false);
+			convertView = mLayoutInflater.inflate(R.layout.select_city_item, parent, false);			
+			
 			convertView.setOnClickListener(new OnClickListener() {					
 				public void onClick(View v) {
 					CityListAdapter.this.onItemClicked(v, index);
 				}
 			});
+			
+			if(position == mDefaultSelection){
+				onItemClicked(convertView, mDefaultSelection);
+			}
 		}
 		TextView cityTextView = (TextView) convertView.findViewById(R.id.select_city_item_name);
 		cityTextView.setText(Utils.getText(cityNameResIdArray[position]));			
@@ -67,5 +74,4 @@ public class CityListAdapter extends BaseAdapter {
 	public interface ICityListEvent{
 		void onCityItemClicked(int index);
 	}
-
 }
