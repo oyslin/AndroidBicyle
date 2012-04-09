@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">      
 
-    </com.dreamcather.bicycle.view.ActivityTitle><ListView
+    </com.dreamcather.bicycle.view.ActivityTitle>
+    <ListView
         android:id="@+id/select_city_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +26,11 @@
         android:id="@+id/select_city_next_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" android:layout_marginLeft="40dip" android:layout_marginRight="40dip" android:layout_marginBottom="20dip" android:text="@string/btn_next" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" android:background="@drawable/button_bg"/>
-
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:background="@drawable/button_bg"
+        android:text="@string/btn_next"
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />
 </LinearLayout>

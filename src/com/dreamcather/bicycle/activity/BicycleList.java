@@ -7,6 +7,7 @@ import android.os.Message;
 import android.widget.ListView;
 
 import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.adapter.BicycleListAdapter;
 import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.interfaces.IHttpEvent;
 import com.dreamcather.bicycle.util.Constants;

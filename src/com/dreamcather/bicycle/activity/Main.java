@@ -46,6 +46,9 @@ public class Main extends TabActivity implements IHttpEvent{
     	mLayoutInflater = LayoutInflater.from(this);
     	
     	CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
+    	if(citySetting == null){
+    		return;
+    	}    		
     	int childrenCount = Constants.TabSetting.IMAGE_ARRAY.length;
     	int tabIndex = 0;
     	for(int i = 0; i < childrenCount; i++){

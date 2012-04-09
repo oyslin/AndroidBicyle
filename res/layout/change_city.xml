@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@drawable/activity_bg">
+    <com.dreamcather.bicycle.view.ActivityTitle
+        android:id="@+id/bicycle_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">      
+
+    </com.dreamcather.bicycle.view.ActivityTitle>
+    <ListView
+        android:id="@+id/change_city_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dip"
+        android:background="@drawable/listview_bg"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@drawable/setting_listview_divider"
+        android:dividerHeight="1dip"
+        android:listSelector="@drawable/listview_selector"
+        android:padding="1dip" android:choiceMode="singleChoice">
+    </ListView>
+
+    <Button
+        android:id="@+id/change_city_restart_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:background="@drawable/button_bg"
+        android:text="@string/change_city_restart"
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />
+</LinearLayout>

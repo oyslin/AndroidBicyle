@@ -32,7 +32,9 @@
     <string name="map_pop_available_bicycles">可借车数: </string>
     <string name="map_pop_available_parks">可停车位: </string>
     <string name="map_pop_address">地址: </string>
-    <string name="progress_dialog_msg">正在更新数据，请稍等...</string>
+    
+    <string name="progress_dialog_loading_msg">正在加载数据，请稍等...</string>
+    <string name="progress_dialog_refresh_msg">正在更新数据，请稍等...</string>
     
     <string name="list_avaibike">可借车数: </string>
     <string name="list_avaipark">可停车位: </string>
@@ -59,4 +61,7 @@
 	<string name="share_chooser_title">请选择分享方式</string>
 	
 	<string name="error_msg_no_connection">无法获取服务器信息</string>
+	
+	<string name="change_city_title">切换城市</string>
+	<string name="change_city_restart">重启程序</string>
 </resources>

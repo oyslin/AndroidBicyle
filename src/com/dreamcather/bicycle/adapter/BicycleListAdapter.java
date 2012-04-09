@@ -1,4 +1,4 @@
-package com.dreamcather.bicycle.activity;
+package com.dreamcather.bicycle.adapter;
 
 import java.util.ArrayList;
 
