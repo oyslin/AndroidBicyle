@@ -105,4 +105,12 @@ public class Constants {
 			null
 		};
 	}
+	
+	public interface ResultCode{
+		int SUCCESS = 0;
+		int HTTP_REQUEST_FAILED = 1;
+		int JSON_PARSER_FAILED = 2;
+		int LOAD_ASSETS_FAILED = 3;
+	}
+	
 }

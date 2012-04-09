@@ -25,7 +25,6 @@ public class Utils {
 	private static SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(BicycleApp.getInstance());
 	private static Editor mEditor = mSharedPreferences.edit();
 	private static BicycleApp mBicycleApp = BicycleApp.getInstance();
-	private static CitySetting mCitySetting = null;
 	
 	public static String getDataFromLocal(String tagName){
 		String result = null;
@@ -89,7 +88,8 @@ public class Utils {
 	/**
 	 * load city setting from local
 	 */
-	public static CitySetting loadCitySetting(){
+	public static CitySetting loadCitySetting() throws Exception{
+		CitySetting citySetting = null;
 		String cityName = Utils.getDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		if(cityName == null || cityName.equals("")){
 			return null;
@@ -114,22 +114,19 @@ public class Utils {
 				double offsetLatitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LATITUDE);
 				double offsetLongitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LONGITUDE);
 				String assetsFileName = cityJson.getString(Constants.SettingJsonTag.ASSETS_FILE_NAME);
-				mCitySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
+				citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
-		return mCitySetting;
+		return citySetting;
 	}
 	
-	public static CitySetting getCitySetting(){		
-		return mCitySetting;
-	}
-	
-	public static void getBicycleInfoFromAssets(){
+	public static void loadBicyclesInfoFromAssets() throws Exception{
 		AssetManager assetManager = BicycleApp.getInstance().getAssets();
 		try {
-			String assetFileName = mCitySetting.getAssetsFileName();
+			String assetFileName = GlobalSetting.getInstance().getCitySetting().getAssetsFileName();
 			InputStream inputStream = assetManager.open(assetFileName, AssetManager.ACCESS_BUFFER);
 			StringBuilder stringBuilder = new StringBuilder();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
@@ -141,6 +138,7 @@ public class Utils {
 			setToDataset(jsonStr);
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	

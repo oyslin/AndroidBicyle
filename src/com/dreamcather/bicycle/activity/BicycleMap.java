@@ -2,8 +2,6 @@ package com.dreamcather.bicycle.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -28,36 +26,46 @@ import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.OverlayItem;
 import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.dataset.BicycleDataset;
+import com.dreamcather.bicycle.interfaces.IHttpEvent;
+import com.dreamcather.bicycle.interfaces.IHttpService;
 import com.dreamcather.bicycle.util.Constants;
-import com.dreamcather.bicycle.util.HttpUtils;
-import com.dreamcather.bicycle.util.Utils;
+import com.dreamcather.bicycle.util.GlobalSetting;
 import com.dreamcather.bicycle.view.ActivityTitle;
 import com.dreamcather.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.vo.CitySetting;
 
-public class BicycleMap extends MapActivity {
+public class BicycleMap extends MapActivity implements IHttpEvent{
 	private BMapManager mBMapManager = null;
 	private MKLocationManager mLocationManager = null;
 	private LocationListener mLocationListener = null;
 	private MapView mMapView = null;
 	private View mPopView = null;
 	private MapController mMapController = null;
-	private GeoPoint mGeoPoint = null;
 	private BicycleDataset mDataset = null;
 	private final static int RAT = 1000000;
 	private TextView mMapPopName = null;
 	private TextView mMapPopAvailBicycles = null;
 	private TextView mMapPopAvailParks = null;
 	private TextView mMapPopAddress = null;
-	private ExecutorService mThreadPool = Executors.newCachedThreadPool();
 	private Drawable mMarker = null;
 	private int mMarkerWidth = 0;
 	private int mMarkerHeight = 0;
 	private MyLocationOverlay mMyLocationOverlay = null;
 	private ActivityTitle mActivityTitle = null;
 	private boolean mMyLocationAdded = false;
-	private boolean mMyLocationEnabled = false;	
+	private boolean mMyLocationEnabled = false;
+	private CitySetting mCitySetting = null;
+	private Handler mHandler = null;
+	private final static int BICYCLE_INFO_LOAD_SUCCESS = 0;
+	private final static int BICYCLE_INFO_LOAD_FAILED = 1;
+	private IHttpService mHttpService = null;
+	private OverlayItem mSelectedOverlayItem = null;
+	private boolean mHttpCallReturned = true;
+	private BicycleStationInfo mReturnedBicycleInfo = null;
+	private int mSelectedId = -1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,26 @@ public class BicycleMap extends MapActivity {
 	}
 	
 	private void init(){
+		this.addEvent();
+		
+		mHandler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				if(msg.what == BICYCLE_INFO_LOAD_SUCCESS){
+					mHttpCallReturned = true;
+					
+					//update pop view
+					showPopContent(mReturnedBicycleInfo);
+					mDataset.updateBicycleInfo(mSelectedId, mReturnedBicycleInfo);
+				}else {
+					mHttpCallReturned = false;
+				}
+			}			
+		};
+		
+		mCitySetting = GlobalSetting.getInstance().getCitySetting();
+		mHttpService = BicycleService.getInstance().getHttpService();
+		
 		mBMapManager = new BMapManager(this);
 		mBMapManager.init(Constants.BaiduApi.KEY, null);
 		super.initMapActivity(mBMapManager);
@@ -84,11 +112,12 @@ public class BicycleMap extends MapActivity {
 		mMapView.setBuiltInZoomControls(true);
 		
 		mMapController = mMapView.getController();
-		mGeoPoint = new GeoPoint(
-				(int) ((Utils.getCitySetting().getDefaultLatitude() + Utils.getCitySetting().getOffsetLatitude()) * RAT),
-				(int) ((Utils.getCitySetting().getDefaultLongitude() + Utils.getCitySetting().getOffsetLongitude()) * RAT));
+		
+		GeoPoint centerPoint = new GeoPoint(
+				(int) ((mCitySetting.getDefaultLatitude() + mCitySetting.getOffsetLatitude()) * RAT),
+				(int) ((mCitySetting.getDefaultLongitude() + mCitySetting.getOffsetLongitude()) * RAT));
 
-		mMapController.setCenter(mGeoPoint);
+		mMapController.setCenter(centerPoint);
 		mMapController.setZoom(15);
 		
 		mPopView = getLayoutInflater().inflate(R.layout.map_pop, null);
@@ -114,6 +143,14 @@ public class BicycleMap extends MapActivity {
 		};
 		mActivityTitle.setRightImage(R.drawable.ic_titlebar_locate, rightImageClickEvent);
 
+	}	
+	
+	private void addEvent(){
+		BicycleService.getInstance().getHttpEventListener().addEvent(this);
+	}
+	
+	private void removeEvent(){
+		BicycleService.getInstance().getHttpEventListener().removeEvent(this);
 	}
 	
 	private void onRightImageClicked(){
@@ -169,7 +206,7 @@ public class BicycleMap extends MapActivity {
         
         for(int i = 0, count = bicycleInfos.size(); i < count; i++){
         	BicycleStationInfo bicycleInfo = bicycleInfos.get(i);
-        	GeoPoint point = new GeoPoint((int)((Utils.getCitySetting().getOffsetLatitude() + bicycleInfo.getLatitude()) * RAT), (int)((Utils.getCitySetting().getOffsetLongitude() + bicycleInfo.getLongitude()) * RAT));
+        	GeoPoint point = new GeoPoint((int)((mCitySetting.getOffsetLatitude() + bicycleInfo.getLatitude()) * RAT), (int)((mCitySetting.getOffsetLongitude() + bicycleInfo.getLongitude()) * RAT));
         	OverlayItem overlayItem = new OverlayItem(point, String.valueOf(bicycleInfo.getId()), bicycleInfo.getName());
         	bicycleOverlays.addOverlayItem(overlayItem);
         }
@@ -187,6 +224,8 @@ public class BicycleMap extends MapActivity {
 			mBMapManager.destroy();
 			mBMapManager = null;
 		}
+		
+		this.removeEvent();
 		super.onDestroy();
 	}
 
@@ -219,47 +258,24 @@ public class BicycleMap extends MapActivity {
 	
 	private class ItemizedBicycleOverlay extends ItemizedOverlay<OverlayItem>{
 		private ArrayList<OverlayItem> mOverlayItems = new ArrayList<OverlayItem>();
-		private OverlayItem mSelectedOverlayItem = null;
-		private boolean mHttpCallReturned = true;
-		private BicycleStationInfo mReturnedBicycleInfo = null;
-		private int mSelectedId = -1;
-		private Handler mHandler = null;
-		private final static int HTTP_CALL_RETURNED = 0;
 		
 		public ItemizedBicycleOverlay(Drawable defaultMarker) {
 			super(boundCenterBottom(defaultMarker));
-			init();
 		}
 		
 		public ItemizedBicycleOverlay(Drawable marker, Context context){
 			super(boundCenterBottom(marker));
-			init();
-		}
-		
-		private void init(){
-			mHandler = new Handler(){
-				@Override
-				public void handleMessage(Message msg) {
-					if(msg.what == HTTP_CALL_RETURNED){
-						mHttpCallReturned = true;
-						//update pop view
-						showPopContent(mReturnedBicycleInfo);
-						mDataset.updateBicycleInfo(mSelectedId, mReturnedBicycleInfo);
-					}
-				}				
-			};
 		}
 
 		@Override
-		protected OverlayItem createItem(int i) {
-			// TODO Auto-generated method stub
+		protected OverlayItem createItem(int i) {			
 			return mOverlayItems.get(i);
 		}
 
 		@Override
 		protected boolean onTap(int index) {
 			OverlayItem overlayItem = mOverlayItems.get(index);
-			this.mSelectedOverlayItem = overlayItem;
+			mSelectedOverlayItem = overlayItem;
 			setFocus(overlayItem);
 			
 			int bicycleId = Integer.parseInt(overlayItem.getTitle());
@@ -267,36 +283,9 @@ public class BicycleMap extends MapActivity {
 			if(mHttpCallReturned){
 				mHttpCallReturned = false;
 				mSelectedId = bicycleId;
-				refreshBicycleInfo(bicycleId);
+				mHttpService.getSingleBicycleInfo(bicycleId);
 			}			
-			
 			return true;
-		}
-		
-		private void showPopContent(BicycleStationInfo bicycleStationInfo){
-			mMapPopName.setText(bicycleStationInfo.getName());
-			mMapPopAvailBicycles.setText(String.valueOf(bicycleStationInfo.getAvailable()));
-			mMapPopAvailParks.setText(String.valueOf(bicycleStationInfo.getCapacity() - bicycleStationInfo.getAvailable()));			
-			mMapPopAddress.setText(bicycleStationInfo.getAddress());
-			
-			GeoPoint geoPoint = this.mSelectedOverlayItem.getPoint();
-			Point point = mMapView.getProjection().toPixels(geoPoint, null);
-			int posX = point.x - mMarkerWidth,
-				poxY = point.y - mMarkerHeight;
-			GeoPoint toShowPoint = mMapView.getProjection().fromPixels(posX, poxY);
-			
-			mMapView.updateViewLayout(mPopView, new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-					toShowPoint, MapView.LayoutParams.BOTTOM));
-			mPopView.setVisibility(View.VISIBLE);			
-		}
-		
-		private void refreshBicycleInfo(final int id) {
-			mThreadPool.execute(new Runnable() {				
-				public void run() {					
-					mReturnedBicycleInfo = HttpUtils.getSingleBicycleInfoFromHttp(id);
-					mHandler.sendEmptyMessage(HTTP_CALL_RETURNED);
-				}
-			});
 		}
 
 		@Override
@@ -307,7 +296,6 @@ public class BicycleMap extends MapActivity {
 
 		@Override
 		public int size() {
-			// TODO Auto-generated method stub
 			return mOverlayItems.size();
 		}
 		
@@ -315,5 +303,45 @@ public class BicycleMap extends MapActivity {
 			mOverlayItems.add(overlayItem);
 			this.populate();
 		}
+	}
+	
+	private void showPopContent(BicycleStationInfo bicycleStationInfo){
+		if(bicycleStationInfo == null){
+			return;
+		}
+		mMapPopName.setText(bicycleStationInfo.getName());
+		mMapPopAvailBicycles.setText(String.valueOf(bicycleStationInfo.getAvailable()));
+		mMapPopAvailParks.setText(String.valueOf(bicycleStationInfo.getCapacity() - bicycleStationInfo.getAvailable()));			
+		mMapPopAddress.setText(bicycleStationInfo.getAddress());
+		
+		GeoPoint geoPoint = this.mSelectedOverlayItem.getPoint();
+		Point point = mMapView.getProjection().toPixels(geoPoint, null);
+		int posX = point.x - mMarkerWidth,
+			poxY = point.y - mMarkerHeight;
+		GeoPoint toShowPoint = mMapView.getProjection().fromPixels(posX, poxY);
+		
+		mMapView.updateViewLayout(mPopView, new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+				toShowPoint, MapView.LayoutParams.BOTTOM));
+		mPopView.setVisibility(View.VISIBLE);			
+	}
+
+	/**
+	 * on All bicycles info received
+	 */
+	public void onAllBicyclesInfoReceived(int resultCode) {
+		//do nothing		
+	}
+
+	/**
+	 * on single bicycle info received
+	 */
+	public void onSingleBicycleInfoReceived(
+			BicycleStationInfo bicycleStationInfo, int resultCode) {
+		if(resultCode == Constants.ResultCode.SUCCESS){
+			mReturnedBicycleInfo = bicycleStationInfo;
+			mHandler.sendEmptyMessage(BICYCLE_INFO_LOAD_SUCCESS);
+		}else {
+			mHandler.sendEmptyMessage(BICYCLE_INFO_LOAD_FAILED);
+		}		
 	}
 }

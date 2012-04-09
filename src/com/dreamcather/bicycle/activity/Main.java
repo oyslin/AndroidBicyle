@@ -1,8 +1,5 @@
 package com.dreamcather.bicycle.activity;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +11,14 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.core.BicycleService;
+import com.dreamcather.bicycle.interfaces.IHttpEvent;
 import com.dreamcather.bicycle.util.Constants;
-import com.dreamcather.bicycle.util.HttpUtils;
-import com.dreamcather.bicycle.util.Utils;
+import com.dreamcather.bicycle.util.GlobalSetting;
+import com.dreamcather.bicycle.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.vo.CitySetting;
 
-public class Main extends TabActivity {
+public class Main extends TabActivity implements IHttpEvent{
 	private TabHost mTabHost;
 	private LayoutInflater mLayoutInflater;
 	
@@ -27,26 +27,43 @@ public class Main extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        init();
-    }
+        this.init();
+    }    
     
-    private void init(){
+    @Override
+	protected void onDestroy() {
+		this.removeEvent();
+		super.onDestroy();
+	}
+
+
+	private void init(){
+    	this.addEvent();
     	//first load bicycle station info from server
     	loadBicycleInfoFromServer();
     	
     	mTabHost = getTabHost();
     	mLayoutInflater = LayoutInflater.from(this);
     	
+    	CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
     	int childrenCount = Constants.TabSetting.IMAGE_ARRAY.length;
     	int tabIndex = 0;
     	for(int i = 0; i < childrenCount; i++){
-    		if(!isInArray(i, Utils.getCitySetting().getTabs())){
+    		if(!isInArray(i, citySetting.getTabs())){
     			continue;
     		}
     		TabSpec tabSpec = mTabHost.newTabSpec(getString(Constants.TabSetting.TEXT_ARRAY[i])).setIndicator(getTabItemView(i)).setContent(getTabItemIntent(i));
     		mTabHost.addTab(tabSpec);    		
     		mTabHost.getTabWidget().getChildAt(tabIndex++).setBackgroundResource(R.drawable.selector_tab_background);
     	}
+    }
+    
+    private void addEvent(){
+    	BicycleService.getInstance().getHttpEventListener().addEvent(this);
+    }
+    
+    private void removeEvent(){
+    	BicycleService.getInstance().getHttpEventListener().removeEvent(this);
     }
     
     private boolean isInArray(int data, int[] array){
@@ -82,12 +99,18 @@ public class Main extends TabActivity {
      * load bicycles info from server via thread
      */
     private void loadBicycleInfoFromServer(){
-    	ExecutorService executorService = Executors.newCachedThreadPool();
-    	
-    	executorService.execute(new Runnable() {			
-			public void run() {
-				HttpUtils.getAllBicyclesInfoFromServer();				
-			}
-		});
+    	BicycleService.getInstance().getHttpService().getAllBicyclesInfo();    	
     }
+
+	public void onAllBicyclesInfoReceived(int resultCode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onSingleBicycleInfoReceived(
+			BicycleStationInfo bicycleStationInfo, int resultCode) {
+		// TODO Auto-generated method stub
+		
+	}   
+    
 }

@@ -57,4 +57,6 @@
 	<string name="share_title">分享</string>
 	<string name="share_message">Hi, 我刚使用了环保自行车手机客户端查看自行车站点分布，还可以实时查询各站点的自行车借还情况，真的很方便呢。你也来试试吧，在Google Android市场搜索环保自行车即可下载。</string>
 	<string name="share_chooser_title">请选择分享方式</string>
+	
+	<string name="error_msg_no_connection">无法获取服务器信息</string>
 </resources>

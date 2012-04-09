@@ -16,15 +16,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.core.BicycleService;
+import com.dreamcather.bicycle.interfaces.IAssetsEvent;
+import com.dreamcather.bicycle.interfaces.IAssetsService;
 import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.util.GlobalSetting;
 import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.view.ActivityTitle;
+import com.dreamcather.bicycle.vo.CitySetting;
 
-public class SelectCityActivity extends Activity {
+public class SelectCityActivity extends Activity implements IAssetsEvent{
 	private LayoutInflater mInflater = null;
 	private int mSelectedCityIndex = -1;	
 	private Handler mHandler = null;
-	private int LOAD_SUCCESS = 0;
+	private IAssetsService mAssetsService = null;
+	private int BICYCLESS_INFO_LOAD_SUCCESS = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,18 @@ public class SelectCityActivity extends Activity {
 		setContentView(R.layout.select_city);
 		init();
 	}
+	
+	@Override
+	protected void onDestroy() {
+		this.removeEvent();
+		super.onDestroy();
+	}
 
 	private void init(){
+		this.addEvent();
+		
+		mAssetsService = BicycleService.getInstance().getAssertsService();
+		
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		activityTitle.setActivityTitle(R.string.title_select_city);
 		
@@ -54,25 +70,29 @@ public class SelectCityActivity extends Activity {
 		mHandler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {
-				if(msg.what == LOAD_SUCCESS){
+				if(msg.what == BICYCLESS_INFO_LOAD_SUCCESS){
 					startActivity(new Intent(SelectCityActivity.this, Main.class));
 					finish();
 				}
 			}			
 		};
-	}	
+	}
+	
+	
+	private void addEvent(){
+		BicycleService.getInstance().getAssetsEventListener().addEvent(this);
+	}
+	
+	private void removeEvent(){
+		BicycleService.getInstance().getAssetsEventListener().removeEvent(this);
+	}
 	
 	private void onNextBtnClicked(){
 		if(mSelectedCityIndex != -1){
 			final String cityTag = Constants.CitySetting.CITY_TAG[mSelectedCityIndex];
-			new Thread(new Runnable() {				
-				public void run() {
-					Utils.storeDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);
-					Utils.loadCitySetting();
-					Utils.getBicycleInfoFromAssets();
-					mHandler.sendEmptyMessage(LOAD_SUCCESS);
-				}
-			}).start();			
+			//TODO show progress dialog
+			Utils.storeDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);
+			mAssetsService.loadCitySetting();					
 		}
 	}
 	
@@ -121,5 +141,18 @@ public class SelectCityActivity extends Activity {
 			ImageView selectImageView = (ImageView) selectedView.findViewById(R.id.select_city_item_check);
 			selectImageView.setSelected(true);			
 		}
+	}
+
+	public void onCitySettingLoaded(CitySetting citySetting, int resultCode) {
+		if(resultCode == Constants.ResultCode.SUCCESS){
+			GlobalSetting.getInstance().setCitySetting(citySetting);
+			mAssetsService.loadBicyclesInfo();
+		}		
+	}
+
+	public void onBicyclesInfoLoaded(int resultCode) {
+		if(resultCode == Constants.ResultCode.SUCCESS){
+			mHandler.sendEmptyMessage(BICYCLESS_INFO_LOAD_SUCCESS);
+		}		
 	}
 }

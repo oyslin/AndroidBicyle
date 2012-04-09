@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
@@ -19,27 +20,27 @@ public class HttpUtils {
 	/**
 	 * update bicycles info from server and save it to local
 	 */
-	public static boolean getAllBicyclesInfoFromServer(){
+	public static boolean getAllBicyclesInfoFromServer() throws IOException{
 		boolean success = false;
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Utils.getCitySetting().getAllBicyclesUrl());
+		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getAllBicyclesUrl());
 		String jsonStr = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
-			if(jsonStr == null || jsonStr.equals("")){
-				throw new Exception();
-			}
+			if(jsonStr != null && !jsonStr.equals("")){
+				int firstBrace = jsonStr.indexOf("{");
+				jsonStr = jsonStr.substring(firstBrace);
+				
+				Utils.setToDataset(jsonStr);
+				Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYCLE, jsonStr);
+				success = true;			
+			}			
 			
-			int firstBrace = jsonStr.indexOf("{");
-			jsonStr = jsonStr.substring(firstBrace);
-			
-			Utils.setToDataset(jsonStr);
-			Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYCLE, jsonStr);
-			success = true;
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return success;
 	}
@@ -49,40 +50,44 @@ public class HttpUtils {
 	 * @param id
 	 * @return
 	 */
-	public static BicycleStationInfo getSingleBicycleInfoFromHttp(int id){
+	public static BicycleStationInfo getSingleBicycleInfoFromHttp(int id) throws IOException, JSONException{
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Utils.getCitySetting().getBicycleDetailUrl() + String.valueOf(id));
+		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getBicycleDetailUrl() + String.valueOf(id));
 		String jsonStr = null;
+		BicycleStationInfo bicycleInfo = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
 			
-			if(jsonStr == null || jsonStr.equals("")){
-				throw new Exception();
-			}
-			
-			int firstBrace = jsonStr.indexOf("{");
-			jsonStr = jsonStr.substring(firstBrace);
-			
-			JSONObject jsonObject = new JSONObject(jsonStr);	
-			JSONArray jsonArray = jsonObject.getJSONArray(Constants.BicycleJsonTag.STATION);
-			BicycleStationInfo bicycleInfo = null;
-			for(int i = 0, total = jsonArray.length(); i < total; i++){
-				JSONObject jsonItem = jsonArray.getJSONObject(i);				
-				String name = jsonItem.getString(Constants.BicycleJsonTag.NAME);
-				double latitude = jsonItem.getDouble(Constants.BicycleJsonTag.LATITUDE);
-				double longitude = jsonItem.getDouble(Constants.BicycleJsonTag.LONGITUDE);
-				int capacity = jsonItem.getInt(Constants.BicycleJsonTag.CAPACITY);
-				int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
-				String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);
+			if(jsonStr != null && !jsonStr.equals("")){
+				int firstBrace = jsonStr.indexOf("{");
+				jsonStr = jsonStr.substring(firstBrace);
 				
-				bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);				
-			}
-			return bicycleInfo;
-		} catch (Exception e) {
+				JSONObject jsonObject = new JSONObject(jsonStr);	
+				JSONArray jsonArray = jsonObject.getJSONArray(Constants.BicycleJsonTag.STATION);
+				
+				for(int i = 0, total = jsonArray.length(); i < total; i++){
+					JSONObject jsonItem = jsonArray.getJSONObject(i);				
+					String name = jsonItem.getString(Constants.BicycleJsonTag.NAME);
+					double latitude = jsonItem.getDouble(Constants.BicycleJsonTag.LATITUDE);
+					double longitude = jsonItem.getDouble(Constants.BicycleJsonTag.LONGITUDE);
+					int capacity = jsonItem.getInt(Constants.BicycleJsonTag.CAPACITY);
+					int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
+					String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);
+					
+					bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);				
+				}
+			}			
+			
+		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
-		}		
+			throw e;
+		} catch (JSONException e) {
+			e.printStackTrace();
+			throw e;
+		} 
+
+		return bicycleInfo;
 	}
 	
 	private static String getJsonDataFromInputStream(InputStream inputStream){
@@ -99,8 +104,7 @@ public class HttpUtils {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return jsonStr;
 	}
 }
