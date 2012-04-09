@@ -17,7 +17,7 @@
         android:background="@drawable/listview_bg"
         android:cacheColorHint="@color/transparent"
         android:divider="@drawable/setting_listview_divider"
-        android:dividerHeight="1dip"
+        android:dividerHeight="@dimen/select_city_listview_divider"
         android:listSelector="@drawable/listview_selector"
         android:padding="1dip" android:choiceMode="singleChoice">
     </ListView>

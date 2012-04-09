@@ -23,4 +23,5 @@
     <dimen name="setting_listitem_next_indicator_width">15dip</dimen>
     
     <dimen name="select_city_listitem_height">40dip</dimen>
+    <dimen name="select_city_listview_divider">0.5dip</dimen>
 </resources>
