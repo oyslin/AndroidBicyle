@@ -24,25 +24,31 @@
     <string name="title_info">关于</string>
     <string name="title_query">信息查询</string>
     <string name="title_select_city">选择城市</string>
+    <string name="title_change_city">切换城市</string>
+    <string name="title_feedback">反馈意见</string>
     
     <string name="title_map_setting">地图设置</string>
-    <string name="title_search_setting">搜索设置</string>
+    <string name="title_search_setting">查询设置</string>
     <string name="title_favorite_setting">收藏设置</string>
     
     <string name="map_pop_available_bicycles">可借车数: </string>
     <string name="map_pop_available_parks">可停车位: </string>
     <string name="map_pop_address">地址: </string>
     
-    <string name="progress_dialog_loading_msg">正在加载数据，请稍等...</string>
-    <string name="progress_dialog_refresh_msg">正在更新数据，请稍等...</string>
+    <string name="progress_dialog_loading_msg">正在加载数据，请稍等..</string>
+    <string name="progress_dialog_refresh_msg">正在更新数据，请稍等..</string>
     
     <string name="list_avaibike">可借车数: </string>
     <string name="list_avaipark">可停车位: </string>
     
-    <string name="setting_search">搜索</string>
-    <string name="setting_map">地图</string>
-    <string name="setting_favorite">收藏</string>
+    <string name="setting_search">查询设置</string>
+    <string name="setting_map">地图设置</string>
+    <string name="setting_favorite">兴趣点设置</string>
     <string name="setting_share">分享</string>
+    <string name="setting_changecity">切换城市</string>
+    <string name="setting_feedback">反馈意见</string>
+    <string name="setting_about">关于</string>
+    <string name="setting_update">更新程序</string>
     
     <string name="info_version_label">软件版本：</string>
     <string name="info_version">1.0</string>   
@@ -64,4 +70,6 @@
 	
 	<string name="change_city_title">切换城市</string>
 	<string name="change_city_restart">重启程序</string>
+	
+	<string name="exit_app_inform_msg">再按一下返回键推出程序</string>
 </resources>

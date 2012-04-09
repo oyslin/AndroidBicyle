@@ -216,6 +216,11 @@ public class BicycleMap extends MapActivity implements IHttpEvent{
 	
 	
 	@Override
+	public void onBackPressed() {
+		this.getParent().onBackPressed();
+	}
+
+	@Override
 	protected void onDestroy() {
 		if(mBMapManager != null){
 			if(mLocationManager != null){

@@ -1,5 +1,8 @@
 package com.dreamcather.bicycle.activity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +12,23 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.interfaces.IHttpEvent;
 import com.dreamcather.bicycle.util.Constants;
 import com.dreamcather.bicycle.util.GlobalSetting;
+import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
 import com.dreamcather.bicycle.vo.CitySetting;
 
 public class Main extends TabActivity implements IHttpEvent{
 	private TabHost mTabHost;
 	private LayoutInflater mLayoutInflater;
+	private boolean isExiting = false;
+	private Timer mTimer = null;
+	private TimerTask mTimerTask = null;
 	
     /** Called when the activity is first created. */
     @Override
@@ -34,8 +42,19 @@ public class Main extends TabActivity implements IHttpEvent{
 	protected void onDestroy() {
 		this.removeEvent();
 		super.onDestroy();
-	}
+	}    
 
+	@Override
+	public void onBackPressed() {		
+		if(!isExiting){
+			isExiting = true;
+			Toast.makeText(this, getText(R.string.exit_app_inform_msg), Toast.LENGTH_SHORT).show();
+			
+			mTimer.schedule(mTimerTask, 2000);			
+		}else {
+			Utils.exitApplication();
+		}
+	}	
 
 	private void init(){
     	this.addEvent();
@@ -59,6 +78,14 @@ public class Main extends TabActivity implements IHttpEvent{
     		mTabHost.addTab(tabSpec);    		
     		mTabHost.getTabWidget().getChildAt(tabIndex++).setBackgroundResource(R.drawable.selector_tab_background);
     	}
+    	
+    	mTimer = new Timer();
+    	mTimerTask = new TimerTask() {			
+			@Override
+			public void run() {
+				isExiting = false;
+			}
+		};
     }
     
     private void addEvent(){

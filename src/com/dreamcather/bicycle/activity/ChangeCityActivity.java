@@ -26,9 +26,9 @@ public class ChangeCityActivity extends Activity {
 	
 	private void init(){
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
-		activityTitle.setActivityTitle(R.string.title_select_city);
+		activityTitle.setActivityTitle(R.string.title_change_city);
 		
-		ListView listView = (ListView) findViewById(R.id.select_city_list);
+		ListView listView = (ListView) findViewById(R.id.change_city_list);
 		
 		ICityListEvent citySelectEvent = new ICityListEvent() {			
 			public void onCityItemClicked(int index) {
@@ -40,10 +40,10 @@ public class ChangeCityActivity extends Activity {
 		
 		listView.setAdapter(adapter);
 		
-		Button nextBtn = (Button) findViewById(R.id.select_city_next_btn);
+		Button nextBtn = (Button) findViewById(R.id.change_city_restart_btn);
 		nextBtn.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
-				onNextBtnClicked();				
+				onRestartBtnClicked();				
 			}
 		});
 	}
@@ -58,7 +58,7 @@ public class ChangeCityActivity extends Activity {
 		return -1;
 	}
 	
-	private void onNextBtnClicked(){
+	private void onRestartBtnClicked(){
 		String currentCity = Utils.getDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		String selectedCity = Constants.CitySetting.CITY_TAG[mSelectedCityIndex];
 		if(currentCity.equalsIgnoreCase(selectedCity)){

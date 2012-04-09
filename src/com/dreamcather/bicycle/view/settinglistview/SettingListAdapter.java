@@ -47,5 +47,4 @@ public class SettingListAdapter extends BaseAdapter {
 		}		
 		return view;
 	}
-
 }

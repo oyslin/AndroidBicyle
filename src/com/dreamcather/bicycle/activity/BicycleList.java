@@ -64,6 +64,11 @@ public class BicycleList extends Activity implements IHttpEvent{
 		mListView.setAdapter(mAdapter);
 	}
 	
+	@Override
+	public void onBackPressed() {
+		this.getParent().onBackPressed();
+	}
+	
 	private void loadAllBicyclesInfoFromServer(){
 		BicycleService.getInstance().getHttpService().getAllBicyclesInfo();
 	}

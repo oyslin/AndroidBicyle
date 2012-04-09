@@ -86,6 +86,24 @@ public class Utils {
 	}
 	
 	/**
+	 * exit application
+	 */
+	public static void exitApplication(){
+		int pid = android.os.Process.myPid();
+		android.os.Process.killProcess(pid);
+	}
+	
+	public static int dip2px(float dipValue){
+		final float scale = mBicycleApp.getResources().getDisplayMetrics().density;
+		return (int)(dipValue * scale + 0.5f);
+	}
+	
+	public static int px2dip(float pxValue){
+		final float scale = mBicycleApp.getResources().getDisplayMetrics().density;
+		return (int)(pxValue / scale + 0.5f);
+	}
+	
+	/**
 	 * load city setting from local
 	 */
 	public static CitySetting loadCitySetting() throws Exception{

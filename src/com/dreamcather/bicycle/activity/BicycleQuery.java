@@ -19,5 +19,9 @@ public class BicycleQuery extends Activity {
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		activityTitle.setActivityTitle(R.string.title_query);
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		this.getParent().onBackPressed();
+	}
 }

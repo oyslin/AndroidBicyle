@@ -84,7 +84,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.BicycleInfo"
+            android:name=".activity.AppInfo"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -112,6 +112,24 @@
         </activity>
          <activity
    			android:name=".activity.FavoriteSettingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+   			android:name=".activity.ChangeCityActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+   			android:name=".activity.FeedbackActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
