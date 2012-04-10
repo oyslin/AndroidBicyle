@@ -55,7 +55,7 @@ public class CityListAdapter extends BaseAdapter {
 			}
 		}
 		TextView cityTextView = (TextView) convertView.findViewById(R.id.select_city_item_name);
-		cityTextView.setText(Utils.getText(cityNameResIdArray[position]));			
+		cityTextView.setText(Utils.getText(cityNameResIdArray[position]));
 		
 		return convertView;
 	}

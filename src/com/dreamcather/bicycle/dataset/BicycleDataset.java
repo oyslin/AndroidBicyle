@@ -64,6 +64,10 @@ public class BicycleDataset {
 		return mBicycleMap.keySet().size();
 	}
 	
+	public synchronized void clearData(){
+		mBicycleMap.clear();
+	}
+	
 	public synchronized ArrayList<BicycleStationInfo> getBicycleStationInfos(){
 		ArrayList<BicycleStationInfo> arrayList = new ArrayList<BicycleStationInfo>();
 		arrayList.addAll(mBicycleMap.values());		

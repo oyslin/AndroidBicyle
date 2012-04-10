@@ -183,4 +183,8 @@ public class Utils {
 		}		
 	}
 	
+	public static void clearDataset(){
+		BicycleDataset.getInstance().clearData();
+	}
+	
 }

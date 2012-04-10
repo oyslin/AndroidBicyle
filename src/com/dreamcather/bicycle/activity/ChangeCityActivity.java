@@ -1,21 +1,33 @@
 package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.adapter.CityListAdapter;
 import com.dreamcather.bicycle.adapter.CityListAdapter.ICityListEvent;
+import com.dreamcather.bicycle.core.BicycleService;
+import com.dreamcather.bicycle.interfaces.ISettingEvent;
+import com.dreamcather.bicycle.interfaces.ISettingService;
 import com.dreamcather.bicycle.util.Constants;
 import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.view.ActivityTitle;
 
-public class ChangeCityActivity extends Activity {
-	private int mSelectedCityIndex = -1;	
+public class ChangeCityActivity extends Activity implements ISettingEvent{
+	private int mSelectedCityIndex = -1;
+	private ISettingService mSettingService = null;
+	private Handler mHandler = null;
+	private static int RELOAD_SUCCESS = 0;
+	private ProgressDialog mProgressDialog = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +36,23 @@ public class ChangeCityActivity extends Activity {
 		this.init();
 	}
 	
-	private void init(){
+	private void init(){		
+		mSettingService = BicycleService.getInstance().getSettingService();
+		this.addEvent();
+		
+		mHandler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				if(msg.what == RELOAD_SUCCESS){
+					if(mProgressDialog != null){
+						mProgressDialog.dismiss();
+					}
+				}else {
+					Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_failed_msg), Toast.LENGTH_SHORT).show();
+				}
+			}			
+		};
+		
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		activityTitle.setActivityTitle(R.string.title_change_city);
 		
@@ -40,12 +68,26 @@ public class ChangeCityActivity extends Activity {
 		
 		listView.setAdapter(adapter);
 		
-		Button nextBtn = (Button) findViewById(R.id.change_city_restart_btn);
-		nextBtn.setOnClickListener(new OnClickListener() {			
+		Button reloadBtn = (Button) findViewById(R.id.change_city_reload_btn);
+		reloadBtn.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
-				onRestartBtnClicked();				
+				onReloadtBtnClicked();				
 			}
 		});
+	}
+	
+	@Override
+	protected void onDestroy() {
+		this.removeEvent();
+		super.onDestroy();
+	}
+
+	private void addEvent(){
+		BicycleService.getInstance().getSettingEventListener().addEvent(this);
+	}
+	
+	private void removeEvent(){
+		BicycleService.getInstance().getSettingEventListener().removeEvent(this);
 	}
 	
 	private int getCurrentCityIndex(){
@@ -58,14 +100,24 @@ public class ChangeCityActivity extends Activity {
 		return -1;
 	}
 	
-	private void onRestartBtnClicked(){
+	private void onReloadtBtnClicked(){
 		String currentCity = Utils.getDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		String selectedCity = Constants.CitySetting.CITY_TAG[mSelectedCityIndex];
 		if(currentCity.equalsIgnoreCase(selectedCity)){
-			//TODO show dialog
+			new AlertDialog.Builder(this)
+					.setTitle(getText(R.string.change_city_alert_dialog_title))
+					.setMessage(getText(R.string.change_city_alert_dialog_msg))
+					.show();
 		}else {
-			//TODO restart
+			mProgressDialog = new ProgressDialog(this);
+			mProgressDialog.setMessage(getText(R.string.change_city_progress_dialog_msg));
+			mProgressDialog.show();
+			mSettingService.changeCitySetting(selectedCity);
 		}
+	}
+
+	public void onCitySettingChanged(int resultCode) {		
+		mHandler.sendEmptyMessage(resultCode);		
 	}
 
 }
