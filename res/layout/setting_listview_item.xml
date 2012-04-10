@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/setting_listitem_height" >
+    android:layout_height="@dimen/setting_item_height" >
     <ImageView
         android:id="@+id/setting_listview_item_image"
         android:layout_width="wrap_content"
@@ -15,12 +15,10 @@
         android:id="@+id/setting_listview_item_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dip"
         android:layout_toLeftOf="@+id/setting_listview_item_next_indicator"
         android:layout_toRightOf="@id/setting_listview_item_image"
         android:gravity="center_vertical"
-        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" android:text="Map" android:layout_centerInParent="true" android:layout_marginLeft="5dip" android:layout_marginRight="5dip"/>
 
 <ImageView
     android:id="@+id/setting_listview_item_next_indicator"

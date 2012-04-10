@@ -16,7 +16,7 @@
         android:layout_below="@+id/bicycle_title"
         android:background="@drawable/activity_bg"
         android:cacheColorHint="@color/transparent"
-        android:clickable="false"
+        android:clickable="true"
         android:divider="@color/grey"
         android:dividerHeight="1dip"
         android:fastScrollEnabled="true"

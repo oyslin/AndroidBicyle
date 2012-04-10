@@ -49,8 +49,12 @@ public class Main extends TabActivity implements IHttpEvent, ISettingEvent{
 		if(System.currentTimeMillis() - mCurrentTime < 2000){
 			Utils.exitApplication();
 		}else {
-			Toast.makeText(this, getText(R.string.exit_app_inform_msg), Toast.LENGTH_SHORT).show();
-			mCurrentTime = System.currentTimeMillis();
+			try {
+				Toast.makeText(this, getText(R.string.exit_app_inform_msg), Toast.LENGTH_SHORT).show();
+				mCurrentTime = System.currentTimeMillis();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
 		}
 	}	
 

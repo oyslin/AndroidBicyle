@@ -17,6 +17,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="25dp"
-        android:src="@drawable/select_city_check" />
+        android:src="@drawable/select_check" />
 
 </RelativeLayout>
