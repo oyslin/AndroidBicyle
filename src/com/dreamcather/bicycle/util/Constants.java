@@ -77,7 +77,7 @@ public class Constants {
 	}
 	
 	public interface LocalStoreTag{
-		String ALL_BICYCLE = "all_bicyCle";
+		String ALL_BICYCLE = "all_bicycle";
 		String CITY_NAME = "city_name";
 	}
 	
@@ -148,6 +148,7 @@ public class Constants {
 		int HTTP_REQUEST_FAILED = 1;
 		int JSON_PARSER_FAILED = 2;
 		int LOAD_ASSETS_FAILED = 3;
+		int CHANGE_CITY_FAILED = 4;
 	}
 	
 }

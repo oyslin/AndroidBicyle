@@ -30,6 +30,7 @@ import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.dataset.BicycleDataset;
 import com.dreamcather.bicycle.interfaces.IHttpEvent;
 import com.dreamcather.bicycle.interfaces.IHttpService;
+import com.dreamcather.bicycle.interfaces.ISettingEvent;
 import com.dreamcather.bicycle.util.Constants;
 import com.dreamcather.bicycle.util.GlobalSetting;
 import com.dreamcather.bicycle.view.ActivityTitle;
@@ -37,7 +38,7 @@ import com.dreamcather.bicycle.view.ActivityTitle.IActivityTitleRightImageClickE
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
 import com.dreamcather.bicycle.vo.CitySetting;
 
-public class BicycleMap extends MapActivity implements IHttpEvent{
+public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent{
 	private BMapManager mBMapManager = null;
 	private MKLocationManager mLocationManager = null;
 	private LocationListener mLocationListener = null;
@@ -61,6 +62,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent{
 	private Handler mHandler = null;
 	private final static int BICYCLE_INFO_LOAD_SUCCESS = 0;
 	private final static int BICYCLE_INFO_LOAD_FAILED = 1;
+	private final static int CITY_SETTING_RELOAD_SUCCESS = 3;
 	private IHttpService mHttpService = null;
 	private OverlayItem mSelectedOverlayItem = null;
 	private boolean mHttpCallReturned = true;
@@ -82,15 +84,23 @@ public class BicycleMap extends MapActivity implements IHttpEvent{
 		mHandler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {
-				if(msg.what == BICYCLE_INFO_LOAD_SUCCESS){
-					mHttpCallReturned = true;
-					
-					//update pop view
-					showPopContent(mReturnedBicycleInfo);
-					mDataset.updateBicycleInfo(mSelectedId, mReturnedBicycleInfo);
-				}else {
-					mHttpCallReturned = false;
-				}
+				switch (msg.what) {
+					case BICYCLE_INFO_LOAD_SUCCESS:
+						mHttpCallReturned = true;
+						
+						//update pop view
+						showPopContent(mReturnedBicycleInfo);
+						mDataset.updateBicycleInfo(mSelectedId, mReturnedBicycleInfo);
+						break;
+					case BICYCLE_INFO_LOAD_FAILED:
+						mHttpCallReturned = false;
+						break;
+					case CITY_SETTING_RELOAD_SUCCESS:
+						reLoadUI();
+						break;	
+					default:
+						break;
+				}				
 			}			
 		};
 		
@@ -212,6 +222,10 @@ public class BicycleMap extends MapActivity implements IHttpEvent{
         }
         
         overlayList.add(bicycleOverlays);
+	}
+	
+	private void reLoadUI(){
+		
 	}
 	
 	
@@ -347,6 +361,15 @@ public class BicycleMap extends MapActivity implements IHttpEvent{
 			mHandler.sendEmptyMessage(BICYCLE_INFO_LOAD_SUCCESS);
 		}else {
 			mHandler.sendEmptyMessage(BICYCLE_INFO_LOAD_FAILED);
+		}		
+	}
+
+	/**
+	 * when city setting changed, reload UI
+	 */
+	public void onCitySettingChanged(int resultCode) {
+		if(resultCode == Constants.ResultCode.SUCCESS){
+			mHandler.sendEmptyMessage(CITY_SETTING_RELOAD_SUCCESS);
 		}		
 	}
 }
