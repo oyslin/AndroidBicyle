@@ -34,7 +34,7 @@ public class HttpUtils {
 				jsonStr = jsonStr.substring(firstBrace);
 				
 				Utils.setToDataset(jsonStr);
-				Utils.storeDataToLocal(Constants.LocalStoreTag.ALL_BICYCLE, jsonStr);
+				Utils.storeStringDataToLocal(Constants.LocalStoreTag.ALL_BICYCLE, jsonStr);
 				success = true;			
 			}			
 			

@@ -19,7 +19,7 @@ public class SettingService implements ISettingService {
 		mExecutorService.execute(new Runnable() {			
 			public void run() {
 				try {
-					Utils.storeDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);//set city tag
+					Utils.storeStringDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);//set city tag
 					Utils.loadCitySetting();
 					Utils.clearDataset();
 					Utils.loadBicyclesInfoFromAssets();

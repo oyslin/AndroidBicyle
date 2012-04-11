@@ -91,7 +91,7 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 	}
 	
 	private int getCurrentCityIndex(){
-		String currentCity = Utils.getDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
+		String currentCity = Utils.getStringDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		for(int i = 0, n = Constants.CitySetting.CITY_TAG.length; i < n; i++){
 			if(currentCity.equalsIgnoreCase(Constants.CitySetting.CITY_TAG[i])){
 				return i;
@@ -101,7 +101,7 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 	}
 	
 	private void onReloadtBtnClicked(){
-		String currentCity = Utils.getDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
+		String currentCity = Utils.getStringDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		String selectedCity = Constants.CitySetting.CITY_TAG[mSelectedCityIndex];
 		if(currentCity.equalsIgnoreCase(selectedCity)){
 			new AlertDialog.Builder(this)

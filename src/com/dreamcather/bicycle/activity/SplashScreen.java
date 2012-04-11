@@ -79,7 +79,7 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 	}
 	
 	private boolean loadAllBicyclesInfoFromLocal(){
-		String jsonStr = Utils.getDataFromLocal(Constants.LocalStoreTag.ALL_BICYCLE);
+		String jsonStr = Utils.getStringDataFromLocal(Constants.LocalStoreTag.ALL_BICYCLE);
 		if(jsonStr == null || jsonStr.equals("")){
 			return false;
 		}

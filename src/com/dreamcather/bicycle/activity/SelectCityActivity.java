@@ -100,7 +100,7 @@ public class SelectCityActivity extends Activity implements IAssetsEvent{
 			mProgressDialog.setMessage(getText(R.string.progress_dialog_loading_msg));
 			mProgressDialog.show();
 			
-			Utils.storeDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);
+			Utils.storeStringDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);
 			mAssetsService.loadCitySetting();					
 		}
 	}

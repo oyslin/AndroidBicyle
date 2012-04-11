@@ -26,14 +26,25 @@ public class Utils {
 	private static Editor mEditor = mSharedPreferences.edit();
 	private static BicycleApp mBicycleApp = BicycleApp.getInstance();
 	
-	public static String getDataFromLocal(String tagName){
+	public static String getStringDataFromLocal(String tagName){
 		String result = null;
 		result = mSharedPreferences.getString(tagName, "");
 		return result;
 	}
 	
-	public static void storeDataToLocal(String tagName, String value){
+	public static void storeStringDataToLocal(String tagName, String value){
 		mEditor.putString(tagName, value);
+		mEditor.commit();
+	}
+	
+	public static boolean getBooleanDataFromLocal(String tagName, boolean defaultValue){
+		boolean result = false;
+		result = mSharedPreferences.getBoolean(tagName, defaultValue);
+		return result;
+	}
+	
+	public static void storeBooleanDataToLocal(String tagName, boolean value){
+		mEditor.putBoolean(tagName, value);
 		mEditor.commit();
 	}
 	
@@ -108,7 +119,7 @@ public class Utils {
 	 */
 	public static CitySetting loadCitySetting() throws Exception{
 		CitySetting citySetting = null;
-		String cityName = Utils.getDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
+		String cityName = Utils.getStringDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		if(cityName == null || cityName.equals("")){
 			return null;
 		}

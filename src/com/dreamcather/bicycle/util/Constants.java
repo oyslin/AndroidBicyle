@@ -79,6 +79,9 @@ public class Constants {
 	public interface LocalStoreTag{
 		String ALL_BICYCLE = "all_bicycle";
 		String CITY_NAME = "city_name";
+		String AUTO_LOCATE_ON_STARTUP = "auto_locate";
+		String SHOW_NEAREST_SPOTS = "show_nearest_spot";
+		String SHOW_ALL_BICYCLES = "show_all_bicycles";
 	}
 	
 	public interface BaiduApi{
