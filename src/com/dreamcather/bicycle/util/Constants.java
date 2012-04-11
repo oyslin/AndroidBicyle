@@ -35,16 +35,24 @@ public class Constants {
 	}
 	
 	public interface CitySetting{
-		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "songjiang", "zhongshan", "shaoxing"};
+		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "zhongshan", "shaoxing"};
 		int CITY_NAME_RESID[] = {
 				R.string.city_name_suzhou,
 				R.string.city_name_changshu,
 				R.string.city_name_kunshan,
 				R.string.city_name_nantong,
-				R.string.city_name_wujiang,
-				R.string.city_name_songjiang,
+				R.string.city_name_wujiang,				
 				R.string.city_name_zhongshan,
 				R.string.city_name_shaoxing
+		};
+		int CITY_MAP_ID[] = {
+				224,
+				2113,
+				2581,
+				161,
+				2284,
+				187,
+				293
 		};
 	}
 
@@ -88,7 +96,7 @@ public class Constants {
 		String KEY = "1ABD83087C2F91F0F12E912BA87705648F714363";
 	}
 	
-	public interface SettingListViewItemFunction{
+	public interface SettingListViewItem{
 		int[] SETTING_ITEM_IMAGE = {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
@@ -152,6 +160,12 @@ public class Constants {
 		int JSON_PARSER_FAILED = 2;
 		int LOAD_ASSETS_FAILED = 3;
 		int CHANGE_CITY_FAILED = 4;
+	}
+	
+	public interface NetworkInfo{
+		int DISCONNECT = 0;
+		int WIFI = 1;
+		int MOBILE = 2;
 	}
 	
 }

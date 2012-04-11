@@ -6,7 +6,6 @@
     <string name="city_name_changshu">常熟</string>
     <string name="city_name_kunshan">昆山</string>
     <string name="city_name_nantong">南通</string>
-    <string name="city_name_songjiang">上海松江</string>
     <string name="city_name_zhongshan">中山</string>
     <string name="city_name_shaoxing">绍兴</string>
     <string name="city_name_wujiang">吴江</string>
@@ -58,6 +57,13 @@
     <string name="map_setting_show_all_bicycles">显示全部自行车点</string>
     <string name="map_setting_show_only_favorites">只显示兴趣点</string>
     <string name="map_setting_show_direction">显示行进路线</string>
+    <string name="map_setting_download_offline_map_network_not_wifi_title">提示</string>
+    <string name="map_setting_download_offline_map_network_not_wifi_msg">地图数据太大，请在Wifi网络下下载离线地图</string>
+    <string name="map_setting_download_offline_map_started">开始后台下载离线地图..</string>
+    <string name="map_setting_download_offline_map_start_failed">开始后台下载离线地图失败，请稍后重试</string>
+    <string name="map_setting_download_offline_map_complete">离线地图下载完成</string>
+    <string name="map_setting_download_offline_map_already_downloaded">上次地图下载未完成, 本次将继续后台下载</string>
+    <string name="map_setting_map_already_complete">地图已经下载完成，无需再次下载</string>
     
     <string name="info_version_label">软件版本：</string>
     <string name="info_version">1.0.0.0</string>   
@@ -82,4 +88,7 @@
 	<string name="exit_app_inform_msg">再按一下返回键退出程序</string>
 	
 	<string name="toast_msg_network_error">网络出错，请设置好网络后重试</string>
+	
+	<string name="network_disconnect_alert_title">网络连接出错</string>
+	<string name="network_disconnect_alert_msg">当前网络连接不可用</string>
 </resources>

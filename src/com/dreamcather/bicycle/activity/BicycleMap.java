@@ -25,6 +25,7 @@ import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.OverlayItem;
+import com.dreamcather.bicycle.BicycleApp;
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.dataset.BicycleDataset;
@@ -107,8 +108,11 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		mCitySetting = GlobalSetting.getInstance().getCitySetting();
 		mHttpService = BicycleService.getInstance().getHttpService();
 		
-		mBMapManager = new BMapManager(this);
-		mBMapManager.init(Constants.BaiduApi.KEY, null);
+		mBMapManager = BicycleApp.getInstance().getMapManager();
+		if(mBMapManager == null){
+			BicycleApp.getInstance().initBaiduMap();
+		}
+		mBMapManager.start();
 		super.initMapActivity(mBMapManager);
 		
 		mDataset = BicycleDataset.getInstance();
@@ -240,8 +244,6 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			if(mLocationManager != null){
 				mLocationManager.removeUpdates(mLocationListener);
 			}			
-			mBMapManager.destroy();
-			mBMapManager = null;
 		}
 		
 		this.removeEvent();

@@ -43,22 +43,22 @@ public class BicycleSetting extends Activity {
 	}
 	
 	private void addSettingItem(){
-		for(int i = 0, n = Constants.SettingListViewItemFunction.SETTING_ITEM_IMAGE.length; i < n; i++){
+		for(int i = 0, n = Constants.SettingListViewItem.SETTING_ITEM_IMAGE.length; i < n; i++){
 			View view = mInflater.inflate(R.layout.setting_listview_item, mListContainer, false);
 			
 			ImageView imageView = (ImageView) view.findViewById(R.id.setting_listview_item_image);
 			TextView textView = (TextView) view.findViewById(R.id.setting_listview_item_text);
 			ImageView indicator = (ImageView) view.findViewById(R.id.setting_listview_item_next_indicator);
 			
-			imageView.setImageResource(Constants.SettingListViewItemFunction.SETTING_ITEM_IMAGE[i]);
-			textView.setText(Constants.SettingListViewItemFunction.SETTING_ITEM_TEXT[i]);
-			indicator.setImageResource(Constants.SettingListViewItemFunction.SETTING_ITEM_NEXT_INDICATOR);			
+			imageView.setImageResource(Constants.SettingListViewItem.SETTING_ITEM_IMAGE[i]);
+			textView.setText(Constants.SettingListViewItem.SETTING_ITEM_TEXT[i]);
+			indicator.setImageResource(Constants.SettingListViewItem.SETTING_ITEM_NEXT_INDICATOR);			
 			
 			view.setOnClickListener(getOnFunctionSettingItemClickListener(i));
 			
-			view.setBackgroundResource(Constants.SettingListViewItemFunction.BACKGROUND_IMAGE[i]);
+			view.setBackgroundResource(Constants.SettingListViewItem.BACKGROUND_IMAGE[i]);
 			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			params.setMargins(0, Utils.dip2px(Constants.SettingListViewItemFunction.MARGIN_TOP_IN_DIP[i]), 0, 0);
+			params.setMargins(0, Utils.dip2px(Constants.SettingListViewItem.MARGIN_TOP_IN_DIP[i]), 0, 0);
 			view.setLayoutParams(params);
 			
 			mListContainer.addView(view);
@@ -74,7 +74,7 @@ public class BicycleSetting extends Activity {
 			case 3:
 			case 4:
 			case 7:
-				final Intent intent = new Intent(this, Constants.SettingListViewItemFunction.NEXT_ACTIVITY_ARRAY[index]);
+				final Intent intent = new Intent(this, Constants.SettingListViewItem.NEXT_ACTIVITY_ARRAY[index]);
 				listener = new OnClickListener() {				
 					public void onClick(View v) {
 						startActivity(intent);					

@@ -14,6 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.dreamcather.bicycle.BicycleApp;
+import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
 
 public class HttpUtils {	
@@ -21,6 +26,11 @@ public class HttpUtils {
 	 * update bicycles info from server and save it to local
 	 */
 	public static boolean getAllBicyclesInfoFromServer() throws IOException{
+		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
+			Toast.makeText(BicycleApp.getInstance(), Utils.getText(R.string.network_disconnect_alert_msg), Toast.LENGTH_LONG);
+			return false;
+		}
+		
 		boolean success = false;
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getAllBicyclesUrl());
@@ -29,8 +39,10 @@ public class HttpUtils {
 			HttpResponse response = httpClient.execute(httpGet);
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
-			if(jsonStr != null && !jsonStr.equals("")){
+			if(jsonStr != null && !jsonStr.trim().equals("")){
+				Log.e("HttpUtils", "jsonStr = " + jsonStr);
 				int firstBrace = jsonStr.indexOf("{");
+				
 				jsonStr = jsonStr.substring(firstBrace);
 				
 				Utils.setToDataset(jsonStr);
@@ -51,6 +63,10 @@ public class HttpUtils {
 	 * @return
 	 */
 	public static BicycleStationInfo getSingleBicycleInfoFromHttp(int id) throws IOException, JSONException{
+		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
+			Toast.makeText(BicycleApp.getInstance(), Utils.getText(R.string.network_disconnect_alert_msg), Toast.LENGTH_LONG);
+			return null;
+		}
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getBicycleDetailUrl() + String.valueOf(id));
 		String jsonStr = null;
@@ -60,7 +76,7 @@ public class HttpUtils {
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
 			
 			if(jsonStr != null && !jsonStr.equals("")){
-				int firstBrace = jsonStr.indexOf("{");
+				int firstBrace = jsonStr.trim().indexOf("{");
 				jsonStr = jsonStr.substring(firstBrace);
 				
 				JSONObject jsonObject = new JSONObject(jsonStr);	

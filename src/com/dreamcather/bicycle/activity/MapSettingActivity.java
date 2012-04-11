@@ -1,13 +1,17 @@
 package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.baidu.mapapi.BMapManager;
+import com.baidu.mapapi.MKOLUpdateElement;
 import com.baidu.mapapi.MKOfflineMap;
 import com.baidu.mapapi.MKOfflineMapListener;
 import com.dreamcather.bicycle.BicycleApp;
@@ -24,6 +28,7 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 	
 	private BMapManager mMapManger = null;
 	private MKOfflineMap mOfflineMap = null;
+	private int mCityId = -1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +102,20 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		});
 	}
 		
-	
 	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
+	protected void onResume() {		
+		super.onResume();
+		if(mMapManger != null){
+			mMapManger.start();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		if(mMapManger != null){
+			mMapManger.stop();
+		}
+		super.onPause();
 	}
 
 	private void onAutoLocateLineClicked(){
@@ -110,8 +124,63 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.AUTO_LOCATE_ON_STARTUP, !selected);
 	}
 	
+	/**
+	 * download offline map
+	 */
 	private void downloadOfflineMap(){
+		mOfflineMap =  new MKOfflineMap();
+		mOfflineMap.init(mMapManger, this);
 		
+		int networkInfo = Utils.getNetworkInfo();
+		//network unavailable
+		if(networkInfo == Constants.NetworkInfo.DISCONNECT){
+			new AlertDialog.Builder(this).setTitle(R.string.network_disconnect_alert_title)
+							.setMessage(R.string.network_disconnect_alert_msg)
+							.show();
+			return;
+		}
+		//not wifi
+		if(networkInfo != Constants.NetworkInfo.WIFI){
+			new AlertDialog.Builder(this).setTitle(R.string.map_setting_download_offline_map_network_not_wifi_title)
+							.setMessage(R.string.map_setting_download_offline_map_network_not_wifi_msg)
+							.show();
+			return;
+		}
+		
+		mCityId = Constants.CitySetting.CITY_MAP_ID[getCityIndex()];
+		
+		MKOLUpdateElement mapInfo = mOfflineMap.getUpdateInfo(mCityId);
+		
+		String startMsg = "";
+		
+		if(mapInfo != null){
+			if(mapInfo.ratio == 100){
+				Toast.makeText(this, getText(R.string.map_setting_map_already_complete), Toast.LENGTH_LONG).show();
+				return;
+			}else if(mapInfo.ratio != 0){
+				startMsg = getText(R.string.map_setting_download_offline_map_already_downloaded).toString();
+			}else {
+				startMsg = getText(R.string.map_setting_download_offline_map_started).toString();
+			}
+		}
+		
+		if(mOfflineMap.start(mCityId)){
+			Toast.makeText(this, startMsg, Toast.LENGTH_LONG).show();
+		}else {
+			Toast.makeText(this, getText(R.string.map_setting_download_offline_map_start_failed), Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	private int getCityIndex(){
+		String currentCityTag = Utils.getStringDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
+		int index = -1;
+		for(int i = 0, n = Constants.CitySetting.CITY_TAG.length; i < n; i++){
+			if (currentCityTag.equalsIgnoreCase(Constants.CitySetting.CITY_TAG[i])){
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 	
 	private void onShowNearSpotsClicked(){
@@ -132,8 +201,22 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.SHOW_ALL_BICYCLES, false);
 	}
 
-	public void onGetOfflineMapState(int arg0, int arg1) {
-		// TODO Auto-generated method stub
+	public void onGetOfflineMapState(int type, int state) {
+		switch (type) {
+			case MKOfflineMap.TYPE_DOWNLOAD_UPDATE:				
+				MKOLUpdateElement update = mOfflineMap.getUpdateInfo(state);
+				if (update.ratio == 100) {
+					Toast.makeText(BicycleApp.getInstance(),getText(R.string.map_setting_download_offline_map_complete), Toast.LENGTH_SHORT).show();
+				}
+	
+				break;
+			case MKOfflineMap.TYPE_NEW_OFFLINE:
+				Log.d("OfflineDemo", String.format("add offlinemap num:%d", state));
+				break;
+			case MKOfflineMap.TYPE_VER_UPDATE:
+				Log.d("OfflineDemo", String.format("new offlinemap ver"));
+				break;
+			}
 		
 	}
 }

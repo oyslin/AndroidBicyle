@@ -43,7 +43,9 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 			public void handleMessage(Message msg) {
 				switch (msg.what) {
 					case BICYCLES_INFO_LOAD_SUCCESS:
-						mProgressDialog.dismiss();
+						if(mProgressDialog != null){
+							mProgressDialog.dismiss();
+						}						
 						mAdapter.updateDataset();
 						break;
 					case BICYCLES_INFO_LOAD_FAILED:

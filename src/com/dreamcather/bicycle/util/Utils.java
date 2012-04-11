@@ -8,11 +8,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.NetworkInfo.State;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
@@ -112,6 +116,32 @@ public class Utils {
 	public static int px2dip(float pxValue){
 		final float scale = mBicycleApp.getResources().getDisplayMetrics().density;
 		return (int)(pxValue / scale + 0.5f);
+	}
+	
+	/**
+	 * get current network info
+	 * @return 0: network unavailable 1: wifi 2: mobile
+	 */
+	public static int getNetworkInfo(){
+		int result = Constants.NetworkInfo.DISCONNECT;
+		try {
+			ConnectivityManager cm = (ConnectivityManager) mBicycleApp.getSystemService(Context.CONNECTIVITY_SERVICE);
+			if(cm != null){
+				NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+				if(networkInfo != null && networkInfo.isConnected()){
+					if(networkInfo.getState() == State.CONNECTED){
+						if(networkInfo.getType() == ConnectivityManager.TYPE_WIFI){
+							result = Constants.NetworkInfo.WIFI;
+						}else {
+							result = Constants.NetworkInfo.MOBILE;
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
 	}
 	
 	/**
