@@ -17,12 +17,11 @@
         android:background="@drawable/activity_bg"
         android:cacheColorHint="@color/transparent"
         android:clickable="true"
-        android:divider="@color/grey"
-        android:dividerHeight="1dip"
+        android:divider="@drawable/setting_listview_divider"
+        android:dividerHeight="@dimen/select_city_listview_divider"
         android:fastScrollEnabled="true"
         android:focusable="false"
-        android:longClickable="false"
-        android:smoothScrollbar="true" >
+        android:smoothScrollbar="true" android:listSelector="@drawable/listview_selector">
     </ListView>
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ import android.util.Log;
 
 import com.dreamcather.bicycle.exception.NetworkException;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
+import com.dreamcather.bicycle.vo.CitySetting;
 
 public class HttpUtils {	
 	/**
@@ -30,6 +31,10 @@ public class HttpUtils {
 		
 		boolean success = false;
 		HttpClient httpClient = new DefaultHttpClient();
+		CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
+		if(citySetting == null){
+			return false;
+		}
 		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getAllBicyclesUrl());
 		String jsonStr = null;
 		try {

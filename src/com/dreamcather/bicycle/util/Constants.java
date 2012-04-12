@@ -90,6 +90,7 @@ public class Constants {
 		String AUTO_LOCATE_ON_STARTUP = "auto_locate";
 		String SHOW_NEAREST_SPOTS = "show_nearest_spot";
 		String SHOW_ALL_BICYCLES = "show_all_bicycles";
+		String FAVORITE_IDS = "favorite_ids";
 	}
 	
 	public interface BaiduApi{

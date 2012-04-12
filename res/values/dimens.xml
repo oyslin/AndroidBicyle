@@ -9,6 +9,8 @@
     
     <dimen name="activity_title_height">40dip</dimen>
     <dimen name="activity_title_image_width">40dip</dimen>
+    <dimen name="activity_title_image_split_height">40dip</dimen>
+    <dimen name="activity_title_image_split_width">0.5dip</dimen>
     
     <dimen name="bicycle_listview_height">70dip</dimen>
     <dimen name="bicycle_listview_name_height">30dip</dimen>
@@ -24,4 +26,10 @@
     
     <dimen name="select_city_listitem_height">40dip</dimen>
     <dimen name="select_city_listview_divider">0.5dip</dimen>
+    
+    <dimen name="favorite_setting_listitem_height">50dip</dimen>
+    <dimen name="favorite_setting_listitem_index_width">50dip</dimen>
+    <dimen name="favorite_setting_listitem_name_height">30dip</dimen>
+    <dimen name="favorite_setting_listitem_address_height">20dip</dimen>
+    <dimen name="favorite_setting_listitem_favorite_image_width">50dip</dimen>
 </resources>

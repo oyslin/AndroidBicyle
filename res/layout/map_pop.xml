@@ -3,51 +3,56 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/map_bubble">
-
+
     <TextView
         android:id="@+id/map_pop_available_bicycles_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="@string/map_pop_available_bicycles" android:layout_below="@+id/map_pop_name"/>
+        android:layout_below="@+id/map_pop_name"
+        android:text="@string/map_pop_available_bicycles" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
     <TextView
         android:id="@+id/map_pop_available_bicycles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" android:layout_alignTop="@id/map_pop_available_bicycles_label" android:layout_toRightOf="@id/map_pop_available_bicycles_label"/>
+        android:layout_alignTop="@id/map_pop_available_bicycles_label"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/map_pop_available_bicycles_label" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
     <TextView
         android:id="@+id/map_pop_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
     <TextView
         android:id="@+id/map_pop_available_parks_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/map_pop_available_bicycles_label"
-        android:text="@string/map_pop_available_parks" />
+        android:text="@string/map_pop_available_parks" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
     <TextView
         android:id="@+id/map_pop_available_parks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/map_pop_available_parks_label" android:layout_alignTop="@id/map_pop_available_parks_label"/>
+        android:layout_alignTop="@id/map_pop_available_parks_label"
+        android:layout_toRightOf="@+id/map_pop_available_parks_label" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
     <TextView
         android:id="@+id/map_pop_address_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/map_pop_available_parks_label"
-        android:text="@string/map_pop_address" />
+        android:text="@string/map_pop_address" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
     <TextView
         android:id="@+id/map_pop_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/map_pop_address_label" android:layout_alignTop="@id/map_pop_address_label"/>
+        android:layout_alignTop="@id/map_pop_address_label"
+        android:layout_toRightOf="@+id/map_pop_address_label" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
 </RelativeLayout>

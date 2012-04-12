@@ -45,7 +45,7 @@ public class BicycleListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if(convertView == null){
-			convertView = mInflater.inflate(R.layout.bicycle_listview, parent, false);
+			convertView = mInflater.inflate(R.layout.bicycle_listitem, parent, false);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
 		}else{

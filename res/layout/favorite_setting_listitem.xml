@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/favorite_setting_listitem_height" >
+    <TextView
+        android:id="@+id/favorite_setting_listitem_index"
+        android:layout_width="@dimen/favorite_setting_listitem_index_width"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal"/>
+
+    <TextView
+        android:id="@+id/favorite_setting_listitem_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/favorite_setting_listitem_name_height"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/favorite_setting_listitem_index"
+        android:layout_toLeftOf="@+id/favorite_setting_listitem_favorite_image"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal"/>
+
+    <TextView
+        android:id="@+id/favorite_setting_listitem_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/favorite_setting_listitem_address_height"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/favorite_setting_listitem_name"
+        android:layout_toRightOf="@id/favorite_setting_listitem_index"
+        android:layout_toLeftOf="@+id/favorite_setting_listitem_favorite_image"
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+	<ImageView android:id="@+id/favorite_setting_listitem_favorite_image"
+	    android:layout_height="match_parent"
+	    android:layout_width="@dimen/favorite_setting_listitem_favorite_image_width" android:layout_alignParentRight="true" android:src="@drawable/select_check"/>
+</RelativeLayout>

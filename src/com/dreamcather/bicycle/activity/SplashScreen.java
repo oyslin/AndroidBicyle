@@ -71,7 +71,6 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 			getBicycleInfo();
 		}else {
 			startActivity(new Intent(SplashScreen.this, SelectCityActivity.class));
-			finish();
 		}
 	}
 
@@ -81,7 +80,6 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 	public void onBicyclesInfoLoaded(int resultCode) {
 		if(resultCode == Constants.ResultCode.SUCCESS){
 			startActivity(new Intent(SplashScreen.this, Main.class));
-			finish();
 		}		
 	}
 }

@@ -11,11 +11,16 @@
     <color name="blue">#0000ff</color>
     <color name="light_red">#D20000</color>
     <color name="light_green">#66C537</color>
+    <color name="dark_green">#007700</color>
     <color name="listview_divider_color">#CECECE</color>
     <color name="setting_listview_bg_color">#F5F5F5</color>
     <color name="setting_listview_border_color">#CECECE</color>
     
-    <color name="green_btn_start_color">#96CA13</color>
-    <color name="green_btn_end_color">#66C537</color>
+    <color name="green_btn_start_color">#78BF41</color>
+    <color name="green_btn_end_color">#55991F</color>
     <color name="green_btn_border_color">#338709</color>
+    
+    <color name="activity_bg_start_color">#78BF41</color>
+    <color name="activity_bg_end_color">#55991F</color>
+    <color name="activity_image_split_color">#5F9833</color>
 </resources>

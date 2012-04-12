@@ -1,14 +1,11 @@
 package com.dreamcather.bicycle;
 
 import android.app.Application;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.MKEvent;
 import com.baidu.mapapi.MKGeneralListener;
 import com.dreamcather.bicycle.util.Constants;
-import com.dreamcather.bicycle.util.Utils;
 
 public class BicycleApp extends Application {
 	private static BicycleApp mInstance = null;
@@ -36,10 +33,6 @@ public class BicycleApp extends Application {
 	
 	private static class MKGeneralListenerImp implements MKGeneralListener{
 		public void onGetNetworkState(int resultCode) {
-//			Log.e("BicycleApp", "onGetNetworkState resultCode = " + resultCode);
-//			if(resultCode == MKEvent.ERROR_NETWORK_CONNECT || resultCode == MKEvent.ERROR_NETWORK_DATA){
-//				Toast.makeText(mInstance, Utils.getText(R.string.toast_msg_network_error), Toast.LENGTH_LONG).show();
-//			}
 		}
 
 		/**

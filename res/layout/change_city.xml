@@ -18,8 +18,8 @@
         android:cacheColorHint="@color/transparent"
         android:divider="@drawable/setting_listview_divider"
         android:dividerHeight="@dimen/select_city_listview_divider"
-        android:listSelector="@drawable/listview_selector"
-        android:padding="1dip" android:choiceMode="singleChoice" android:drawSelectorOnTop="false">
+        android:listSelector="@drawable/listview_selector_transparent"
+        android:padding="1dip" android:drawSelectorOnTop="false">
     </ListView>
 
     <Button

@@ -8,13 +8,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"        
-        android:textAppearance="@style/Bicycle.TextAppearance.WhiteLargeBold" android:text="Title">       
-    </TextView><ImageView
+        android:textAppearance="@style/Bicycle.TextAppearance.WhiteLargeBold">       
+    </TextView>
+    <ImageView
         android:id="@+id/activity_title_right_image"
         android:layout_width="@dimen/activity_title_image_width"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:scaleType="fitCenter"
-        android:visibility="gone" android:layout_margin="2dip"/>
+        android:visibility="gone" android:padding="5dip" android:background="@drawable/activity_image_bg"/>
 
+    <ImageView
+        android:id="@+id/activity_title_image_split"
+        android:layout_width="2dip"
+        android:layout_height="@dimen/activity_title_image_split_height"
+        android:layout_toLeftOf="@+id/activity_title_right_image"
+        android:background="@drawable/activity_imag_split"
+        android:visibility="gone" />
 </RelativeLayout>

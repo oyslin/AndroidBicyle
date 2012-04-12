@@ -9,4 +9,12 @@
         android:layout_alignParentTop="true" >
     </com.dreamcather.bicycle.view.ActivityTitle>
 
+    <ListView
+        android:id="@+id/favorite_setting_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bicycle_title" android:background="@drawable/activity_bg" android:cacheColorHint="@color/transparent" android:divider="@drawable/setting_listview_divider" android:dividerHeight="@dimen/select_city_listview_divider" android:listSelector="@drawable/listview_selector" android:fastScrollEnabled="true">
+    </ListView>
+
 </RelativeLayout>
