@@ -273,8 +273,9 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			int bicycleId = Integer.parseInt(overlayItem.getTitle());
 			
 			if(System.currentTimeMillis() - mCurrentTime > 2000){
+				mCurrentTime = System.currentTimeMillis();
 				mSelectedId = bicycleId;
-				mHttpService.getSingleBicycleInfo(bicycleId);
+				mHttpService.getSingleBicycleInfo(bicycleId);				
 			}
 			return true;
 		}
