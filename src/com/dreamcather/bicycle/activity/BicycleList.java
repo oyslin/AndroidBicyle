@@ -1,12 +1,10 @@
 package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.adapter.BicycleListAdapter;
@@ -14,6 +12,7 @@ import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.interfaces.IHttpEvent;
 import com.dreamcather.bicycle.interfaces.ISettingEvent;
 import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.view.ActivityTitle;
 import com.dreamcather.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
@@ -22,11 +21,7 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	private ActivityTitle mActivityTitle = null;
 	private BicycleListAdapter mAdapter = null;
 	private ListView mListView = null;
-	private Handler mHandler = null;
 	private ProgressDialog mProgressDialog = null;
-	private final static int BICYCLES_INFO_LOAD_SUCCESS = 0;
-	private final static int BICYCLES_INFO_LOAD_FAILED = 1;
-	private final static int CITY_SETTING_RELOAD_SUCCESS = 3;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,31 +33,6 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	
 	private void init(){
 		this.addEvent();
-		mHandler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				switch (msg.what) {
-					case BICYCLES_INFO_LOAD_SUCCESS:
-						if(mProgressDialog != null){
-							mProgressDialog.dismiss();
-						}						
-						mAdapter.updateDataset();
-						break;
-					case BICYCLES_INFO_LOAD_FAILED:
-						//TODO show error dialog
-						new AlertDialog.Builder(BicycleList.this)
-							.setTitle(getText(R.string.list_alert_dialog_title))
-							.setMessage(R.string.list_alert_dialog_msg)						
-							.show();
-						break;
-					case CITY_SETTING_RELOAD_SUCCESS:
-						mAdapter.updateDataset();
-						break;
-					default:
-						break;
-				}
-			}			
-		};
 		
 		mActivityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		mActivityTitle.setActivityTitle(getText(R.string.title_list));
@@ -103,6 +73,10 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	}
 	
 	private void loadAllBicyclesInfoFromServer(){
+		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
+			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
+			return;
+		}
 		mProgressDialog = new ProgressDialog(this);
 		mProgressDialog.setMessage(getText(R.string.list_progress_dialog_msg));
 		mProgressDialog.show();
@@ -110,11 +84,14 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	}
 
 	public void onAllBicyclesInfoReceived(int resultCode) {
-		if(resultCode == Constants.ResultCode.SUCCESS){
-			mHandler.sendEmptyMessage(BICYCLES_INFO_LOAD_SUCCESS);
+		if(mProgressDialog != null){
+			mProgressDialog.dismiss();
+		}
+		if(resultCode == Constants.ResultCode.SUCCESS){									
+			mAdapter.updateDataset();
 		}else {
-			mHandler.sendEmptyMessage(BICYCLES_INFO_LOAD_FAILED);
-		}		
+			Toast.makeText(this, R.string.toast_msg_server_unavailable, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void onSingleBicycleInfoReceived(
@@ -127,7 +104,7 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	 */
 	public void onCitySettingChanged(int resultCode) {
 		if(resultCode == Constants.ResultCode.SUCCESS){
-			mHandler.sendEmptyMessage(CITY_SETTING_RELOAD_SUCCESS);
+			mAdapter.updateDataset();
 		}
 	}
 }

@@ -1,11 +1,8 @@
 package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,8 +22,6 @@ import com.dreamcather.bicycle.view.ActivityTitle;
 public class ChangeCityActivity extends Activity implements ISettingEvent{
 	private int mSelectedCityIndex = -1;
 	private ISettingService mSettingService = null;
-	private Handler mHandler = null;
-	private static int RELOAD_SUCCESS = 0;
 	private ProgressDialog mProgressDialog = null;
 	
 	@Override
@@ -39,19 +34,6 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 	private void init(){		
 		mSettingService = BicycleService.getInstance().getSettingService();
 		this.addEvent();
-		
-		mHandler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == RELOAD_SUCCESS){
-					if(mProgressDialog != null){
-						mProgressDialog.dismiss();
-					}
-				}else {
-					Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_failed_msg), Toast.LENGTH_SHORT).show();
-				}
-			}			
-		};
 		
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		activityTitle.setActivityTitle(R.string.title_change_city);
@@ -104,10 +86,7 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 		String currentCity = Utils.getStringDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		String selectedCity = Constants.CitySetting.CITY_TAG[mSelectedCityIndex];
 		if(currentCity.equalsIgnoreCase(selectedCity)){
-			new AlertDialog.Builder(this)
-					.setTitle(getText(R.string.change_city_alert_dialog_title))
-					.setMessage(getText(R.string.change_city_alert_dialog_msg))
-					.show();
+			Toast.makeText(this, R.string.change_city_same_city_toast_msg, Toast.LENGTH_SHORT).show();
 		}else {
 			mProgressDialog = new ProgressDialog(this);
 			mProgressDialog.setMessage(getText(R.string.change_city_progress_dialog_msg));
@@ -116,8 +95,15 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 		}
 	}
 
-	public void onCitySettingChanged(int resultCode) {		
-		mHandler.sendEmptyMessage(resultCode);		
+	public void onCitySettingChanged(int resultCode) {
+		if(mProgressDialog != null){
+			mProgressDialog.dismiss();
+		}
+		if(resultCode == Constants.ResultCode.CHANGE_CITY_FAILED){
+			Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_failed_msg), Toast.LENGTH_SHORT).show();
+		}else {
+			Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_success_msg), Toast.LENGTH_SHORT).show();
+		}
 	}
 
 }

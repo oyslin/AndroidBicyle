@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,16 +16,12 @@ import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.interfaces.IAssetsEvent;
 import com.dreamcather.bicycle.interfaces.IAssetsService;
 import com.dreamcather.bicycle.util.Constants;
-import com.dreamcather.bicycle.util.GlobalSetting;
 import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.view.ActivityTitle;
-import com.dreamcather.bicycle.vo.CitySetting;
 
 public class SelectCityActivity extends Activity implements IAssetsEvent{
 	private int mSelectedCityIndex = -1;	
-	private Handler mHandler = null;
 	private IAssetsService mAssetsService = null;
-	private int BICYCLESS_INFO_LOAD_SUCCESS = 0;
 	private ProgressDialog mProgressDialog = null;
 	
 	@Override
@@ -71,16 +65,6 @@ public class SelectCityActivity extends Activity implements IAssetsEvent{
 			}
 		});
 		
-		mHandler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == BICYCLESS_INFO_LOAD_SUCCESS){					
-					startActivity(new Intent(SelectCityActivity.this, Main.class));
-					mProgressDialog.dismiss();
-					finish();
-				}
-			}
-		};
 	}
 	
 	
@@ -105,16 +89,17 @@ public class SelectCityActivity extends Activity implements IAssetsEvent{
 		}
 	}
 	
-	public void onCitySettingLoaded(CitySetting citySetting, int resultCode) {
+	public void onCitySettingLoaded(int resultCode) {
 		if(resultCode == Constants.ResultCode.SUCCESS){
-			GlobalSetting.getInstance().setCitySetting(citySetting);
 			mAssetsService.loadBicyclesInfo();
 		}		
 	}
 
 	public void onBicyclesInfoLoaded(int resultCode) {
 		if(resultCode == Constants.ResultCode.SUCCESS){
-			mHandler.sendEmptyMessage(BICYCLESS_INFO_LOAD_SUCCESS);
+			startActivity(new Intent(SelectCityActivity.this, Main.class));
+			mProgressDialog.dismiss();
+			finish();
 		}		
 	}
 }

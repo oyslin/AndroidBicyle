@@ -15,20 +15,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.dreamcather.bicycle.BicycleApp;
-import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.exception.NetworkException;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
 
 public class HttpUtils {	
 	/**
 	 * update bicycles info from server and save it to local
 	 */
-	public static boolean getAllBicyclesInfoFromServer() throws IOException{
+	public static boolean getAllBicyclesInfoFromServer() throws IOException, NetworkException{
 		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
-			Toast.makeText(BicycleApp.getInstance(), Utils.getText(R.string.network_disconnect_alert_msg), Toast.LENGTH_LONG);
-			return false;
+			throw new NetworkException();
 		}
 		
 		boolean success = false;
@@ -40,7 +37,7 @@ public class HttpUtils {
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
 			if(jsonStr != null && !jsonStr.trim().equals("")){
-				Log.e("HttpUtils", "jsonStr = " + jsonStr);
+				Log.d("HttpUtils", "jsonStr = " + jsonStr);
 				int firstBrace = jsonStr.indexOf("{");
 				
 				jsonStr = jsonStr.substring(firstBrace);
@@ -62,10 +59,9 @@ public class HttpUtils {
 	 * @param id
 	 * @return
 	 */
-	public static BicycleStationInfo getSingleBicycleInfoFromHttp(int id) throws IOException, JSONException{
+	public static BicycleStationInfo getSingleBicycleInfoFromHttp(int id) throws IOException, JSONException, NetworkException{
 		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
-			Toast.makeText(BicycleApp.getInstance(), Utils.getText(R.string.network_disconnect_alert_msg), Toast.LENGTH_LONG);
-			return null;
+			throw new NetworkException();
 		}
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getBicycleDetailUrl() + String.valueOf(id));
@@ -76,6 +72,7 @@ public class HttpUtils {
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
 			
 			if(jsonStr != null && !jsonStr.equals("")){
+				Log.d("HttpUtils", "jsonStr = " + jsonStr);
 				int firstBrace = jsonStr.trim().indexOf("{");
 				jsonStr = jsonStr.substring(firstBrace);
 				

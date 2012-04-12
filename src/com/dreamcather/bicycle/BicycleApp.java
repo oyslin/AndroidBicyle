@@ -36,10 +36,10 @@ public class BicycleApp extends Application {
 	
 	private static class MKGeneralListenerImp implements MKGeneralListener{
 		public void onGetNetworkState(int resultCode) {
-			Log.e("BicycleApp", "onGetNetworkState resultCode = " + resultCode);
-			if(resultCode == MKEvent.ERROR_NETWORK_CONNECT || resultCode == MKEvent.ERROR_NETWORK_DATA){
-				Toast.makeText(mInstance, Utils.getText(R.string.toast_msg_network_error), Toast.LENGTH_LONG).show();
-			}
+//			Log.e("BicycleApp", "onGetNetworkState resultCode = " + resultCode);
+//			if(resultCode == MKEvent.ERROR_NETWORK_CONNECT || resultCode == MKEvent.ERROR_NETWORK_DATA){
+//				Toast.makeText(mInstance, Utils.getText(R.string.toast_msg_network_error), Toast.LENGTH_LONG).show();
+//			}
 		}
 
 		/**

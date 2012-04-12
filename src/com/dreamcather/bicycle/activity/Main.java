@@ -3,8 +3,6 @@ package com.dreamcather.bicycle.activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,20 +13,16 @@ import android.widget.Toast;
 
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.core.BicycleService;
-import com.dreamcather.bicycle.interfaces.IHttpEvent;
 import com.dreamcather.bicycle.interfaces.ISettingEvent;
 import com.dreamcather.bicycle.util.Constants;
 import com.dreamcather.bicycle.util.GlobalSetting;
 import com.dreamcather.bicycle.util.Utils;
-import com.dreamcather.bicycle.vo.BicycleStationInfo;
 import com.dreamcather.bicycle.vo.CitySetting;
 
-public class Main extends TabActivity implements IHttpEvent, ISettingEvent{
+public class Main extends TabActivity implements ISettingEvent{
 	private TabHost mTabHost;
 	private LayoutInflater mLayoutInflater;
 	private long mCurrentTime = 0;
-	private Handler mHandler = null;
-	private final static int CITY_SETTING_RELOAD_SUCCESS = 0;
 	
     /** Called when the activity is first created. */
     @Override
@@ -82,24 +76,13 @@ public class Main extends TabActivity implements IHttpEvent, ISettingEvent{
     			mTabHost.getTabWidget().getChildAt(i).setVisibility(View.GONE);
     		}    		
     	}
-    	
-    	mHandler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == CITY_SETTING_RELOAD_SUCCESS){
-					reloadUI();
-				}
-			}
-    	};
     }
     
     private void addEvent(){
-    	BicycleService.getInstance().getHttpEventListener().addEvent(this);
     	BicycleService.getInstance().getSettingEventListener().addEvent(this);
     }
     
     private void removeEvent(){
-    	BicycleService.getInstance().getHttpEventListener().removeEvent(this);
     	BicycleService.getInstance().getSettingEventListener().removeEvent(this);
     }
     
@@ -155,21 +138,8 @@ public class Main extends TabActivity implements IHttpEvent, ISettingEvent{
     	BicycleService.getInstance().getHttpService().getAllBicyclesInfo();    	
     }
 
-	public void onAllBicyclesInfoReceived(int resultCode) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void onSingleBicycleInfoReceived(
-			BicycleStationInfo bicycleStationInfo, int resultCode) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void onCitySettingChanged(int resultCode) {
-		if(resultCode == Constants.ResultCode.SUCCESS){
-			mHandler.sendEmptyMessage(CITY_SETTING_RELOAD_SUCCESS);
-		}		
+		reloadUI();	
 	}   
     
 }

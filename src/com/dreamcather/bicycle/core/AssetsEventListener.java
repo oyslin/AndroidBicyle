@@ -3,7 +3,6 @@ package com.dreamcather.bicycle.core;
 import java.util.Vector;
 
 import com.dreamcather.bicycle.interfaces.IAssetsEvent;
-import com.dreamcather.bicycle.vo.CitySetting;
 
 public class AssetsEventListener implements IAssetsEvent{
 	private Vector<IAssetsEvent> mEvents = null;
@@ -12,9 +11,9 @@ public class AssetsEventListener implements IAssetsEvent{
 		mEvents = new Vector<IAssetsEvent>();
 	}
 
-	public void onCitySettingLoaded(CitySetting citySetting, int resultCode) {
+	public void onCitySettingLoaded( int resultCode) {
 		for(IAssetsEvent event : mEvents){
-			event.onCitySettingLoaded(citySetting, resultCode);
+			event.onCitySettingLoaded(resultCode);
 		}
 		
 	}

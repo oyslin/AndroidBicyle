@@ -8,11 +8,10 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.GeoPoint;
@@ -60,14 +59,9 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private boolean mMyLocationAdded = false;
 	private boolean mMyLocationEnabled = false;
 	private CitySetting mCitySetting = null;
-	private Handler mHandler = null;
-	private final static int BICYCLE_INFO_LOAD_SUCCESS = 0;
-	private final static int BICYCLE_INFO_LOAD_FAILED = 1;
-	private final static int CITY_SETTING_RELOAD_SUCCESS = 3;
 	private IHttpService mHttpService = null;
 	private OverlayItem mSelectedOverlayItem = null;
-	private boolean mHttpCallReturned = true;
-	private BicycleStationInfo mReturnedBicycleInfo = null;
+	private long mCurrentTime = 0;
 	private int mSelectedId = -1;
 	
 	@Override
@@ -81,29 +75,6 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	
 	private void init(){
 		this.addEvent();
-		
-		mHandler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				switch (msg.what) {
-					case BICYCLE_INFO_LOAD_SUCCESS:
-						mHttpCallReturned = true;
-						
-						//update pop view
-						showPopContent(mReturnedBicycleInfo);
-						mDataset.updateBicycleInfo(mSelectedId, mReturnedBicycleInfo);
-						break;
-					case BICYCLE_INFO_LOAD_FAILED:
-						mHttpCallReturned = false;
-						break;
-					case CITY_SETTING_RELOAD_SUCCESS:
-						reLoadUI();
-						break;	
-					default:
-						break;
-				}				
-			}			
-		};
 		
 		mCitySetting = GlobalSetting.getInstance().getCitySetting();
 		mHttpService = BicycleService.getInstance().getHttpService();
@@ -301,11 +272,10 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			
 			int bicycleId = Integer.parseInt(overlayItem.getTitle());
 			
-			if(mHttpCallReturned){
-				mHttpCallReturned = false;
+			if(System.currentTimeMillis() - mCurrentTime > 2000){
 				mSelectedId = bicycleId;
 				mHttpService.getSingleBicycleInfo(bicycleId);
-			}			
+			}
 			return true;
 		}
 
@@ -350,7 +320,9 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	 * on All bicycles info received
 	 */
 	public void onAllBicyclesInfoReceived(int resultCode) {
-		//do nothing		
+		if(resultCode == Constants.ResultCode.NETWORK_DISCONNECT){
+			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT);
+		}
 	}
 
 	/**
@@ -359,11 +331,13 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	public void onSingleBicycleInfoReceived(
 			BicycleStationInfo bicycleStationInfo, int resultCode) {
 		if(resultCode == Constants.ResultCode.SUCCESS){
-			mReturnedBicycleInfo = bicycleStationInfo;
-			mHandler.sendEmptyMessage(BICYCLE_INFO_LOAD_SUCCESS);
+			showPopContent(bicycleStationInfo);
+			mDataset.updateBicycleInfo(mSelectedId, bicycleStationInfo);
+		}else if(resultCode == Constants.ResultCode.NETWORK_DISCONNECT){
+			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
 		}else {
-			mHandler.sendEmptyMessage(BICYCLE_INFO_LOAD_FAILED);
-		}		
+			Toast.makeText(this, R.string.toast_msg_server_unavailable, Toast.LENGTH_SHORT).show();			
+		}
 	}
 
 	/**
@@ -371,7 +345,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	 */
 	public void onCitySettingChanged(int resultCode) {
 		if(resultCode == Constants.ResultCode.SUCCESS){
-			mHandler.sendEmptyMessage(CITY_SETTING_RELOAD_SUCCESS);
+			reLoadUI();
 		}		
 	}
 }

@@ -1,7 +1,6 @@
 package com.dreamcather.bicycle.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -134,16 +133,12 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		int networkInfo = Utils.getNetworkInfo();
 		//network unavailable
 		if(networkInfo == Constants.NetworkInfo.DISCONNECT){
-			new AlertDialog.Builder(this).setTitle(R.string.network_disconnect_alert_title)
-							.setMessage(R.string.network_disconnect_alert_msg)
-							.show();
+			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
 			return;
 		}
 		//not wifi
 		if(networkInfo != Constants.NetworkInfo.WIFI){
-			new AlertDialog.Builder(this).setTitle(R.string.map_setting_download_offline_map_network_not_wifi_title)
-							.setMessage(R.string.map_setting_download_offline_map_network_not_wifi_msg)
-							.show();
+			Toast.makeText(this, R.string.map_setting_download_offline_map_network_not_wifi_msg, Toast.LENGTH_SHORT).show();
 			return;
 		}
 		

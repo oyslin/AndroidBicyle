@@ -147,14 +147,14 @@ public class Utils {
 	/**
 	 * load city setting from local
 	 */
-	public static CitySetting loadCitySetting() throws Exception{
-		CitySetting citySetting = null;
+	public static boolean loadCitySetting() throws Exception{		
 		String cityName = Utils.getStringDataFromLocal(Constants.LocalStoreTag.CITY_NAME);
 		if(cityName == null || cityName.equals("")){
-			return null;
+			return false;
 		}
+		boolean result = false;		
 		try {
-			InputStream inputStream = BicycleApp.getInstance().getAssets().open(Constants.CITY_SETTING_FILENAME);
+			InputStream inputStream = BicycleApp.getInstance().getAssets().open(Constants.CitySetting.CITY_SETTING_FILENAME);
 			StringBuilder stringBuilder = new StringBuilder();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
 			String line = null;
@@ -173,13 +173,15 @@ public class Utils {
 				double offsetLatitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LATITUDE);
 				double offsetLongitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LONGITUDE);
 				String assetsFileName = cityJson.getString(Constants.SettingJsonTag.ASSETS_FILE_NAME);
-				citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
-			}			
+				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
+				GlobalSetting.getInstance().setCitySetting(citySetting);
+				result = true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		return citySetting;
+		return result;
 	}
 	
 	public static void loadBicyclesInfoFromAssets() throws Exception{

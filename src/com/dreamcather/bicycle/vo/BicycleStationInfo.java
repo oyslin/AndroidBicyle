@@ -1,6 +1,9 @@
 package com.dreamcather.bicycle.vo;
 
-public class BicycleStationInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BicycleStationInfo implements Parcelable{
 	private int mId = 1;
 	private String mName = "";
 	private double mLatitude = 0.0;
@@ -61,5 +64,43 @@ public class BicycleStationInfo {
 	public void setAddress(String mAddress) {
 		this.mAddress = mAddress;
 	}
+
+	public int describeContents() {
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(mId);
+		dest.writeString(mName);
+		dest.writeDouble(mLatitude);
+		dest.writeDouble(mLongitude);
+		dest.writeInt(mCapacity);
+		dest.writeInt(mAvailable);
+		dest.writeString(mAddress);		
+	}
 	
+	public static final Parcelable.Creator<BicycleStationInfo> CREATOR = new Parcelable.Creator<BicycleStationInfo>() {
+
+		public BicycleStationInfo createFromParcel(Parcel source) {
+			return new BicycleStationInfo(source);
+		}
+
+		public BicycleStationInfo[] newArray(int size) {
+			return new BicycleStationInfo[size];
+		}		
+	};
+	
+	public BicycleStationInfo(Parcel in){
+		readFromParce(in);
+	}
+	
+	private void readFromParce(Parcel in){
+		this.mId = in.readInt();
+		this.mName = in.readString();
+		this.mLatitude = in.readDouble();
+		this.mLongitude = in.readDouble();
+		this.mCapacity = in.readInt();
+		this.mAvailable = in.readInt();
+		this.mAddress = in.readString();
+	}
 }

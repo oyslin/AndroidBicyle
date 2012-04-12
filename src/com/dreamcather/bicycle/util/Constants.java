@@ -35,6 +35,7 @@ public class Constants {
 	}
 	
 	public interface CitySetting{
+		String CITY_SETTING_FILENAME = "setting/citysetting.json";
 		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "zhongshan", "shaoxing"};
 		int CITY_NAME_RESID[] = {
 				R.string.city_name_suzhou,
@@ -56,7 +57,6 @@ public class Constants {
 		};
 	}
 
-	public static final String CITY_SETTING_FILENAME = "setting/citysetting.json";
 	
 	public interface HttpSetting{		
 		String HTTP_CONT_ENCODE = "UTF-8";
@@ -160,12 +160,17 @@ public class Constants {
 		int JSON_PARSER_FAILED = 2;
 		int LOAD_ASSETS_FAILED = 3;
 		int CHANGE_CITY_FAILED = 4;
+		int NETWORK_DISCONNECT = 5;
 	}
 	
 	public interface NetworkInfo{
 		int DISCONNECT = 0;
 		int WIFI = 1;
 		int MOBILE = 2;
+	}
+	
+	public interface ParcelableTag{
+		String BICYCLE_STATION_INFO = "bicycle_station_info";
 	}
 	
 }
