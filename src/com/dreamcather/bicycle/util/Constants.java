@@ -80,6 +80,7 @@ public class Constants {
 	public interface SettingJsonTag{
 		String TABS = "tabs";
 		String ALL_BICYCLES_URL = "allBicyclesUrl";
+		String MAP_URL = "mapUrl";
 		String BICYCLE_DETAIL_URL= "bicycleDetailUrl";
 		String DEFAULT_LATITUDE = "defaultLatitude";
 		String DEFAULT_LONGITUDE= "defaultLongitude";

@@ -3,6 +3,7 @@ package com.dreamcather.bicycle.vo;
 public class CitySetting {
 	private int[] mTabs = null;
 	private String mAllBicyclesUrl = "";
+	private String mMapUrl = "";
 	private String mBicycleDetailUrl = "";
 	private double mDefaultLatitude = 0;
 	private double mDefaultLongitude = 0;
@@ -10,12 +11,13 @@ public class CitySetting {
 	private double mOffsetLongitude = 0;
 	private String mAssetsFileName = "";
 	
-	public CitySetting(String tabStr, String allBicyclesUrl,
+	public CitySetting(String tabStr, String allBicyclesUrl, String mapUrl,
 			String bicycleDetailUrl, double defaultLatitude,
 			double defaultLongitude, double offsetLatitude,
 			double offsetLongitude, String assetsFileName) {		
 		this.mTabs = convertToArray(tabStr);
 		this.mAllBicyclesUrl = allBicyclesUrl;
+		this.mMapUrl = mapUrl;
 		this.mBicycleDetailUrl = bicycleDetailUrl;
 		this.mDefaultLatitude = defaultLatitude;
 		this.mDefaultLongitude = defaultLongitude;
@@ -45,7 +47,16 @@ public class CitySetting {
 	}
 	public void setAllBicyclesUrl(String mAllBicyclesUrl) {
 		this.mAllBicyclesUrl = mAllBicyclesUrl;
+	}	
+	
+	public String getMapUrl() {
+		return mMapUrl;
 	}
+
+	public void setMapUrl(String mMapUrl) {
+		this.mMapUrl = mMapUrl;
+	}
+
 	public String getBicycleDetailUrl() {
 		return mBicycleDetailUrl;
 	}

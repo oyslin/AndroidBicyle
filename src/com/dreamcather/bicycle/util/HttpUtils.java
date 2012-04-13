@@ -10,18 +10,28 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.util.Log;
 
 import com.dreamcather.bicycle.exception.NetworkException;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
 import com.dreamcather.bicycle.vo.CitySetting;
 
-public class HttpUtils {	
+public class HttpUtils {
+	private static String mCookieStr = "lzstat_uv=8187078182460348672|2102127; ASPSESSIONIDAQASTRBR=CHOJHGCAJAAMNGEIBGABOBLA; lzstat_ss=2005681006_0_1334362124_2102127";
+	
+	public static void updateCookie(String cookieStr){
+		if(cookieStr == null || cookieStr.equals("")){
+			return;			
+		}
+		mCookieStr = cookieStr;
+		mCookieStr = "lzstat_uv=8187078182460348672|2102127; ASPSESSIONIDAQASTRBR=CHOJHGCAJAAMNGEIBGABOBLA; lzstat_ss=2005681006_0_1334362124_2102127";
+	}
+	
 	/**
 	 * update bicycles info from server and save it to local
 	 */
@@ -31,21 +41,27 @@ public class HttpUtils {
 		}
 		
 		boolean success = false;
- 		HttpClient httpClient = new DefaultHttpClient();
+ 		HttpClient httpClient = new DefaultHttpClient(); 			
+
 		CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
 		if(citySetting == null){
 			return false;
 		}
-		Log.e("HttpUtils", "url = " + citySetting.getAllBicyclesUrl());
-		HttpGet httpGet = new HttpGet(citySetting.getAllBicyclesUrl());
+		HttpGet httpGet = new HttpGet(citySetting.getAllBicyclesUrl());		
+		
+		HttpParams params = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(params, 5000);
+		httpGet.setParams(params);
+		
 		String jsonStr = null;
 		try {
-			HttpResponse response = httpClient.execute(httpGet);
-			Log.e("HttpUtils", "jsonStr = " + EntityUtils.toString(response.getEntity(), "utf-8"));
+			if(mCookieStr != null && !mCookieStr.equals("")){
+				httpGet.setHeader("Cookie",mCookieStr);
+			}
+			HttpResponse response = httpClient.execute(httpGet);					
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
 			if(jsonStr != null && !jsonStr.trim().equals("")){
-				Log.d("HttpUtils", "jsonStr = " + jsonStr);
 				int firstBrace = jsonStr.indexOf("{");
 				if(firstBrace < 0){
 					throw new IOException();
@@ -75,17 +91,18 @@ public class HttpUtils {
 		}
 		HttpClient httpClient = new DefaultHttpClient();
 		CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
-		Log.e("HttpUtils", "url = " + citySetting.getBicycleDetailUrl() + String.valueOf(id));
+		
 		HttpGet httpGet = new HttpGet(citySetting.getBicycleDetailUrl() + String.valueOf(id));
 		String jsonStr = null;
 		BicycleStationInfo bicycleInfo = null;
 		try {
+			if(mCookieStr != null && !mCookieStr.equals("")){
+				httpGet.setHeader("Cookie",mCookieStr);
+			}
 			HttpResponse response = httpClient.execute(httpGet);
-			Log.e("HttpUtils", "jsonStr = " + EntityUtils.toString(response.getEntity(), "utf-8"));
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
 			
 			if(jsonStr != null && !jsonStr.equals("")){
-				Log.d("HttpUtils", "jsonStr = " + jsonStr);
 				int firstBrace = jsonStr.trim().indexOf("{");
 				if(firstBrace < 0){
 					throw new IOException();
@@ -123,7 +140,7 @@ public class HttpUtils {
 	private static String getJsonDataFromInputStream(InputStream inputStream){
 		String jsonStr = null;
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "ISO-8859-1"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
 			StringBuilder stringBuilder = new StringBuilder();
 			String line = null;
 			while((line= reader.readLine()) != null){
