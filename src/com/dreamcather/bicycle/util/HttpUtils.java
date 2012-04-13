@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,21 +31,25 @@ public class HttpUtils {
 		}
 		
 		boolean success = false;
-		HttpClient httpClient = new DefaultHttpClient();
+ 		HttpClient httpClient = new DefaultHttpClient();
 		CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
 		if(citySetting == null){
 			return false;
 		}
-		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getAllBicyclesUrl());
+		Log.e("HttpUtils", "url = " + citySetting.getAllBicyclesUrl());
+		HttpGet httpGet = new HttpGet(citySetting.getAllBicyclesUrl());
 		String jsonStr = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
+			Log.e("HttpUtils", "jsonStr = " + EntityUtils.toString(response.getEntity(), "utf-8"));
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
 			if(jsonStr != null && !jsonStr.trim().equals("")){
 				Log.d("HttpUtils", "jsonStr = " + jsonStr);
 				int firstBrace = jsonStr.indexOf("{");
-				
+				if(firstBrace < 0){
+					throw new IOException();
+				}
 				jsonStr = jsonStr.substring(firstBrace);
 				
 				Utils.setToDataset(jsonStr);
@@ -69,16 +74,23 @@ public class HttpUtils {
 			throw new NetworkException();
 		}
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(GlobalSetting.getInstance().getCitySetting().getBicycleDetailUrl() + String.valueOf(id));
+		CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
+		Log.e("HttpUtils", "url = " + citySetting.getBicycleDetailUrl() + String.valueOf(id));
+		HttpGet httpGet = new HttpGet(citySetting.getBicycleDetailUrl() + String.valueOf(id));
 		String jsonStr = null;
 		BicycleStationInfo bicycleInfo = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
+			Log.e("HttpUtils", "jsonStr = " + EntityUtils.toString(response.getEntity(), "utf-8"));
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
 			
 			if(jsonStr != null && !jsonStr.equals("")){
 				Log.d("HttpUtils", "jsonStr = " + jsonStr);
 				int firstBrace = jsonStr.trim().indexOf("{");
+				if(firstBrace < 0){
+					throw new IOException();
+				}
+				
 				jsonStr = jsonStr.substring(firstBrace);
 				
 				JSONObject jsonObject = new JSONObject(jsonStr);	
@@ -111,7 +123,7 @@ public class HttpUtils {
 	private static String getJsonDataFromInputStream(InputStream inputStream){
 		String jsonStr = null;
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "ISO-8859-1"));
 			StringBuilder stringBuilder = new StringBuilder();
 			String line = null;
 			while((line= reader.readLine()) != null){

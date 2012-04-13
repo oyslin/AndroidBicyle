@@ -52,6 +52,17 @@ public class Utils {
 		mEditor.commit();
 	}
 	
+	public static int getIntDataFromLocal(String tagName, int defaultValue){
+		int result = -1;
+		result = mSharedPreferences.getInt(tagName, defaultValue);
+		return result;
+	}
+	
+	public static void storeIntDataToLocal(String tagName, int value){
+		mEditor.putInt(tagName, value);
+		mEditor.commit();
+	}
+	
 	/**
 	 * start a phone call
 	 */

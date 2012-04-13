@@ -75,32 +75,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/select_check" />
-        </RelativeLayout>
-        
-        <RelativeLayout
-            android:id="@+id/map_setting_show_all_bicycles"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_item_height"
-            android:background="@drawable/setting_listitem_bg_top"
-            android:paddingLeft="5dip" android:layout_marginTop="20dip" android:clickable="true">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/map_setting_show_all_bicycles_image"
-                android:gravity="center_vertical"
-                android:text="@string/map_setting_show_all_bicycles"
-                android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />
-            <ImageView
-                android:id="@+id/map_setting_show_all_bicycles_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/select_check" />
+                android:src="@drawable/ic_setting_next_indicator" />
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/map_setting_show_only_favorites"
+            android:id="@+id/map_setting_show_favorites"
             android:layout_width="match_parent"
             android:layout_height="@dimen/setting_item_height"
             android:background="@drawable/setting_listitem_bg_bottom"
@@ -110,7 +88,7 @@
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/map_setting_download_offline_map_image"
                 android:gravity="center_vertical"
-                android:text="@string/map_setting_show_only_favorites"
+                android:text="@string/map_setting_show_favorites"
                 android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />
             <ImageView
                 android:id="@+id/map_setting_show_only_favorites_image"

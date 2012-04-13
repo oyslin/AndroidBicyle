@@ -37,6 +37,7 @@
     <string name="map_pop_address">地址: </string>
     
     <string name="progress_dialog_loading_msg">正在加载数据，请稍等..</string>
+    <string name="progress_dialog_locateing">正在定位，请稍等..</string>
     
     <string name="list_progress_dialog_msg">正在更新数据，请稍等..</string>
     <string name="list_avaibike">可借车数: </string>
@@ -44,6 +45,7 @@
     
     <string name="setting_search">查询设置</string>
     <string name="setting_map">地图设置</string>
+    <string name="setting_return_reminder">还车提醒</string>
     <string name="setting_favorite">兴趣点设置</string>
     <string name="setting_share">分享</string>
     <string name="setting_changecity">切换城市</string>
@@ -54,8 +56,8 @@
     <string name="map_setting_auto_locate">程序启动自动定位</string>
     <string name="map_setting_download_offline_map">下载离线地图</string>
     <string name="map_setting_show_nearest_spots">显示附近自行车点</string>
-    <string name="map_setting_show_all_bicycles">显示全部自行车点</string>
-    <string name="map_setting_show_only_favorites">只显示兴趣点</string>
+    
+    <string name="map_setting_show_favorites">突出显示兴趣点</string>
     <string name="map_setting_show_direction">显示行进路线</string>
     <string name="map_setting_download_offline_map_network_not_wifi_msg">地图数据太大，请在Wifi网络下下载离线地图</string>
     <string name="map_setting_download_offline_map_started">开始后台下载离线地图..</string>

@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import com.dreamcather.bicycle.interfaces.IHttpService;
 import com.dreamcather.bicycle.interfaces.ISettingEvent;
 import com.dreamcather.bicycle.util.Constants;
 import com.dreamcather.bicycle.util.GlobalSetting;
+import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.view.ActivityTitle;
 import com.dreamcather.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
@@ -63,6 +65,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private OverlayItem mSelectedOverlayItem = null;
 	private long mCurrentTime = 0;
 	private int mSelectedId = -1;
+	private boolean mAutoLocate = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		
 		mCitySetting = GlobalSetting.getInstance().getCitySetting();
 		mHttpService = BicycleService.getInstance().getHttpService();
+		mHttpService.getAllBicyclesInfo();
 		
 		mBMapManager = BicycleApp.getInstance().getMapManager();
 		if(mBMapManager == null){
@@ -127,7 +131,13 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			}
 		};
 		mActivityTitle.setRightImage(R.drawable.ic_titlebar_locate, rightImageClickEvent);
-
+		mAutoLocate = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.AUTO_LOCATE_ON_STARTUP, false);
+		
+		//add my location if auto locate set
+		if(mAutoLocate){
+			addMyLocation();
+			enalbeMyLocation();
+		}
 	}	
 	
 	private void addEvent(){
@@ -143,17 +153,28 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			addMyLocation();
 		}
 
-		if (mMyLocationEnabled) {
-			mMyLocationOverlay.disableMyLocation();
-			mMyLocationOverlay.disableCompass();
-			mLocationManager.removeUpdates(mLocationListener);
-			mMyLocationEnabled = false;
+		if (mMyLocationEnabled) {			
+			disableMyLocation();
 		} else {
-			mMyLocationOverlay.enableCompass();
-			mMyLocationOverlay.enableMyLocation();
-			mLocationManager.requestLocationUpdates(mLocationListener);
-			mMyLocationEnabled = true;
-		}
+			enalbeMyLocation();
+		};
+	}
+	
+	private void enalbeMyLocation(){
+		mMyLocationOverlay.enableCompass();
+		mMyLocationOverlay.enableMyLocation();
+		//Baidu Map bug, need to stop first
+		mBMapManager.stop();
+		mLocationManager.requestLocationUpdates(mLocationListener);
+		mBMapManager.start();
+		mMyLocationEnabled = true;
+	}
+	
+	private void disableMyLocation(){
+		mMyLocationOverlay.disableMyLocation();
+		mMyLocationOverlay.disableCompass();
+		mLocationManager.removeUpdates(mLocationListener);			
+		mMyLocationEnabled = false;	
 	}
 	
 	private void addMyLocation(){
@@ -165,8 +186,9 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         
         mMyLocationOverlay = new MyLocationOverlay(this, mMapView);
         
-        mLocationListener = new LocationListener() {			
-			public void onLocationChanged(Location location) {				
+        mLocationListener = new LocationListener() {
+			public void onLocationChanged(Location location) {
+				Log.e("BicycleMap", "My Location Changed");
 				mMapController.animateTo(new GeoPoint((int)(location.getLatitude() * RAT), (int)(location.getLongitude() * RAT)));
 			}
 		};
@@ -194,9 +216,8 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         	GeoPoint point = new GeoPoint((int)((mCitySetting.getOffsetLatitude() + bicycleInfo.getLatitude()) * RAT), (int)((mCitySetting.getOffsetLongitude() + bicycleInfo.getLongitude()) * RAT));
         	OverlayItem overlayItem = new OverlayItem(point, String.valueOf(bicycleInfo.getId()), bicycleInfo.getName());
         	bicycleOverlays.addOverlayItem(overlayItem);
-        }
-        
-        overlayList.add(bicycleOverlays);
+        }        
+        overlayList.add(bicycleOverlays);        
 	}
 	
 	private void reLoadUI(){

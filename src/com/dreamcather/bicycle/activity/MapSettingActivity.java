@@ -21,9 +21,7 @@ import com.dreamcather.bicycle.view.ActivityTitle;
 
 public class MapSettingActivity extends Activity implements MKOfflineMapListener{
 	private ImageView mAutoLocateImage = null;
-	private ImageView mShowNearSpotsImage = null;
-	private ImageView mShowAllBicyclesImage = null;
-	private ImageView mShowOnlyFavoriteImage = null;
+	private ImageView mShowFavoriteImage = null;
 	
 	private BMapManager mMapManger = null;
 	private MKOfflineMap mOfflineMap = null;
@@ -67,10 +65,9 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		});
 		
 		RelativeLayout showNearSpot = (RelativeLayout) findViewById(R.id.map_setting_show_nearest_spots);
-		mShowNearSpotsImage = (ImageView) findViewById(R.id.map_setting_show_nearest_spots_image);
 		
-		boolean showNearestSpot = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.SHOW_NEAREST_SPOTS, false);
-		mShowNearSpotsImage.setSelected(showNearestSpot);
+		int showNearestSpot = Utils.getIntDataFromLocal(Constants.LocalStoreTag.SHOW_NEAREST_SPOTS, -1);
+		
 		
 		showNearSpot.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
@@ -78,25 +75,15 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 			}
 		});
 		
-		RelativeLayout showAllBicycles = (RelativeLayout) findViewById(R.id.map_setting_show_all_bicycles);
-		mShowAllBicyclesImage = (ImageView) findViewById(R.id.map_setting_show_all_bicycles_image);
+		RelativeLayout showFavorites = (RelativeLayout) findViewById(R.id.map_setting_show_favorites);
+		mShowFavoriteImage = (ImageView) findViewById(R.id.map_setting_show_only_favorites_image);
 		
-		RelativeLayout showOnlyFavorites = (RelativeLayout) findViewById(R.id.map_setting_show_only_favorites);
-		mShowOnlyFavoriteImage = (ImageView) findViewById(R.id.map_setting_show_only_favorites_image);
+		boolean showFavorite = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.SHOW_FAVORITE_SPOTS, true);
+		mShowFavoriteImage.setSelected(showFavorite);
 		
-		boolean showAll = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.SHOW_ALL_BICYCLES, true);
-		mShowAllBicyclesImage.setSelected(showAll);
-		mShowOnlyFavoriteImage.setSelected(!showAll);
-		
-		showAllBicycles.setOnClickListener(new OnClickListener() {			
+		showFavorites.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
-				onShowAllBicyclesClicked();				
-			}
-		});
-		
-		showOnlyFavorites.setOnClickListener(new OnClickListener() {			
-			public void onClick(View v) {
-				onShowOnlyFavoritesClicked();				
+				onShowFavoritesClicked();				
 			}
 		});
 	}
@@ -179,21 +166,14 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 	}
 	
 	private void onShowNearSpotsClicked(){
-		boolean selected = mShowNearSpotsImage.isSelected();
-		mShowNearSpotsImage.setSelected(!selected);
-		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.SHOW_NEAREST_SPOTS, !selected);
+		
 	}
 	
-	private void onShowAllBicyclesClicked(){
-		mShowAllBicyclesImage.setSelected(true);
-		mShowOnlyFavoriteImage.setSelected(false);
-		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.SHOW_ALL_BICYCLES, true);
-	}
 	
-	private void onShowOnlyFavoritesClicked(){
-		mShowOnlyFavoriteImage.setSelected(true);
-		mShowAllBicyclesImage.setSelected(false);
-		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.SHOW_ALL_BICYCLES, false);
+	private void onShowFavoritesClicked(){
+		boolean selected = mShowFavoriteImage.isSelected();
+		mShowFavoriteImage.setSelected(!selected);
+		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.SHOW_FAVORITE_SPOTS, false);
 	}
 
 	public void onGetOfflineMapState(int type, int state) {

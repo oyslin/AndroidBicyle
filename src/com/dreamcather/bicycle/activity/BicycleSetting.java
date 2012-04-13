@@ -71,14 +71,18 @@ public class BicycleSetting extends Activity {
 			case 0:
 			case 1:
 			case 2:
-			case 3:			
+			case 4:			
 				final Intent intent = new Intent(this, Constants.SettingListViewItem.NEXT_ACTIVITY_ARRAY[index]);
 				listener = new OnClickListener() {				
 					public void onClick(View v) {
 						startActivity(intent);					
 					}
 				};
-				break;			
+				break;
+			case 3:
+				break;
+			default:
+				break;
 		}
 		return listener;
 	}	

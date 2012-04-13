@@ -107,4 +107,15 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 			mAdapter.updateDataset();
 		}
 	}
+
+	@Override
+	protected void onResume() {		
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {		
+		super.onPause();
+	}
+	
 }

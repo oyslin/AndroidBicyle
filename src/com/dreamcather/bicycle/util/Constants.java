@@ -93,7 +93,7 @@ public class Constants {
 		String CITY_NAME = "city_name";
 		String AUTO_LOCATE_ON_STARTUP = "auto_locate";
 		String SHOW_NEAREST_SPOTS = "show_nearest_spot";
-		String SHOW_ALL_BICYCLES = "show_all_bicycles";
+		String SHOW_FAVORITE_SPOTS = "show_favorite_spots";
 		String FAVORITE_IDS = "favorite_ids";
 	}
 	
@@ -106,12 +106,14 @@ public class Constants {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
 									R.drawable.ic_setting_favorite,
+									R.drawable.ic_reminder,
 									R.drawable.ic_setting_search
 		};
 		String[] SETTING_ITEM_TEXT = {
 									Utils.getText(R.string.setting_map),
 									Utils.getText(R.string.setting_changecity),
 									Utils.getText(R.string.setting_favorite),
+									Utils.getText(R.string.setting_return_reminder),
 									Utils.getText(R.string.setting_search)									
 		};
 		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
@@ -121,6 +123,7 @@ public class Constants {
 									MapSettingActivity.class,
 									ChangeCityActivity.class,
 									FavoriteSettingActivity.class,
+									null,
 									SearchSettingActivity.class,									
 		};
 		
@@ -128,11 +131,13 @@ public class Constants {
 									0,
 									-1,
 									-1,
-									-1							
+									-1,
+									-1
 		};
 		
 		int[] BACKGROUND_IMAGE ={
 									R.drawable.setting_listitem_bg_top,
+									R.drawable.setting_listitem_bg_middle,
 									R.drawable.setting_listitem_bg_middle,
 									R.drawable.setting_listitem_bg_middle,
 									R.drawable.setting_listitem_bg_bottom				

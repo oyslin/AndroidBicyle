@@ -135,7 +135,7 @@ public class Main extends TabActivity implements ISettingEvent{
      * load bicycles info from server via thread
      */
     private void loadBicycleInfoFromServer(){
-    	BicycleService.getInstance().getHttpService().getAllBicyclesInfo();    	
+//    	BicycleService.getInstance().getHttpService().getAllBicyclesInfo();    	
     }
 
 	public void onCitySettingChanged(int resultCode) {
