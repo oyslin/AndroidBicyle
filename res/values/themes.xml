@@ -6,8 +6,8 @@
         <!-- item name="android:windowFullscreen">true</item-->
         
         <!-- window background -->
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:colorBackground">@color/white</item>
+<!--         <item name="android:windowBackground">@color/white</item> -->
+<!--         <item name="android:colorBackground">@color/white</item> -->
         
         <!-- activity animation -->
         <item name="android:windowAnimationStyle">@style/Bicycle.ActivityAnimation</item>

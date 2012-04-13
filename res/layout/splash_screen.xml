@@ -8,9 +8,5 @@
         android:id="@+id/splash_Img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash_screen" android:scaleType="fitXY"/>
-	<WebView
-        android:id="@+id/splash_webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" android:visibility="gone"/>
+        android:src="@drawable/splash_screen" android:scaleType="fitXY"/>	
 </LinearLayout>

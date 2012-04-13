@@ -178,14 +178,14 @@ public class Utils {
 			if(cityJson != null){
 				String tabs = cityJson.getString(Constants.SettingJsonTag.TABS);
 				String allBicyclesUrl = cityJson.getString(Constants.SettingJsonTag.ALL_BICYCLES_URL);
-				String mapUrl = cityJson.getString(Constants.SettingJsonTag.MAP_URL);
+				String cookie = cityJson.getString(Constants.SettingJsonTag.COOKIE);
 				String bicycleDetailUrl = cityJson.getString(Constants.SettingJsonTag.BICYCLE_DETAIL_URL);
 				double defaultLatitude = cityJson.getDouble(Constants.SettingJsonTag.DEFAULT_LATITUDE);
 				double defaultLongitude = cityJson.getDouble(Constants.SettingJsonTag.DEFAULT_LONGITUDE);
 				double offsetLatitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LATITUDE);
 				double offsetLongitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LONGITUDE);
 				String assetsFileName = cityJson.getString(Constants.SettingJsonTag.ASSETS_FILE_NAME);
-				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, mapUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
+				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, cookie, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
 				GlobalSetting.getInstance().setCitySetting(citySetting);
 				result = true;
 			}

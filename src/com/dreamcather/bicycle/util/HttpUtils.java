@@ -22,15 +22,6 @@ import com.dreamcather.bicycle.vo.BicycleStationInfo;
 import com.dreamcather.bicycle.vo.CitySetting;
 
 public class HttpUtils {
-	private static String mCookieStr = "lzstat_uv=8187078182460348672|2102127; ASPSESSIONIDAQASTRBR=CHOJHGCAJAAMNGEIBGABOBLA; lzstat_ss=2005681006_0_1334362124_2102127";
-	
-	public static void updateCookie(String cookieStr){
-		if(cookieStr == null || cookieStr.equals("")){
-			return;			
-		}
-		mCookieStr = cookieStr;
-		mCookieStr = "lzstat_uv=8187078182460348672|2102127; ASPSESSIONIDAQASTRBR=CHOJHGCAJAAMNGEIBGABOBLA; lzstat_ss=2005681006_0_1334362124_2102127";
-	}
 	
 	/**
 	 * update bicycles info from server and save it to local
@@ -55,8 +46,9 @@ public class HttpUtils {
 		
 		String jsonStr = null;
 		try {
-			if(mCookieStr != null && !mCookieStr.equals("")){
-				httpGet.setHeader("Cookie",mCookieStr);
+			String cookie = citySetting.getCookie();
+			if(cookie != null && !cookie.equals("")){
+				httpGet.setHeader("Cookie",cookie);
 			}
 			HttpResponse response = httpClient.execute(httpGet);					
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
@@ -96,8 +88,9 @@ public class HttpUtils {
 		String jsonStr = null;
 		BicycleStationInfo bicycleInfo = null;
 		try {
-			if(mCookieStr != null && !mCookieStr.equals("")){
-				httpGet.setHeader("Cookie",mCookieStr);
+			String cookie = citySetting.getCookie();
+			if(cookie != null && !cookie.equals("")){
+				httpGet.setHeader("Cookie",cookie);
 			}
 			HttpResponse response = httpClient.execute(httpGet);
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
