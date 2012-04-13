@@ -4,6 +4,7 @@ import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.activity.AppInfo;
 import com.dreamcather.bicycle.activity.BicycleList;
 import com.dreamcather.bicycle.activity.BicycleMap;
+import com.dreamcather.bicycle.activity.BicycleMore;
 import com.dreamcather.bicycle.activity.BicycleQuery;
 import com.dreamcather.bicycle.activity.BicycleSetting;
 import com.dreamcather.bicycle.activity.ChangeCityActivity;
@@ -18,18 +19,21 @@ public class Constants {
 		int IMAGE_ARRAY[] = {R.drawable.ic_tab_bicycle,
 							 R.drawable.ic_tab_list,
 							 R.drawable.ic_tab_query,
-							 R.drawable.ic_tab_setting
+							 R.drawable.ic_tab_setting,
+							 R.drawable.ic_tab_more
 							 };
 		int TEXT_ARRAY[] = {R.string.tab_map,
 							R.string.tab_list,
 							R.string.tab_query,
-							R.string.tab_settings
+							R.string.tab_settings,
+							R.string.tab_more
 							};
 		@SuppressWarnings("rawtypes")
 		Class CONTENT_ARRAY[] = {BicycleMap.class,
 								 BicycleList.class,
 								 BicycleQuery.class,
-								 BicycleSetting.class
+								 BicycleSetting.class,
+								 BicycleMore.class
 								};
 		
 	}
@@ -102,21 +106,13 @@ public class Constants {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
 									R.drawable.ic_setting_favorite,
-									R.drawable.ic_setting_search,
-									R.drawable.ic_setting_feedback,
-									R.drawable.ic_setting_share,
-									R.drawable.ic_setting_update,
-									R.drawable.ic_setting_about
+									R.drawable.ic_setting_search
 		};
 		String[] SETTING_ITEM_TEXT = {
 									Utils.getText(R.string.setting_map),
 									Utils.getText(R.string.setting_changecity),
 									Utils.getText(R.string.setting_favorite),
-									Utils.getText(R.string.setting_search),
-									Utils.getText(R.string.setting_feedback),
-									Utils.getText(R.string.setting_share),
-									Utils.getText(R.string.setting_update),
-									Utils.getText(R.string.setting_about)
+									Utils.getText(R.string.setting_search)									
 		};
 		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
 		
@@ -125,7 +121,41 @@ public class Constants {
 									MapSettingActivity.class,
 									ChangeCityActivity.class,
 									FavoriteSettingActivity.class,
-									SearchSettingActivity.class,
+									SearchSettingActivity.class,									
+		};
+		
+		int[] MARGIN_TOP_IN_DIP = {
+									0,
+									-1,
+									-1,
+									-1							
+		};
+		
+		int[] BACKGROUND_IMAGE ={
+									R.drawable.setting_listitem_bg_top,
+									R.drawable.setting_listitem_bg_middle,
+									R.drawable.setting_listitem_bg_middle,
+									R.drawable.setting_listitem_bg_bottom				
+		};
+	}
+	
+	public interface MoreListviewItem{
+		int[] SETTING_ITEM_IMAGE = {						
+									R.drawable.ic_setting_feedback,
+									R.drawable.ic_setting_share,
+									R.drawable.ic_setting_update,
+									R.drawable.ic_setting_about
+		};
+		String[] SETTING_ITEM_TEXT = {						
+									Utils.getText(R.string.setting_feedback),
+									Utils.getText(R.string.setting_share),
+									Utils.getText(R.string.setting_update),
+									Utils.getText(R.string.setting_about)
+		};
+		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
+		
+		@SuppressWarnings("rawtypes")
+		Class NEXT_ACTIVITY_ARRAY[] = {						
 									FeedbackActivity.class,
 									null,
 									null,
@@ -133,27 +163,19 @@ public class Constants {
 		};
 		
 		int[] MARGIN_TOP_IN_DIP = {
-				0,
-				-1,
-				-1,
-				-1,
-				20,
-				-1,
-				-1,
-				-1				
+									0,
+									-1,
+									-1,
+									-1					
 		};
 		
 		int[] BACKGROUND_IMAGE ={
-				R.drawable.setting_listitem_bg_top,
-				R.drawable.setting_listitem_bg_middle,
-				R.drawable.setting_listitem_bg_middle,
-				R.drawable.setting_listitem_bg_bottom,
-				R.drawable.setting_listitem_bg_top,
-				R.drawable.setting_listitem_bg_middle,
-				R.drawable.setting_listitem_bg_middle,
-				R.drawable.setting_listitem_bg_bottom,
+									R.drawable.setting_listitem_bg_top,
+									R.drawable.setting_listitem_bg_middle,
+									R.drawable.setting_listitem_bg_middle,
+									R.drawable.setting_listitem_bg_bottom
 		};
-	}	
+	}
 	
 	public interface ResultCode{
 		int SUCCESS = 0;

@@ -16,6 +16,7 @@
     <string name="tab_settings">设置</string>
     <string name="tab_query">信息查询</string>
     <string name="tab_list">列表</string>
+    <string name="tab_more">更多</string>
     
     <string name="title_map">自行车地图</string>    
     <string name="title_setting">设置</string>
@@ -25,6 +26,7 @@
     <string name="title_select_city">选择城市</string>
     <string name="title_change_city">切换城市</string>
     <string name="title_feedback">反馈意见</string>
+    <string name="title_more">更多</string>
     
     <string name="title_map_setting">地图设置</string>
     <string name="title_search_setting">查询设置</string>

@@ -16,70 +16,80 @@ import com.dreamcather.bicycle.util.Constants;
 import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.view.ActivityTitle;
 
-public class BicycleSetting extends Activity {
+public class BicycleMore extends Activity {
 	private LayoutInflater mInflater = null;
 	private LinearLayout mListContainer = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.bicycle_setting);
+		setContentView(R.layout.bicycle_more);
 		init();
 	}
 	
-	@Override
-	public void onBackPressed() {
-		this.getParent().onBackPressed();
-	}
-	
 	private void init(){
-		mInflater = getLayoutInflater();
+mInflater = getLayoutInflater();
 		
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
-		activityTitle.setActivityTitle(getText(R.string.title_setting));
+		activityTitle.setActivityTitle(getText(R.string.title_more));
 		
-		mListContainer = (LinearLayout) findViewById(R.id.bicycle_setting_list_container);
+		mListContainer = (LinearLayout) findViewById(R.id.bicycle_more_list_container);
 		this.addSettingItem();
 	}
 	
 	private void addSettingItem(){
-		for(int i = 0, n = Constants.SettingListViewItem.SETTING_ITEM_IMAGE.length; i < n; i++){
+		for(int i = 0, n = Constants.MoreListviewItem.SETTING_ITEM_IMAGE.length; i < n; i++){
 			View view = mInflater.inflate(R.layout.setting_listview_item, mListContainer, false);
 			
 			ImageView imageView = (ImageView) view.findViewById(R.id.setting_listview_item_image);
 			TextView textView = (TextView) view.findViewById(R.id.setting_listview_item_text);
 			ImageView indicator = (ImageView) view.findViewById(R.id.setting_listview_item_next_indicator);
 			
-			imageView.setImageResource(Constants.SettingListViewItem.SETTING_ITEM_IMAGE[i]);
-			textView.setText(Constants.SettingListViewItem.SETTING_ITEM_TEXT[i]);
-			indicator.setImageResource(Constants.SettingListViewItem.SETTING_ITEM_NEXT_INDICATOR);			
+			imageView.setImageResource(Constants.MoreListviewItem.SETTING_ITEM_IMAGE[i]);
+			textView.setText(Constants.MoreListviewItem.SETTING_ITEM_TEXT[i]);
+			indicator.setImageResource(Constants.MoreListviewItem.SETTING_ITEM_NEXT_INDICATOR);			
 			
 			view.setOnClickListener(getOnFunctionSettingItemClickListener(i));
 			
-			view.setBackgroundResource(Constants.SettingListViewItem.BACKGROUND_IMAGE[i]);
+			view.setBackgroundResource(Constants.MoreListviewItem.BACKGROUND_IMAGE[i]);
 			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			params.setMargins(0, Utils.dip2px(Constants.SettingListViewItem.MARGIN_TOP_IN_DIP[i]), 0, 0);
+			params.setMargins(0, Utils.dip2px(Constants.MoreListviewItem.MARGIN_TOP_IN_DIP[i]), 0, 0);
 			view.setLayoutParams(params);
 			
 			mListContainer.addView(view);
 		}
 	}
-	
 	private OnClickListener getOnFunctionSettingItemClickListener(int index){
 		OnClickListener listener = null;
 		switch (index) {
-			case 0:
-			case 1:
-			case 2:
+			case 0:			
 			case 3:			
-				final Intent intent = new Intent(this, Constants.SettingListViewItem.NEXT_ACTIVITY_ARRAY[index]);
-				listener = new OnClickListener() {				
+				final Intent intent = new Intent(this, Constants.MoreListviewItem.NEXT_ACTIVITY_ARRAY[index]);
+				listener = new OnClickListener() {
 					public void onClick(View v) {
 						startActivity(intent);					
 					}
 				};
-				break;			
+				break;
+			case 1:
+				listener = new OnClickListener() {
+					public void onClick(View v) {					
+						shareToFriend();
+					}
+				};
+				break;
+			
+			default:
+				break;
 		}
 		return listener;
-	}	
+	}
+	
+	private void shareToFriend(){
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.putExtra(Intent.EXTRA_TEXT, getText(R.string.share_message));
+		intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.share_title));
+		intent.setType("text/plain");
+		startActivity(Intent.createChooser(intent, getText(R.string.share_chooser_title)));
+	}
 }
