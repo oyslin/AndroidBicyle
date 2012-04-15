@@ -10,7 +10,6 @@ import android.widget.ListView;
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.adapter.FavoriteSettingAdapter;
 import com.dreamcather.bicycle.view.ActivityTitle;
-import com.dreamcather.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 
 public class FavoriteSettingActivity extends Activity {
 	private ListView mListView = null;
@@ -28,14 +27,14 @@ public class FavoriteSettingActivity extends Activity {
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		activityTitle.setActivityTitle(R.string.title_favorite_setting);
 		
-		IActivityTitleRightImageClickEvent rightClickEvent = new IActivityTitleRightImageClickEvent() {			
-			public void onRightImageClicked() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		
-		activityTitle.setRightImage(R.drawable.ic_titlebar_selectall, rightClickEvent);
+//		IActivityTitleRightImageClickEvent rightClickEvent = new IActivityTitleRightImageClickEvent() {			
+//			public void onRightImageClicked() {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		};
+//		
+//		activityTitle.setRightImage(R.drawable.ic_titlebar_selectall, rightClickEvent);
 		
 		mListView = (ListView) findViewById(R.id.favorite_setting_listview);
 		mAdapter = new FavoriteSettingAdapter();

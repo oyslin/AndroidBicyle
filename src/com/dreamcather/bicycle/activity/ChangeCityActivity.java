@@ -105,5 +105,9 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 			Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_success_msg), Toast.LENGTH_SHORT).show();
 		}
 	}
+	
+	public void onFavoriteIdsChanged() {
+		
+	}
 
 }

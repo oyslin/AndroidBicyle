@@ -140,6 +140,10 @@ public class Main extends TabActivity implements ISettingEvent{
 
 	public void onCitySettingChanged(int resultCode) {
 		reloadUI();	
-	}   
+	}
+	
+	public void onFavoriteIdsChanged() {
+		
+	}
     
 }

@@ -17,6 +17,13 @@ public class SettingEventListener implements ISettingEvent {
 		}
 	}
 	
+	public void onFavoriteIdsChanged() {
+		for(ISettingEvent event : mEvents){
+			event.onFavoriteIdsChanged();
+		}
+		
+	}
+	
 	public void addEvent(ISettingEvent event){
 		if(!mEvents.contains(event)){
 			mEvents.add(event);

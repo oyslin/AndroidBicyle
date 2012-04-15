@@ -54,5 +54,10 @@ public class SettingService implements ISettingService {
 			}
 		});
 	}
+	
+	public void changeFavoriteIds(String favoriteIds) {
+		Utils.storeStringDataToLocal(Constants.LocalStoreTag.FAVORITE_IDS, favoriteIds);
+		BicycleService.getInstance().getSettingEventListener().onFavoriteIdsChanged();
+	}
 
 }

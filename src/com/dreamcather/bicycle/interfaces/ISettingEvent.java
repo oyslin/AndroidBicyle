@@ -5,4 +5,6 @@ public interface ISettingEvent {
 	 * called when city setting changed
 	 */
 	void onCitySettingChanged(int resultCode);
+	
+	void onFavoriteIdsChanged();
 }

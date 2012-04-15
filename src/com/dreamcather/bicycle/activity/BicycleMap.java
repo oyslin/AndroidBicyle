@@ -136,7 +136,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         mFavoriteMarkersOverlay = new ItemizedBicycleOverlay(mFavoriteMarker, this);
         
         //add all bicycle marks
-        addAllBicycleMarks();        
+        addAllBicycleMarkers();        
 
 		IActivityTitleRightImageClickEvent rightImageClickEvent = new IActivityTitleRightImageClickEvent() {			
 			public void onRightImageClicked() {
@@ -224,7 +224,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	 * add all the bicycle marks in map
 	 * @param overlayList
 	 */
-	private void addAllBicycleMarks(){		
+	private void addAllBicycleMarkers(){		
         ArrayList<BicycleStationInfo> bicycleInfos = mDataset.getBicycleStationInfos();
         String[] favoriteIds = getFavoriteIds();
         
@@ -268,6 +268,16 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		}
 		return result;
 	}
+	
+	private void removeAllBicyleMarkers(){
+		if(mMarkersOverlay.size() > 0){
+        	mMapOverLayList.remove(mMarkersOverlay);
+        }
+        
+        if(mFavoriteMarkersOverlay.size() > 0){        	
+        	mMapOverLayList.remove(mFavoriteMarkersOverlay);
+        }
+	}
 		
 	private void reLoadUI(){
 		//set map center
@@ -278,7 +288,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		setMapSenter();
 		
 		//add all overlay
-		addAllBicycleMarks();
+		addAllBicycleMarkers();
 		mMapView.invalidate();
 	}	
 	
@@ -425,6 +435,12 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	public void onCitySettingChanged(int resultCode) {
 		if(resultCode == Constants.ResultCode.SUCCESS){
 			reLoadUI();
-		}		
+		}
+	}
+	
+	public void onFavoriteIdsChanged() {		
+		removeAllBicyleMarkers();
+		addAllBicycleMarkers();
+		mMapView.invalidate();
 	}
 }
