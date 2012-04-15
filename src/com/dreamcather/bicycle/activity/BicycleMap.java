@@ -8,7 +8,6 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
@@ -45,6 +44,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private MKLocationManager mLocationManager = null;
 	private LocationListener mLocationListener = null;
 	private MapView mMapView = null;
+	private List<Overlay> mMapOverLayList = null;
 	private View mPopView = null;
 	private MapController mMapController = null;
 	private BicycleDataset mDataset = null;
@@ -54,8 +54,11 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private TextView mMapPopAvailParks = null;
 	private TextView mMapPopAddress = null;
 	private Drawable mMarker = null;
+	private ItemizedBicycleOverlay mMarkersOverlay = null;
 	private int mMarkerWidth = 0;
 	private int mMarkerHeight = 0;
+	private Drawable mFavoriteMarker = null;
+	private ItemizedBicycleOverlay mFavoriteMarkersOverlay = null;
 	private MyLocationOverlay mMyLocationOverlay = null;
 	private ActivityTitle mActivityTitle = null;
 	private boolean mMyLocationAdded = false;
@@ -101,13 +104,9 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		mMapView.setBuiltInZoomControls(true);
 		
 		mMapController = mMapView.getController();
-		
-		GeoPoint centerPoint = new GeoPoint(
-				(int) ((mCitySetting.getDefaultLatitude() + mCitySetting.getOffsetLatitude()) * RAT),
-				(int) ((mCitySetting.getDefaultLongitude() + mCitySetting.getOffsetLongitude()) * RAT));
-
-		mMapController.setCenter(centerPoint);
 		mMapController.setZoom(15);
+		
+		setMapSenter();		
 		
 		mPopView = getLayoutInflater().inflate(R.layout.map_pop, null);
 		mMapPopName = (TextView) mPopView.findViewById(R.id.map_pop_name);
@@ -121,9 +120,23 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		mPopView.setVisibility(View.GONE);
 		
 
-        List<Overlay> overlayList = mMapView.getOverlays();
+		mMapOverLayList = mMapView.getOverlays();
         
-        addAddBicycleMarks(overlayList);        
+		//init markers
+		mMarker = getResources().getDrawable(R.drawable.ic_marker);
+        mMarkerHeight = mMarker.getIntrinsicHeight();
+        mMarkerWidth = mMarker.getIntrinsicWidth();
+        mMarker.setBounds(0, 0, mMarkerWidth, mMarkerHeight);
+        
+        mMarkersOverlay = new ItemizedBicycleOverlay(mMarker, this);
+		
+        mFavoriteMarker = getResources().getDrawable(R.drawable.ic_marker_favorite);
+        mFavoriteMarker.setBounds(0, 0, mMarkerWidth, mMarkerHeight);
+        
+        mFavoriteMarkersOverlay = new ItemizedBicycleOverlay(mFavoriteMarker, this);
+        
+        //add all bicycle marks
+        addAllBicycleMarks();        
 
 		IActivityTitleRightImageClickEvent rightImageClickEvent = new IActivityTitleRightImageClickEvent() {			
 			public void onRightImageClicked() {
@@ -138,14 +151,24 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			addMyLocation();
 			enalbeMyLocation();
 		}
-	}	
+	}
+	
+	private void setMapSenter(){
+		GeoPoint centerPoint = new GeoPoint(
+				(int) ((mCitySetting.getDefaultLatitude() + mCitySetting.getOffsetLatitude()) * RAT),
+				(int) ((mCitySetting.getDefaultLongitude() + mCitySetting.getOffsetLongitude()) * RAT));
+
+		mMapController.setCenter(centerPoint);
+	}
 	
 	private void addEvent(){
 		BicycleService.getInstance().getHttpEventListener().addEvent(this);
+		BicycleService.getInstance().getSettingEventListener().addEvent(this);
 	}
 	
 	private void removeEvent(){
 		BicycleService.getInstance().getHttpEventListener().removeEvent(this);
+		BicycleService.getInstance().getSettingEventListener().removeEvent(this);
 	}
 	
 	private void onRightImageClicked(){
@@ -188,7 +211,6 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         
         mLocationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
-				Log.e("BicycleMap", "My Location Changed");
 				mMapController.animateTo(new GeoPoint((int)(location.getLatitude() * RAT), (int)(location.getLongitude() * RAT)));
 			}
 		};
@@ -202,28 +224,63 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	 * add all the bicycle marks in map
 	 * @param overlayList
 	 */
-	private void addAddBicycleMarks(List<Overlay> overlayList){
-		mMarker = getResources().getDrawable(R.drawable.ic_marker);
-        mMarkerHeight = mMarker.getIntrinsicHeight();
-        mMarkerWidth = mMarker.getIntrinsicWidth();
-        mMarker.setBounds(0, 0, mMarkerWidth, mMarkerHeight);
-        
-        ItemizedBicycleOverlay bicycleOverlays = new ItemizedBicycleOverlay(mMarker, this);
+	private void addAllBicycleMarks(){		
         ArrayList<BicycleStationInfo> bicycleInfos = mDataset.getBicycleStationInfos();
+        String[] favoriteIds = getFavoriteIds();
         
         for(int i = 0, count = bicycleInfos.size(); i < count; i++){
         	BicycleStationInfo bicycleInfo = bicycleInfos.get(i);
         	GeoPoint point = new GeoPoint((int)((mCitySetting.getOffsetLatitude() + bicycleInfo.getLatitude()) * RAT), (int)((mCitySetting.getOffsetLongitude() + bicycleInfo.getLongitude()) * RAT));
         	OverlayItem overlayItem = new OverlayItem(point, String.valueOf(bicycleInfo.getId()), bicycleInfo.getName());
-        	bicycleOverlays.addOverlayItem(overlayItem);
+        	int bicycleId = bicycleInfo.getId();
+        	if(favoriteIds!= null && isInArray(bicycleId, favoriteIds)){
+        		mFavoriteMarkersOverlay.addOverlayItem(overlayItem);
+        	}else {
+        		mMarkersOverlay.addOverlayItem(overlayItem);
+			}
+        }
+        if(mMarkersOverlay.size() > 0){
+        	mMapOverLayList.add(mMarkersOverlay);
+        }
+        
+        if(mFavoriteMarkersOverlay.size() > 0){        	
+        	mMapOverLayList.add(mFavoriteMarkersOverlay);
         }        
-        overlayList.add(bicycleOverlays);        
 	}
 	
-	private void reLoadUI(){
+	private String[] getFavoriteIds(){
+		String favoriteIds = Utils.getStringDataFromLocal(Constants.LocalStoreTag.FAVORITE_IDS);
+		if(favoriteIds == null || favoriteIds.equals("")){
+			return null;
+		}
+		String[] favoriteIdArray = favoriteIds.split("\\|");
+		return favoriteIdArray;
 		
 	}
 	
+	private boolean isInArray(int index, String[] idArray){
+		boolean result = false;		
+		for(String id : idArray){
+			if(Integer.parseInt(id) == index){
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+		
+	private void reLoadUI(){
+		//set map center
+		mCitySetting = GlobalSetting.getInstance().getCitySetting();
+		mPopView.setVisibility(View.GONE);
+		
+		mMapOverLayList.clear();		
+		setMapSenter();
+		
+		//add all overlay
+		addAllBicycleMarks();
+		mMapView.invalidate();
+	}	
 	
 	@Override
 	public void onBackPressed() {

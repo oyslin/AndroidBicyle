@@ -10,7 +10,7 @@ public class BicycleDataset {
 	private static BicycleDataset mInstance = null;
 	
 	private BicycleDataset(){
-		mBicycleMap = new HashMap<Integer, BicycleStationInfo>();		
+		mBicycleMap = new HashMap<Integer, BicycleStationInfo>();
 	}
 	
 	public synchronized static BicycleDataset getInstance(){
@@ -26,6 +26,7 @@ public class BicycleDataset {
 	 * @param BicycleInfo
 	 */
 	public synchronized void addBicycleInfo(int id, BicycleStationInfo BicycleInfo){
+		
 		if(!mBicycleMap.containsKey(id)){
 			mBicycleMap.put(id, BicycleInfo);
 		}else {

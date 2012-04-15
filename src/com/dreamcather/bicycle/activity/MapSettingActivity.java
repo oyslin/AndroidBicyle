@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.BMapManager;
@@ -22,6 +23,7 @@ import com.dreamcather.bicycle.view.ActivityTitle;
 public class MapSettingActivity extends Activity implements MKOfflineMapListener{
 	private ImageView mAutoLocateImage = null;
 	private ImageView mShowFavoriteImage = null;
+	private TextView mOfflineMapPercentage = null;
 	
 	private BMapManager mMapManger = null;
 	private MKOfflineMap mOfflineMap = null;
@@ -45,11 +47,17 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		activityTitle.setActivityTitle(R.string.title_map_setting);
 		
+		mOfflineMapPercentage = (TextView) findViewById(R.id.map_setting_download_offline_map_percentage);
+		int offlinePercentage = Utils.getIntDataFromLocal(Constants.LocalStoreTag.OFFLINE_MAP_PERCENTAGE, 0);
+		if(offlinePercentage > 0){
+			showOfflineMapPercentage(offlinePercentage);
+		}
+		
 		RelativeLayout autoLocateLine = (RelativeLayout) findViewById(R.id.map_setting_auto_locate);
 		mAutoLocateImage = (ImageView) findViewById(R.id.map_setting_auto_locate_image);
 		
 		boolean autoLocate = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.AUTO_LOCATE_ON_STARTUP, false);		
-		mAutoLocateImage.setSelected(autoLocate);		
+		mAutoLocateImage.setSelected(autoLocate);
 		
 		autoLocateLine.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {				
@@ -66,7 +74,7 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		
 		RelativeLayout showNearSpot = (RelativeLayout) findViewById(R.id.map_setting_show_nearest_spots);
 		
-		int showNearestSpot = Utils.getIntDataFromLocal(Constants.LocalStoreTag.SHOW_NEAREST_SPOTS, -1);
+//		int showNearestSpot = Utils.getIntDataFromLocal(Constants.LocalStoreTag.SHOW_NEAREST_SPOTS, -1);
 		
 		
 		showNearSpot.setOnClickListener(new OnClickListener() {			
@@ -76,9 +84,9 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 		});
 		
 		RelativeLayout showFavorites = (RelativeLayout) findViewById(R.id.map_setting_show_favorites);
-		mShowFavoriteImage = (ImageView) findViewById(R.id.map_setting_show_only_favorites_image);
+		mShowFavoriteImage = (ImageView) findViewById(R.id.map_setting_show_favorites_image);
 		
-		boolean showFavorite = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.SHOW_FAVORITE_SPOTS, true);
+		boolean showFavorite = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.SHOW_FAVORITE_SPOTS, false);
 		mShowFavoriteImage.setSelected(showFavorite);
 		
 		showFavorites.setOnClickListener(new OnClickListener() {			
@@ -102,6 +110,10 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 			mMapManger.stop();
 		}
 		super.onPause();
+	}
+	
+	private void showOfflineMapPercentage(int percentage){
+		mOfflineMapPercentage.setText(String.format(getText(R.string.map_setting_download_offline_map_percentage).toString(), percentage));
 	}
 
 	private void onAutoLocateLineClicked(){
@@ -182,6 +194,9 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 				MKOLUpdateElement update = mOfflineMap.getUpdateInfo(state);
 				if (update.ratio == 100) {
 					Toast.makeText(BicycleApp.getInstance(),getText(R.string.map_setting_download_offline_map_complete), Toast.LENGTH_SHORT).show();
+				}else {
+					showOfflineMapPercentage(update.ratio);
+					Utils.storeIntDataToLocal(Constants.LocalStoreTag.OFFLINE_MAP_PERCENTAGE, update.ratio);
 				}
 	
 				break;

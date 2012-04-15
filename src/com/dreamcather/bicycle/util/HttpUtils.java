@@ -46,10 +46,6 @@ public class HttpUtils {
 		
 		String jsonStr = null;
 		try {
-			String cookie = citySetting.getCookie();
-			if(cookie != null && !cookie.equals("")){
-				httpGet.setHeader("Cookie",cookie);
-			}
 			HttpResponse response = httpClient.execute(httpGet);					
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
@@ -88,10 +84,6 @@ public class HttpUtils {
 		String jsonStr = null;
 		BicycleStationInfo bicycleInfo = null;
 		try {
-			String cookie = citySetting.getCookie();
-			if(cookie != null && !cookie.equals("")){
-				httpGet.setHeader("Cookie",cookie);
-			}
 			HttpResponse response = httpClient.execute(httpGet);
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());	
 			

@@ -80,7 +80,6 @@ public class Constants {
 	public interface SettingJsonTag{
 		String TABS = "tabs";
 		String ALL_BICYCLES_URL = "allBicyclesUrl";
-		String COOKIE = "cookie";
 		String BICYCLE_DETAIL_URL= "bicycleDetailUrl";
 		String DEFAULT_LATITUDE = "defaultLatitude";
 		String DEFAULT_LONGITUDE= "defaultLongitude";
@@ -96,6 +95,7 @@ public class Constants {
 		String SHOW_NEAREST_SPOTS = "show_nearest_spot";
 		String SHOW_FAVORITE_SPOTS = "show_favorite_spots";
 		String FAVORITE_IDS = "favorite_ids";
+		String OFFLINE_MAP_PERCENTAGE = "offline_map_percentage";
 	}
 	
 	public interface BaiduApi{

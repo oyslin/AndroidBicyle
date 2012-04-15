@@ -38,7 +38,7 @@ public class Utils {
 	
 	public static void storeStringDataToLocal(String tagName, String value){
 		mEditor.putString(tagName, value);
-		mEditor.commit();
+		mEditor.commit();		
 	}
 	
 	public static boolean getBooleanDataFromLocal(String tagName, boolean defaultValue){
@@ -60,6 +60,11 @@ public class Utils {
 	
 	public static void storeIntDataToLocal(String tagName, int value){
 		mEditor.putInt(tagName, value);
+		mEditor.commit();
+	}
+	
+	public static void clearLocalData(){
+		mEditor.clear();
 		mEditor.commit();
 	}
 	
@@ -178,14 +183,13 @@ public class Utils {
 			if(cityJson != null){
 				String tabs = cityJson.getString(Constants.SettingJsonTag.TABS);
 				String allBicyclesUrl = cityJson.getString(Constants.SettingJsonTag.ALL_BICYCLES_URL);
-				String cookie = cityJson.getString(Constants.SettingJsonTag.COOKIE);
 				String bicycleDetailUrl = cityJson.getString(Constants.SettingJsonTag.BICYCLE_DETAIL_URL);
 				double defaultLatitude = cityJson.getDouble(Constants.SettingJsonTag.DEFAULT_LATITUDE);
 				double defaultLongitude = cityJson.getDouble(Constants.SettingJsonTag.DEFAULT_LONGITUDE);
 				double offsetLatitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LATITUDE);
 				double offsetLongitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LONGITUDE);
 				String assetsFileName = cityJson.getString(Constants.SettingJsonTag.ASSETS_FILE_NAME);
-				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, cookie, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
+				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
 				GlobalSetting.getInstance().setCitySetting(citySetting);
 				result = true;
 			}

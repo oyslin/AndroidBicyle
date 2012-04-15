@@ -65,6 +65,7 @@
     <string name="map_setting_download_offline_map_complete">离线地图下载完成</string>
     <string name="map_setting_download_offline_map_already_downloaded">上次地图下载未完成, 本次将继续后台下载</string>
     <string name="map_setting_map_already_complete">地图已经下载完成，无需再次下载</string>
+    <string name="map_setting_download_offline_map_percentage">( %d%% )</string>
     
     <string name="info_version_label">软件版本：</string>
     <string name="info_version">1.0.0.0</string>   

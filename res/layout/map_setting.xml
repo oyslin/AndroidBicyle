@@ -41,12 +41,21 @@
             android:background="@drawable/setting_listitem_bg_middle"
             android:paddingLeft="5dip" android:layout_marginTop="-1dip" android:clickable="true">
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/map_setting_download_offline_map_label"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/map_setting_download_offline_map_image"
+                android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
                 android:text="@string/map_setting_download_offline_map"
                 android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />
+
+            <TextView
+                android:id="@+id/map_setting_download_offline_map_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/map_setting_download_offline_map_image"
+                android:layout_toRightOf="@+id/map_setting_download_offline_map_label" android:gravity="center_vertical" android:paddingLeft="5dip" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+
             <ImageView
                 android:id="@+id/map_setting_download_offline_map_image"
                 android:layout_width="wrap_content"
@@ -54,13 +63,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_setting_next_indicator" />
+
         </RelativeLayout>
         
         <RelativeLayout
             android:id="@+id/map_setting_show_nearest_spots"
             android:layout_width="match_parent"
             android:layout_height="@dimen/setting_item_height"
-            android:background="@drawable/setting_listitem_bg_bottom"
+            android:background="@drawable/setting_listitem_bg_middle"
             android:paddingLeft="5dip" android:layout_marginTop="-1dip" android:clickable="true">
             <TextView
                 android:layout_width="match_parent"
@@ -91,7 +101,7 @@
                 android:text="@string/map_setting_show_favorites"
                 android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />
             <ImageView
-                android:id="@+id/map_setting_show_only_favorites_image"
+                android:id="@+id/map_setting_show_favorites_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

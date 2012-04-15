@@ -91,7 +91,7 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 			mProgressDialog = new ProgressDialog(this);
 			mProgressDialog.setMessage(getText(R.string.change_city_progress_dialog_msg));
 			mProgressDialog.show();
-			mSettingService.changeCitySetting(selectedCity);
+			mSettingService.changeCitySetting(selectedCity);			
 		}
 	}
 
