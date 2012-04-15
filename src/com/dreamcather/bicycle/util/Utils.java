@@ -14,10 +14,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 
 import com.dreamcather.bicycle.BicycleApp;
@@ -99,6 +102,24 @@ public class Utils {
 	 */
 	public static void startShare(){
 		
+	}
+	
+	public static void reminderReturnBicycle(){
+	  Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+	  if(alert == null){
+		  alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+		  if(alert == null){
+			  alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		  }
+	  }
+	  Ringtone ringtone = RingtoneManager.getRingtone(mBicycleApp, alert);
+	  ringtone.play();	  
+	}
+	
+	public static void vibrate(){
+		Vibrator vibrator = (Vibrator) mBicycleApp.getSystemService(Context.VIBRATOR_SERVICE);
+		long[] patten = {500, 1000};
+		vibrator.vibrate(patten, 5);
 	}
 	
 	public static String getText(int resId){
