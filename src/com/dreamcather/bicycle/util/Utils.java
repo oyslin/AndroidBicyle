@@ -32,6 +32,8 @@ public class Utils {
 	private static SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(BicycleApp.getInstance());
 	private static Editor mEditor = mSharedPreferences.edit();
 	private static BicycleApp mBicycleApp = BicycleApp.getInstance();
+	private static Ringtone mRingtone = null;
+	private static Vibrator mVibrator = null;
 	
 	public static String getStringDataFromLocal(String tagName){
 		String result = null;
@@ -112,14 +114,30 @@ public class Utils {
 			  alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		  }
 	  }
-	  Ringtone ringtone = RingtoneManager.getRingtone(mBicycleApp, alert);
-	  ringtone.play();	  
+	  if(mRingtone == null){
+		  mRingtone = RingtoneManager.getRingtone(mBicycleApp, alert);
+	  }
+	  
+	  mRingtone.play();
+	}
+	
+	public static void stopReminder(){
+		if(mRingtone != null){
+			if(mRingtone.isPlaying()){
+				mRingtone.stop();
+			}
+		}
+		if(mVibrator != null){			
+			mVibrator.cancel();
+		}
 	}
 	
 	public static void vibrate(){
-		Vibrator vibrator = (Vibrator) mBicycleApp.getSystemService(Context.VIBRATOR_SERVICE);
-		long[] patten = {500, 1000};
-		vibrator.vibrate(patten, 5);
+		if(mVibrator == null){
+			mVibrator = (Vibrator) mBicycleApp.getSystemService(Context.VIBRATOR_SERVICE);
+		}
+		long[] patten = {1000, 2000, 1000, 2000, 1000, 2000};
+		mVibrator.vibrate(patten, 2);		
 	}
 	
 	public static String getText(int resId){
