@@ -18,7 +18,7 @@ public class Constants {
 	public interface TabSetting{
 		int IMAGE_ARRAY[] = {R.drawable.ic_tab_bicycle,
 							 R.drawable.ic_tab_list,
-							 R.drawable.ic_tab_query,
+							 R.drawable.ic_search,
 							 R.drawable.ic_tab_setting,
 							 R.drawable.ic_tab_more
 							 };
