@@ -1,6 +1,11 @@
 package com.dreamcather.bicycle.activity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +14,9 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.dreamcather.bicycle.R;
@@ -19,6 +27,9 @@ import com.dreamcather.bicycle.view.ActivityTitle;
 public class BicycleSetting extends Activity {
 	private LayoutInflater mInflater = null;
 	private LinearLayout mListContainer = null;
+	private Timer mTimer = null;
+	private TimerTask mTimerTask = null;
+	private static long mReminderTimeValue = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +91,130 @@ public class BicycleSetting extends Activity {
 				};
 				break;
 			case 3:
+				listener = new OnClickListener() {				
+					public void onClick(View v) {
+						reminder();				
+					}
+				};				
 				break;
 			default:
 				break;
 		}
 		return listener;
-	}	
+	}
+	
+	private void reminder(){		
+		View layout = mInflater.inflate(R.layout.return_bicycle_reminder, null, false);
+		final TextView timeValueText = (TextView) layout.findViewById(R.id.return_bicycle_reminder_time_value);
+		SeekBar seekBar = (SeekBar) layout.findViewById(R.id.return_bicycle_reminder_seekbar);
+		RelativeLayout soundLine = (RelativeLayout) layout.findViewById(R.id.return_bicycle_reminder_sound_line);
+		RelativeLayout vibrateLine = (RelativeLayout) layout.findViewById(R.id.return_bicycle_reminder_vibrate_line);
+		RelativeLayout soundAndVibrateLine = (RelativeLayout) layout.findViewById(R.id.return_bicycle_reminder_sound_and_vibrate_line);
+		final ImageView soundImage = (ImageView) layout.findViewById(R.id.return_bicycle_reminder_sound_image);
+		final ImageView vibrateImage = (ImageView) layout.findViewById(R.id.return_bicycle_reminder_vibrate_image);
+		final ImageView soundAndVibrateImage = (ImageView) layout.findViewById(R.id.return_bicycle_reminder_sound_and_vibrate_image);
+		soundImage.setSelected(true);
+		
+		if(mReminderTimeValue != 0){
+			int timeValue = Math.round((mReminderTimeValue - System.currentTimeMillis())/(1000 * 60));
+			timeValueText.setText(String.valueOf(timeValue));
+		}
+		
+		seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {			
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				
+			}
+			
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				
+			}
+			
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				timeValueText.setText(String.valueOf(progress));
+			}
+		});
+		
+		soundLine.setOnClickListener(new OnClickListener() {			
+			public void onClick(View v) {
+				soundImage.setSelected(true);
+				vibrateImage.setSelected(false);
+				soundAndVibrateImage.setSelected(false);
+			}
+		});
+		
+		vibrateLine.setOnClickListener(new OnClickListener() {			
+			public void onClick(View v) {
+				soundImage.setSelected(false);
+				vibrateImage.setSelected(true);
+				soundAndVibrateImage.setSelected(false);
+			}
+		});
+		
+		soundAndVibrateLine.setOnClickListener(new OnClickListener() {			
+			public void onClick(View v) {
+				soundImage.setSelected(false);
+				vibrateImage.setSelected(false);
+				soundAndVibrateImage.setSelected(true);				
+			}
+		});
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.return_bicycle_reminder_dialog_title)
+				.setView(layout)
+				.setNegativeButton(R.string.return_bicycle_reminder_dialog_negative_btn,new DialogInterface.OnClickListener() {					
+					public void onClick(DialogInterface dialog, int which) {
+						cancelReminder();
+						dialog.dismiss();						
+					}
+				})
+				.setPositiveButton(R.string.return_bicycle_reminder_dialog_positive_btn, new DialogInterface.OnClickListener() {					
+					public void onClick(DialogInterface dialog, int which) {
+						int timeValue = Integer.parseInt(timeValueText.getText().toString());
+						boolean soundSelected = soundImage.isSelected();
+						boolean vibrateSelected = vibrateImage.isSelected();
+						boolean soundAndVibrateSelected = soundAndVibrateImage.isSelected();
+						startReminder(timeValue, soundSelected, vibrateSelected, soundAndVibrateSelected);
+						dialog.dismiss();						
+					}
+				});
+		
+		builder.show();		
+	}
+	
+	private void startReminder(int timeValue, boolean soundSelected, boolean vibrateSelected, boolean soundAndVibrateSelected){
+		if(mTimer == null){
+			mTimer = new Timer();
+		}
+		if(mTimerTask != null){
+			mTimerTask.cancel();
+		}
+		mTimerTask = getTimerTask(soundSelected, vibrateSelected, soundAndVibrateSelected);
+		long delay = 1000 * 60 * timeValue;
+		
+		mTimer.schedule(mTimerTask, delay);
+		mReminderTimeValue = System.currentTimeMillis() + delay;
+	}
+	
+	private TimerTask getTimerTask(final boolean soundSelected, final boolean vibrateSelected, final boolean soundAndVibrateSelected){
+		return new TimerTask() {			
+			@Override
+			public void run() {
+				if(soundAndVibrateSelected){
+					Utils.reminderReturnBicycle();
+					Utils.vibrate();
+				}else if(soundSelected){
+					Utils.reminderReturnBicycle();
+				}else {
+					Utils.vibrate();
+				}				
+			}
+		};
+	}
+	
+	private void cancelReminder(){
+		if(mTimer != null){
+			mTimer.cancel();
+		}
+	}
 }

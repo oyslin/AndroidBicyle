@@ -35,10 +35,16 @@ public class SettingService implements ISettingService {
 		mExecutorService.execute(new Runnable() {			
 			public void run() {
 				try {
-					Utils.storeStringDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);//set city tag
-					Utils.loadCitySetting();
+					//clear all data
+					Utils.clearLocalData();
 					Utils.clearDataset();
+					//update city to local					
+					Utils.storeStringDataToLocal(Constants.LocalStoreTag.CITY_NAME, cityTag);//set city tag
+					//reload city setting
+					Utils.loadCitySetting();
+					//reload bicycles info from assets
 					Utils.loadBicyclesInfoFromAssets();
+					//reload bicycles from server
 					HttpUtils.getAllBicyclesInfoFromServer();
 					mHandler.sendEmptyMessage(SETTING_SUCCESS);
 				} catch (Exception e) {
@@ -47,6 +53,11 @@ public class SettingService implements ISettingService {
 				}
 			}
 		});
+	}
+	
+	public void changeFavoriteIds(String favoriteIds) {
+		Utils.storeStringDataToLocal(Constants.LocalStoreTag.FAVORITE_IDS, favoriteIds);
+		BicycleService.getInstance().getSettingEventListener().onFavoriteIdsChanged();
 	}
 
 }

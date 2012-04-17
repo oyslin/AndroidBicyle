@@ -107,6 +107,11 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 			mAdapter.updateDataset();
 		}
 	}
+	
+	public void onFavoriteIdsChanged() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	protected void onResume() {		

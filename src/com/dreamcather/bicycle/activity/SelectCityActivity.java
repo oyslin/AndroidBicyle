@@ -96,10 +96,11 @@ public class SelectCityActivity extends Activity implements IAssetsEvent{
 	}
 
 	public void onBicyclesInfoLoaded(int resultCode) {
-		if(resultCode == Constants.ResultCode.SUCCESS){
+		if (resultCode == Constants.ResultCode.SUCCESS) {
 			startActivity(new Intent(SelectCityActivity.this, Main.class));
 			mProgressDialog.dismiss();
 			finish();
 		}		
 	}
+	
 }

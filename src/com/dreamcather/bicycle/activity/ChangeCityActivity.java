@@ -91,7 +91,7 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 			mProgressDialog = new ProgressDialog(this);
 			mProgressDialog.setMessage(getText(R.string.change_city_progress_dialog_msg));
 			mProgressDialog.show();
-			mSettingService.changeCitySetting(selectedCity);
+			mSettingService.changeCitySetting(selectedCity);			
 		}
 	}
 
@@ -104,6 +104,10 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 		}else {
 			Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_success_msg), Toast.LENGTH_SHORT).show();
 		}
+	}
+	
+	public void onFavoriteIdsChanged() {
+		
 	}
 
 }

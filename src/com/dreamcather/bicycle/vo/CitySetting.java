@@ -45,7 +45,8 @@ public class CitySetting {
 	}
 	public void setAllBicyclesUrl(String mAllBicyclesUrl) {
 		this.mAllBicyclesUrl = mAllBicyclesUrl;
-	}
+	}	
+
 	public String getBicycleDetailUrl() {
 		return mBicycleDetailUrl;
 	}

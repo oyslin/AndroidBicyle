@@ -95,6 +95,7 @@ public class Constants {
 		String SHOW_NEAREST_SPOTS = "show_nearest_spot";
 		String SHOW_FAVORITE_SPOTS = "show_favorite_spots";
 		String FAVORITE_IDS = "favorite_ids";
+		String OFFLINE_MAP_PERCENTAGE = "offline_map_percentage";
 	}
 	
 	public interface BaiduApi{

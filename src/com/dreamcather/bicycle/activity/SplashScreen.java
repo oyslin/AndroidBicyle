@@ -79,9 +79,10 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 	 * load bicycles info result
 	 */
 	public void onBicyclesInfoLoaded(int resultCode) {
-		if(resultCode == Constants.ResultCode.SUCCESS){
+		if (resultCode == Constants.ResultCode.SUCCESS) {
 			startActivity(new Intent(SplashScreen.this, Main.class));
 			finish();
-		}		
+		}
 	}
+	
 }

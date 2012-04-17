@@ -6,4 +6,10 @@ public interface ISettingService {
 	 * @param cityTag
 	 */
 	void changeCitySetting(final String cityTag);
+	
+	/**
+	 * change favorite ids
+	 * @param favoriteIds
+	 */
+	void changeFavoriteIds(String favoriteIds);
 }

@@ -14,10 +14,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 
 import com.dreamcather.bicycle.BicycleApp;
@@ -29,6 +32,8 @@ public class Utils {
 	private static SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(BicycleApp.getInstance());
 	private static Editor mEditor = mSharedPreferences.edit();
 	private static BicycleApp mBicycleApp = BicycleApp.getInstance();
+	private static Ringtone mRingtone = null;
+	private static Vibrator mVibrator = null;
 	
 	public static String getStringDataFromLocal(String tagName){
 		String result = null;
@@ -38,7 +43,7 @@ public class Utils {
 	
 	public static void storeStringDataToLocal(String tagName, String value){
 		mEditor.putString(tagName, value);
-		mEditor.commit();
+		mEditor.commit();		
 	}
 	
 	public static boolean getBooleanDataFromLocal(String tagName, boolean defaultValue){
@@ -60,6 +65,11 @@ public class Utils {
 	
 	public static void storeIntDataToLocal(String tagName, int value){
 		mEditor.putInt(tagName, value);
+		mEditor.commit();
+	}
+	
+	public static void clearLocalData(){
+		mEditor.clear();
 		mEditor.commit();
 	}
 	
@@ -94,6 +104,40 @@ public class Utils {
 	 */
 	public static void startShare(){
 		
+	}
+	
+	public static void reminderReturnBicycle(){
+	  Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+	  if(alert == null){
+		  alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+		  if(alert == null){
+			  alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		  }
+	  }
+	  if(mRingtone == null){
+		  mRingtone = RingtoneManager.getRingtone(mBicycleApp, alert);
+	  }
+	  
+	  mRingtone.play();
+	}
+	
+	public static void stopReminder(){
+		if(mRingtone != null){
+			if(mRingtone.isPlaying()){
+				mRingtone.stop();
+			}
+		}
+		if(mVibrator != null){			
+			mVibrator.cancel();
+		}
+	}
+	
+	public static void vibrate(){
+		if(mVibrator == null){
+			mVibrator = (Vibrator) mBicycleApp.getSystemService(Context.VIBRATOR_SERVICE);
+		}
+		long[] patten = {1000, 2000, 1000, 2000, 1000, 2000};
+		mVibrator.vibrate(patten, 2);		
 	}
 	
 	public static String getText(int resId){

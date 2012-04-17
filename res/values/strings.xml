@@ -65,6 +65,17 @@
     <string name="map_setting_download_offline_map_complete">离线地图下载完成</string>
     <string name="map_setting_download_offline_map_already_downloaded">上次地图下载未完成, 本次将继续后台下载</string>
     <string name="map_setting_map_already_complete">地图已经下载完成，无需再次下载</string>
+    <string name="map_setting_download_offline_map_percentage">( %d%% )</string>
+    
+    <string name="return_bicycle_reminder_time_label">提醒时间：</string>
+    <string name="return_bicycle_reminder_time_value">%d</string>
+    <string name="return_bicycle_reminder_time_unit">分钟</string>
+    <string name="return_bicycle_reminder_dialog_title">还车提醒设置</string>
+    <string name="return_bicycle_reminder_sound">响铃</string>
+    <string name="return_bicycle_reminder_vibrate">震动</string>
+    <string name="return_bicycle_reminder_sound_and_vibrate">响铃加震动</string>
+    <string name="return_bicycle_reminder_dialog_positive_btn">开始提醒</string>
+    <string name="return_bicycle_reminder_dialog_negative_btn">取消提醒</string>
     
     <string name="info_version_label">软件版本：</string>
     <string name="info_version">1.0.0.0</string>   

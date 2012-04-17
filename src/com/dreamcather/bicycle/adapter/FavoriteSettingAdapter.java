@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.dreamcather.bicycle.BicycleApp;
 import com.dreamcather.bicycle.R;
+import com.dreamcather.bicycle.core.BicycleService;
 import com.dreamcather.bicycle.dataset.BicycleDataset;
+import com.dreamcather.bicycle.interfaces.ISettingService;
 import com.dreamcather.bicycle.util.Constants;
 import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.vo.BicycleStationInfo;
@@ -22,6 +24,7 @@ public class FavoriteSettingAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private boolean[] mCheckResult = null;
 	private int[] mAllIds = null;
+	private ISettingService mSettingService = null;
 	
 	public FavoriteSettingAdapter(){
 		mBicycleDataset = BicycleDataset.getInstance();
@@ -29,6 +32,7 @@ public class FavoriteSettingAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(BicycleApp.getInstance());
 		mCheckResult = new boolean[mBicycleStationInfos.size()];
 		mAllIds = new int[mBicycleStationInfos.size()];
+		mSettingService = BicycleService.getInstance().getSettingService();
 		initFavoriteIds();
 		initSelected();
 	}
@@ -126,7 +130,7 @@ public class FavoriteSettingAdapter extends BaseAdapter {
 				stringBuilder.append(mAllIds[i]).append("|");
 			}
 		}
-		Utils.storeStringDataToLocal(Constants.LocalStoreTag.FAVORITE_IDS, stringBuilder.toString());
+		mSettingService.changeFavoriteIds(stringBuilder.toString());
 	}
 	
 	
