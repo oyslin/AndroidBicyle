@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.dreamcather.bicycle.R;
 import com.dreamcather.bicycle.util.Constants;
+import com.dreamcather.bicycle.util.ReminderNotification;
 import com.dreamcather.bicycle.util.Utils;
 import com.dreamcather.bicycle.view.ActivityTitle;
 
@@ -207,7 +208,8 @@ public class BicycleSetting extends Activity {
 					Utils.reminderReturnBicycle();
 				}else {
 					Utils.vibrate();
-				}				
+				}
+				ReminderNotification.startNotification();
 			}
 		};
 	}

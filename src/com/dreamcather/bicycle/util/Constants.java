@@ -98,6 +98,10 @@ public class Constants {
 		String OFFLINE_MAP_PERCENTAGE = "offline_map_percentage";
 	}
 	
+	public interface IntentExtraTag{
+		String MAIN_REMINDER_FROM_NOTIFICATION = "is_from_reminder_notifaction";
+	}
+	
 	public interface BaiduApi{
 		String KEY = "1ABD83087C2F91F0F12E912BA87705648F714363";
 	}

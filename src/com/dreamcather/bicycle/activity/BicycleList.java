@@ -86,9 +86,11 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	public void onAllBicyclesInfoReceived(int resultCode) {
 		if(mProgressDialog != null){
 			mProgressDialog.dismiss();
+			
 		}
 		if(resultCode == Constants.ResultCode.SUCCESS){									
 			mAdapter.updateDataset();
+			Toast.makeText(this, R.string.toast_msg_bicycles_info_refresh_success, Toast.LENGTH_SHORT).show();
 		}else {
 			Toast.makeText(this, R.string.toast_msg_server_unavailable, Toast.LENGTH_SHORT).show();
 		}
@@ -96,7 +98,6 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 
 	public void onSingleBicycleInfoReceived(
 			BicycleStationInfo bicycleStationInfo, int resultCode) {		
-		
 	}
 
 	/**

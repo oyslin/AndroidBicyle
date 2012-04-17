@@ -1,6 +1,8 @@
 package com.dreamcather.bicycle.activity;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -95,6 +97,31 @@ public class Main extends TabActivity implements ISettingEvent{
     		}
     	}
     	return result;
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+    	processIntent(intent);
+    	super.onNewIntent(intent);
+    }
+
+    
+    private void processIntent(Intent intent){
+    	boolean isFromReminderNotificaiton = intent.getBooleanExtra(Constants.IntentExtraTag.MAIN_REMINDER_FROM_NOTIFICATION, false);
+    	if(isFromReminderNotificaiton){
+    		new AlertDialog.Builder(this)
+    						.setTitle(R.string.return_bicycle_reminder_cancel_dialog_title)
+    						.setMessage(R.string.return_bicycle_reminder_cancel_dialog_msg)
+    						.setPositiveButton(R.string.return_bicycle_reminder_cancel_dialog_btn, new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									closeReturnBicycleReminder();									
+								}
+							}).show();
+    	}
+    }
+    
+    private void closeReturnBicycleReminder(){
+    	Utils.stopReminder();
     }
     
     private void reloadUI(){

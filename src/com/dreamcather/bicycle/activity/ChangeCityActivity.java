@@ -100,9 +100,10 @@ public class ChangeCityActivity extends Activity implements ISettingEvent{
 			mProgressDialog.dismiss();
 		}
 		if(resultCode == Constants.ResultCode.CHANGE_CITY_FAILED){
-			Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_failed_msg), Toast.LENGTH_SHORT).show();
+			Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_failed_msg), Toast.LENGTH_SHORT).show();			
 		}else {
 			Toast.makeText(ChangeCityActivity.this, getText(R.string.change_city_reload_success_msg), Toast.LENGTH_SHORT).show();
+			super.onBackPressed();
 		}
 	}
 	
