@@ -113,4 +113,7 @@
 	<string name="notification_content_text">还车时间到了，请及时归还</string>
 	
 	<string name="feedback_edittext_hint">说点什么吧......</string>
+	
+	<string name="search_label">查询自行车点</string>
+	<string name="search_hint">请输入站点名称或拼音首字母</string>
 </resources>
