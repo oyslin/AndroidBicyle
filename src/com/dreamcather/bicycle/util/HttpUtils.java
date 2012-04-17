@@ -37,10 +37,12 @@ public class HttpUtils {
 			return false;
 		}
 		Log.e("HttpUtils", "url = " + citySetting.getAllBicyclesUrl());
-		HttpGet httpGet = new HttpGet(citySetting.getAllBicyclesUrl());
+//		HttpGet httpGet = new HttpGet(citySetting.getAllBicyclesUrl());
+		HttpGet httpGet = new HttpGet("http://www.subicycle.com/map.asp");
 		String jsonStr = null;
 		try {
 			HttpResponse response = httpClient.execute(httpGet);
+			
 			Log.e("HttpUtils", "jsonStr = " + EntityUtils.toString(response.getEntity(), "utf-8"));
 			jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
 			
