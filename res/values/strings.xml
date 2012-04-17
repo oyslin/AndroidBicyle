@@ -11,6 +11,7 @@
     <string name="city_name_wujiang">吴江</string>
     
     <string name="btn_next">下一步</string>
+    <string name="btn_send">发送</string>
     
     <string name="tab_map">地图</string>
     <string name="tab_settings">设置</string>
@@ -83,8 +84,9 @@
     <string name="info_version_label">软件版本：</string>
     <string name="info_version">1.0.0.0</string>   
     <string name="info_available_system_label">适用系统：</string>
-    <string name="info_available_system">Android1.5及1.5以上操作系统</string>    
-    <string name="info_copyright_en">Copyright © 2012 Dream Cather Studio. All Rights Reserved</string>
+    <string name="info_available_system">Android2.1及2.1以上操作系统</string>    
+    <string name="info_copyright_en_company">Copyright © 2012 Dream Cather Studio.</string>
+    <string name="info_copyright_en_right">All Rights Reserved</string>
 	<string name="info_copyright_zh">追梦人工作室版权所有</string>
 	
 	<string name="share_title">分享</string>
@@ -109,4 +111,6 @@
 	<string name="notification_ticket_text">还车时间到了</string>
 	<string name="notification_content_title">还车提醒</string>
 	<string name="notification_content_text">还车时间到了，请及时归还</string>
+	
+	<string name="feedback_edittext_hint">说点什么吧......</string>
 </resources>

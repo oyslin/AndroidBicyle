@@ -43,7 +43,8 @@
             android:layout_alignLeft="@+id/bicycle_info_version_label"
             android:layout_below="@+id/bicycle_info_version_label"
             android:text="@string/info_available_system_label"
-            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginTop="2dip"/>
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" 
+            android:layout_marginTop="2dip"/>
 
         <TextView
             android:id="@+id/bicycle_info_available_system"
@@ -53,31 +54,41 @@
             android:layout_marginLeft="4dip"
             android:layout_toRightOf="@+id/bicycle_info_available_system_label"
             android:text="@string/info_available_system"
-            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginRight="60dip"/>
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" 
+            android:layout_marginRight="60dip"/>
 
         <TextView
             android:id="@+id/bicycle_info_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/info_version"
-            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_toRightOf="@+id/bicycle_info_version_label" android:layout_alignTop="@+id/bicycle_info_version_label" android:layout_marginLeft="4dip"/>
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" 
+            android:layout_toRightOf="@+id/bicycle_info_version_label" 
+            android:layout_alignTop="@+id/bicycle_info_version_label" 
+            android:layout_marginLeft="4dip"/>
 
         <TextView
-            android:id="@+id/bicycle_info_copyright"
+            android:id="@+id/bicycle_info_copyright_company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/bicycle_info_logo"
+            android:gravity="center"
+            android:text="@string/info_copyright_en_company"
+            android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyTinyNormal" 
+            android:layout_above="@+id/bicycle_info_copyright_right"/>
+		<TextView
+            android:id="@+id/bicycle_info_copyright_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10px"
             android:gravity="center"
-            android:text="@string/info_copyright_en"
+            android:text="@string/info_copyright_en_right"
             android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyTinyNormal" />
-
         <TextView
             android:id="@+id/bicycle_info_copyright_zh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/bicycle_info_copyright"
+            android:layout_above="@id/bicycle_info_copyright_company"
             android:gravity="center"
             android:text="@string/info_copyright_zh"
             android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyTinyNormal" />
