@@ -212,7 +212,7 @@ public class Constants {
 	}
 	
 	public interface HttpUrl{
-		String VERSION_INFO_URL = "";
+		String VERSION_INFO_URL = "http://10.224.105.194:8000/versioninfo";
 		String FEEDBACK_URL = "";		
 	}
 	

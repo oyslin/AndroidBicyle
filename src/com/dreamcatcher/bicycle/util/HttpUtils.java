@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.pm.PackageInfo;
+import android.util.Log;
 
 import com.dreamcatcher.bicycle.exception.NetworkException;
 import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
@@ -142,12 +143,62 @@ public class HttpUtils {
 		return jsonStr;
 	}
 	
-	public static boolean checkVersion(PackageInfo packageInfo){
-		boolean isSameVersion = false;
-		String versionName = packageInfo.versionName;
-		int versionCode = packageInfo.versionCode;
+	public static boolean checkVersion(PackageInfo packageInfo) throws NetworkException{
+		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
+			throw new NetworkException();
+		}
+		boolean needUpdate = false;
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(Constants.HttpUrl.VERSION_INFO_URL);
+		try {			
+			HttpResponse response = httpClient.execute(httpGet);
+			String jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
+			if(jsonStr != null && !jsonStr.equals("")){
+				JSONObject jsonObject = new JSONObject(jsonStr);
+				String versionName = jsonObject.getString("versionName");
+				int versionCode = jsonObject.getInt("versionCode");
+				
+				int versionNameCompareResult = compareStr(versionName, packageInfo.versionName);
+				if(versionNameCompareResult > 0){
+					needUpdate = true;
+				}else if(versionNameCompareResult == 0){
+					if(versionCode > packageInfo.versionCode){
+						needUpdate = true;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		return needUpdate;
+	}
+	
+	private static int compareStr(String first, String second){
+		int result = 0;
+		byte[] firstBytes = first.getBytes();
+		byte[] secondeBytes = second.getBytes();
+		int count = Math.min(firstBytes.length, secondeBytes.length);
+		int index = 0;
+		for(; index < count; index++){
+			if(firstBytes[index] > secondeBytes[index]){
+				result = 1;
+				break;
+			}else if(firstBytes[index] < secondeBytes[index]){
+				result = -1;
+				break;
+			}
+		}
+		if(index == count){
+			if(firstBytes.length > secondeBytes.length){
+				result = 1;
+			}else if(firstBytes.length == secondeBytes.length){
+				result = 0;
+			}else {
+				result = -1;
+			}
+		}
 		
-		return isSameVersion;
+		return result;
 	}
 }

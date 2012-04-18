@@ -12,10 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dreamcatcher.bicycle.R;
+import com.dreamcatcher.bicycle.exception.NetworkException;
 import com.dreamcatcher.bicycle.util.Constants;
+import com.dreamcatcher.bicycle.util.HttpUtils;
 import com.dreamcatcher.bicycle.util.Utils;
+import com.dreamcatcher.bicycle.util.Constants.HttpUrl;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
 
 public class BicycleMore extends Activity {
@@ -114,19 +118,15 @@ mInflater = getLayoutInflater();
 	
 	private void checkVersion(){
 		PackageInfo packageInfo = Utils.getPackageInfo();
-		if(packageInfo != null){
-			String versionName = packageInfo.versionName;
-			int versionCode = packageInfo.versionCode;
-			if(versionName.equalsIgnoreCase("")){
-				
+		try {
+			boolean needUpdate = HttpUtils.checkVersion(packageInfo);
+			if(needUpdate){
+				goToMarket();				
+			}else {
+				Toast.makeText(this, R.string.toast_msg_version_is_up_to_date, Toast.LENGTH_SHORT);
 			}
-			if(versionCode == 0){
-				
-			}
-			
-			goToMarket(); 
-		}else {
-			
-		}
+		} catch (NetworkException e) {
+			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
+		}		
 	}
 }
