@@ -9,6 +9,8 @@ import java.io.UnsupportedEncodingException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -17,14 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.pm.PackageInfo;
-import android.util.Log;
-
 import com.dreamcatcher.bicycle.exception.NetworkException;
 import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 import com.dreamcatcher.bicycle.vo.CitySetting;
 
 public class HttpUtils {
+	private static final int REQUEST_TIME_OUT = 8 * 1000;
+	private static final int SO_TIME_OUT = 10 * 1000;
 	
 	/**
 	 * update bicycles info from server and save it to local
@@ -35,7 +36,7 @@ public class HttpUtils {
 		}
 		
 		boolean success = false;
- 		HttpClient httpClient = new DefaultHttpClient(); 			
+ 		HttpClient httpClient = getHttpClient();
 
 		CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
 		if(citySetting == null){
@@ -80,7 +81,7 @@ public class HttpUtils {
 		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
 			throw new NetworkException();
 		}
-		HttpClient httpClient = new DefaultHttpClient();
+		HttpClient httpClient = getHttpClient();
 		CitySetting citySetting = GlobalSetting.getInstance().getCitySetting();
 		
 		HttpGet httpGet = new HttpGet(citySetting.getBicycleDetailUrl() + String.valueOf(id));
@@ -128,7 +129,7 @@ public class HttpUtils {
 	private static String getJsonDataFromInputStream(InputStream inputStream){
 		String jsonStr = null;
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Constants.HttpSetting.HTTP_CONT_ENCODE));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			StringBuilder stringBuilder = new StringBuilder();
 			String line = null;
 			while((line= reader.readLine()) != null){
@@ -143,13 +144,14 @@ public class HttpUtils {
 		return jsonStr;
 	}
 	
-	public static boolean checkVersion(PackageInfo packageInfo) throws NetworkException{
+	public static boolean checkVersion(String currentVersionName, int currentVersionCode) throws NetworkException, IOException, JSONException{
 		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
 			throw new NetworkException();
 		}
 		boolean needUpdate = false;
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(Constants.HttpUrl.VERSION_INFO_URL);
+		HttpClient httpClient = getHttpClient();
+		HttpGet httpGet = new HttpGet(Constants.HttpUrl.VERSION_INFO_URL);	
+		
 		try {			
 			HttpResponse response = httpClient.execute(httpGet);
 			String jsonStr = getJsonDataFromInputStream(response.getEntity().getContent());
@@ -158,17 +160,21 @@ public class HttpUtils {
 				String versionName = jsonObject.getString("versionName");
 				int versionCode = jsonObject.getInt("versionCode");
 				
-				int versionNameCompareResult = compareStr(versionName, packageInfo.versionName);
+				int versionNameCompareResult = compareStr(versionName, currentVersionName);
 				if(versionNameCompareResult > 0){
 					needUpdate = true;
 				}else if(versionNameCompareResult == 0){
-					if(versionCode > packageInfo.versionCode){
+					if(versionCode > currentVersionCode){
 						needUpdate = true;
 					}
 				}
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
+			throw e;
+		} catch (JSONException e) {
+			e.printStackTrace();
+			throw e;
 		}
 		
 		return needUpdate;
@@ -197,8 +203,36 @@ public class HttpUtils {
 			}else {
 				result = -1;
 			}
-		}
-		
+		}		
 		return result;
+	}
+	
+	private static HttpClient getHttpClient(){		
+		HttpParams params = new BasicHttpParams();
+		params.setParameter("charset", Constants.HttpSetting.HTTP_CONT_ENCODE);
+		HttpConnectionParams.setConnectionTimeout(params, REQUEST_TIME_OUT);
+		HttpConnectionParams.setSoTimeout(params, SO_TIME_OUT);
+		HttpClient httpClient = new DefaultHttpClient(params);		
+		
+		return httpClient;
+	}
+	
+	public static void sendFeedback(String msg) throws NetworkException, IOException{
+		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
+			throw new NetworkException();
+		}
+		HttpClient httpClient = getHttpClient();
+		HttpPost httpPost = new HttpPost(Constants.HttpUrl.FEEDBACK_URL);
+		httpPost.addHeader("charset", Constants.HttpSetting.HTTP_CONT_ENCODE);
+		httpPost.setEntity(new StringEntity(msg, Constants.HttpSetting.HTTP_CONT_ENCODE));
+		try {
+			HttpResponse response = httpClient.execute(httpPost);
+			int code = response.getStatusLine().getStatusCode();
+			if(code == 200){
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 }

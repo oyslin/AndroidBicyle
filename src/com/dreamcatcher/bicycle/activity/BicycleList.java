@@ -99,6 +99,9 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	public void onSingleBicycleInfoReceived(
 			BicycleStationInfo bicycleStationInfo, int resultCode) {		
 	}
+	
+	public void onNewVersionCheckCompleted(boolean needUpdate, int resultCode) {
+	}
 
 	/**
 	 * 

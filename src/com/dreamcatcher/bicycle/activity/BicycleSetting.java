@@ -82,8 +82,7 @@ public class BicycleSetting extends Activity {
 		switch (index) {
 			case 0:
 			case 1:
-			case 2:
-			case 4:			
+			case 2:						
 				final Intent intent = new Intent(this, Constants.SettingListViewItem.NEXT_ACTIVITY_ARRAY[index]);
 				listener = new OnClickListener() {				
 					public void onClick(View v) {
@@ -97,6 +96,13 @@ public class BicycleSetting extends Activity {
 						reminder();				
 					}
 				};				
+				break;
+			case 4:
+				listener = new OnClickListener() {					
+					public void onClick(View v) {
+						setQuery();						
+					}
+				};
 				break;
 			default:
 				break;
@@ -181,6 +187,10 @@ public class BicycleSetting extends Activity {
 				});
 		
 		builder.show();		
+	}
+	
+	private void setQuery(){
+		
 	}
 	
 	private void startReminder(int timeValue, boolean soundSelected, boolean vibrateSelected, boolean soundAndVibrateSelected){

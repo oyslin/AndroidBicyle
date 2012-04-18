@@ -428,6 +428,10 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			Toast.makeText(this, R.string.toast_msg_server_unavailable, Toast.LENGTH_SHORT).show();			
 		}
 	}
+	
+	public void onNewVersionCheckCompleted(boolean needUpdate, int resultCode) {
+		
+	}
 
 	/**
 	 * when city setting changed, reload UI

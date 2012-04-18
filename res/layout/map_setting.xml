@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/setting_item_height"
             android:background="@drawable/setting_listitem_bg_middle"
-            android:paddingLeft="5dip" android:layout_marginTop="-1dip" android:clickable="true">
+            android:paddingLeft="5dip" android:layout_marginTop="-1dip" android:clickable="true" android:visibility="gone">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

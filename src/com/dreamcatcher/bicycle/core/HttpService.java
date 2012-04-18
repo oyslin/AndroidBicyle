@@ -26,7 +26,9 @@ public class HttpService implements IHttpService {
 	private final static int SINGLE_HTTP_FAILED = 4;
 	private final static int SINGLE_JSON_FAILED = 5;
 	private final static int SINGLE_DISCONNECT = 6;
-	
+	private final static int CHECK_VERSION_COMPLETE = 7;
+	private final static int CHECK_VERSION_DISCONNECT = 8;
+	private final static int CHECK_VERSION_HTTP_FAILED = 9;
 	
 	public HttpService(){
 		mExecutorService = Executors.newCachedThreadPool();
@@ -57,6 +59,16 @@ public class HttpService implements IHttpService {
 					break;
 				case SINGLE_DISCONNECT:
 					BicycleService.getInstance().getHttpEventListener().onSingleBicycleInfoReceived(null, Constants.ResultCode.NETWORK_DISCONNECT);
+					break;
+				case CHECK_VERSION_COMPLETE:
+					boolean needUpdate = msg.getData().getBoolean(Constants.ParcelableTag.VERSION_NEED_UPDATE);
+					BicycleService.getInstance().getHttpEventListener().onNewVersionCheckCompleted(needUpdate, Constants.ResultCode.SUCCESS);
+					break;
+				case CHECK_VERSION_DISCONNECT:
+					BicycleService.getInstance().getHttpEventListener().onNewVersionCheckCompleted(false, Constants.ResultCode.NETWORK_DISCONNECT);
+					break;
+				case CHECK_VERSION_HTTP_FAILED:
+					BicycleService.getInstance().getHttpEventListener().onNewVersionCheckCompleted(false, Constants.ResultCode.HTTP_REQUEST_FAILED);
 					break;
 				default:
 					break;
@@ -102,4 +114,23 @@ public class HttpService implements IHttpService {
 		});
 	}
 
+	public void checkNewVersion(final String currentVersionName, final int currentVersionCode) {
+		mExecutorService.execute(new Runnable() {			
+			public void run() {
+				try {
+					boolean needUpdate = HttpUtils.checkVersion(currentVersionName, currentVersionCode);
+					Bundle data = new Bundle();
+					data.putBoolean(Constants.ParcelableTag.VERSION_NEED_UPDATE, needUpdate);
+					Message message = Message.obtain();
+					message.setData(data);
+					message.what = CHECK_VERSION_COMPLETE;
+					mHandler.sendMessage(message);
+				} catch (NetworkException e) {
+					mHandler.sendEmptyMessage(CHECK_VERSION_DISCONNECT);
+				} catch (Exception e) {
+					mHandler.sendEmptyMessage(CHECK_VERSION_HTTP_FAILED);
+				}
+			}
+		});		
+	}
 }

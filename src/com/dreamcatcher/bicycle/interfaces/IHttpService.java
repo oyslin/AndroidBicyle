@@ -11,4 +11,11 @@ public interface IHttpService {
 	 * @param bicycleId
 	 */
 	public void getSingleBicycleInfo(int bicycleId);
+	
+	/**
+	 * go to server check whether there is new version
+	 * @param currentVersionName
+	 * @param currentVersionCode
+	 */
+	public void checkNewVersion(final String currentVersionName, final int currentVersionCode);
 }

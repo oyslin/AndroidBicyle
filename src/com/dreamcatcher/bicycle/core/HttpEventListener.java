@@ -25,6 +25,12 @@ public class HttpEventListener implements IHttpEvent {
 		}
 	}
 	
+	public void onNewVersionCheckCompleted(boolean needUpdate, int resultCode) {
+		for(IHttpEvent event : mEvents){
+			event.onNewVersionCheckCompleted(needUpdate, resultCode);
+		}		
+	}
+	
 	public void addEvent(IHttpEvent event){
 		if(!mEvents.contains(event)){
 			mEvents.add(event);

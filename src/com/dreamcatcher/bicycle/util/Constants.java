@@ -11,7 +11,6 @@ import com.dreamcatcher.bicycle.activity.ChangeCityActivity;
 import com.dreamcatcher.bicycle.activity.FavoriteSettingActivity;
 import com.dreamcatcher.bicycle.activity.FeedbackActivity;
 import com.dreamcatcher.bicycle.activity.MapSettingActivity;
-import com.dreamcatcher.bicycle.activity.SearchSettingActivity;
 
 
 public class Constants {
@@ -111,15 +110,15 @@ public class Constants {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
 									R.drawable.ic_setting_favorite,
-									R.drawable.ic_reminder,
-									R.drawable.ic_setting_search
+									R.drawable.ic_reminder
+//									R.drawable.ic_setting_search
 		};
 		String[] SETTING_ITEM_TEXT = {
 									Utils.getText(R.string.setting_map),
 									Utils.getText(R.string.setting_changecity),
 									Utils.getText(R.string.setting_favorite),
-									Utils.getText(R.string.setting_return_reminder),
-									Utils.getText(R.string.setting_search)									
+									Utils.getText(R.string.setting_return_reminder)
+//									Utils.getText(R.string.setting_search)									
 		};
 		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
 		
@@ -128,15 +127,15 @@ public class Constants {
 									MapSettingActivity.class,
 									ChangeCityActivity.class,
 									FavoriteSettingActivity.class,
-									null,
-									SearchSettingActivity.class,									
+									null
+//									SearchSettingActivity.class,									
 		};
 		
 		int[] MARGIN_TOP_IN_DIP = {
 									0,
 									-1,
 									-1,
-									-1,
+//									-1,
 									-1
 		};
 		
@@ -144,7 +143,7 @@ public class Constants {
 									R.drawable.setting_listitem_bg_top,
 									R.drawable.setting_listitem_bg_middle,
 									R.drawable.setting_listitem_bg_middle,
-									R.drawable.setting_listitem_bg_middle,
+//									R.drawable.setting_listitem_bg_middle,
 									R.drawable.setting_listitem_bg_bottom				
 		};
 	}
@@ -209,11 +208,12 @@ public class Constants {
 	
 	public interface ParcelableTag{
 		String BICYCLE_STATION_INFO = "bicycle_station_info";
+		String VERSION_NEED_UPDATE = "need_update";
 	}
 	
 	public interface HttpUrl{
 		String VERSION_INFO_URL = "http://10.224.105.194:8000/versioninfo";
-		String FEEDBACK_URL = "";		
+		String FEEDBACK_URL = "";
+		String APP_URI = "market://details?id=com.dreamcather.bicycle";
 	}
-	
 }

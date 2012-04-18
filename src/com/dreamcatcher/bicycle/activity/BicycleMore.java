@@ -15,14 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dreamcatcher.bicycle.R;
-import com.dreamcatcher.bicycle.exception.NetworkException;
+import com.dreamcatcher.bicycle.core.BicycleService;
+import com.dreamcatcher.bicycle.interfaces.IHttpEvent;
 import com.dreamcatcher.bicycle.util.Constants;
-import com.dreamcatcher.bicycle.util.HttpUtils;
 import com.dreamcatcher.bicycle.util.Utils;
-import com.dreamcatcher.bicycle.util.Constants.HttpUrl;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
+import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 
-public class BicycleMore extends Activity {
+public class BicycleMore extends Activity implements IHttpEvent{
 	private LayoutInflater mInflater = null;
 	private LinearLayout mListContainer = null;
 	
@@ -34,13 +34,14 @@ public class BicycleMore extends Activity {
 	}
 	
 	private void init(){
-mInflater = getLayoutInflater();
+		mInflater = getLayoutInflater();
 		
 		ActivityTitle activityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		activityTitle.setActivityTitle(getText(R.string.title_more));
 		
 		mListContainer = (LinearLayout) findViewById(R.id.bicycle_more_list_container);
 		this.addSettingItem();
+		this.addEvent();
 	}
 	
 	private void addSettingItem(){
@@ -113,20 +114,49 @@ mInflater = getLayoutInflater();
 	}
 	
 	private void goToMarket(){
-		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.dreamcather.bicycle")));
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.HttpUrl.APP_URI)));
 	}
 	
 	private void checkVersion(){
+		Toast.makeText(this, R.string.toast_msg_version_is_checking, Toast.LENGTH_SHORT).show();		
 		PackageInfo packageInfo = Utils.getPackageInfo();
-		try {
-			boolean needUpdate = HttpUtils.checkVersion(packageInfo);
+		BicycleService.getInstance().getHttpService().checkNewVersion(packageInfo.versionName, packageInfo.versionCode);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		this.removeEvent();
+		super.onDestroy();
+	}
+	
+	private void addEvent(){
+		BicycleService.getInstance().getHttpEventListener().addEvent(this);
+	}
+	
+	private void removeEvent(){
+		BicycleService.getInstance().getHttpEventListener().removeEvent(this);
+	}
+
+	public void onAllBicyclesInfoReceived(int resultCode) {
+		
+	}
+
+	public void onSingleBicycleInfoReceived(
+			BicycleStationInfo bicycleStationInfo, int resultCode) {
+		
+	}
+
+	public void onNewVersionCheckCompleted(boolean needUpdate, int resultCode) {
+		if(resultCode == Constants.ResultCode.NETWORK_DISCONNECT){
+			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
+		}else if(resultCode == Constants.ResultCode.SUCCESS){
 			if(needUpdate){
-				goToMarket();				
+				goToMarket();
 			}else {
 				Toast.makeText(this, R.string.toast_msg_version_is_up_to_date, Toast.LENGTH_SHORT).show();
 			}
-		} catch (NetworkException e) {
-			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
-		}		
+		}else {
+			Toast.makeText(this, R.string.toast_msg_server_unavailable, Toast.LENGTH_SHORT).show();
+		}
 	}
 }
