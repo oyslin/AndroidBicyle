@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" android:background="@drawable/activity_bg">
-    <com.dreamcather.bicycle.view.ActivityTitle
+    <com.dreamcatcher.bicycle.view.ActivityTitle
         android:id="@+id/bicycle_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">      
 
-    </com.dreamcather.bicycle.view.ActivityTitle>
+    </com.dreamcatcher.bicycle.view.ActivityTitle>
     <ListView
         android:id="@+id/change_city_list"
         android:layout_width="match_parent"

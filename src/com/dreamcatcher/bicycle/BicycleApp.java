@@ -1,11 +1,11 @@
-package com.dreamcather.bicycle;
+package com.dreamcatcher.bicycle;
 
 import android.app.Application;
 
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.MKEvent;
 import com.baidu.mapapi.MKGeneralListener;
-import com.dreamcather.bicycle.util.Constants;
+import com.dreamcatcher.bicycle.util.Constants;
 
 public class BicycleApp extends Application {
 	private static BicycleApp mInstance = null;

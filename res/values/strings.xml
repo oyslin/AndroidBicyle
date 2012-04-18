@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">环保自行车</string>
+    <string name="version_name">1.0</string>
     
     <string name="city_name_suzhou">苏州</string>
     <string name="city_name_changshu">常熟</string>
@@ -53,6 +54,7 @@
     <string name="setting_feedback">反馈意见</string>
     <string name="setting_about">关于</string>
     <string name="setting_update">更新程序</string>
+    <string name="setting_rating">喜欢就给个五星吧</string>
     
     <string name="map_setting_auto_locate">程序启动自动定位</string>
     <string name="map_setting_download_offline_map">下载离线地图</string>
@@ -85,7 +87,7 @@
     <string name="info_version">1.0.0.0</string>   
     <string name="info_available_system_label">适用系统：</string>
     <string name="info_available_system">Android2.1及2.1以上操作系统</string>    
-    <string name="info_copyright_en_company">Copyright © 2012 Dream Cather Studio.</string>
+    <string name="info_copyright_en_company">Copyright © 2012 Dream Catcher Studio.</string>
     <string name="info_copyright_en_right">All Rights Reserved</string>
 	<string name="info_copyright_zh">追梦人工作室版权所有</string>
 	
