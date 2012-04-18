@@ -123,7 +123,7 @@ mInflater = getLayoutInflater();
 			if(needUpdate){
 				goToMarket();				
 			}else {
-				Toast.makeText(this, R.string.toast_msg_version_is_up_to_date, Toast.LENGTH_SHORT);
+				Toast.makeText(this, R.string.toast_msg_version_is_up_to_date, Toast.LENGTH_SHORT).show();
 			}
 		} catch (NetworkException e) {
 			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
