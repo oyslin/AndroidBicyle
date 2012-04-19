@@ -56,6 +56,13 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 		this.removeEvent();
 		super.onDestroy();
 	}
+	
+	@Override
+	public boolean onSearchRequested() {
+		// TODO Auto-generated method stub
+		
+		return super.onSearchRequested();
+	}
 
 	private void addEvent(){
 		BicycleService.getInstance().getHttpEventListener().addEvent(this);

@@ -5,7 +5,6 @@ import com.dreamcatcher.bicycle.activity.AppInfo;
 import com.dreamcatcher.bicycle.activity.BicycleList;
 import com.dreamcatcher.bicycle.activity.BicycleMap;
 import com.dreamcatcher.bicycle.activity.BicycleMore;
-import com.dreamcatcher.bicycle.activity.BicycleQuery;
 import com.dreamcatcher.bicycle.activity.BicycleSetting;
 import com.dreamcatcher.bicycle.activity.ChangeCityActivity;
 import com.dreamcatcher.bicycle.activity.FavoriteSettingActivity;
@@ -17,20 +16,17 @@ public class Constants {
 	public interface TabSetting{
 		int IMAGE_ARRAY[] = {R.drawable.ic_tab_bicycle,
 							 R.drawable.ic_tab_list,
-							 R.drawable.ic_search,
 							 R.drawable.ic_tab_setting,
 							 R.drawable.ic_tab_more
 							 };
 		int TEXT_ARRAY[] = {R.string.tab_map,
 							R.string.tab_list,
-							R.string.tab_query,
 							R.string.tab_settings,
 							R.string.tab_more
 							};
 		@SuppressWarnings("rawtypes")
 		Class CONTENT_ARRAY[] = {BicycleMap.class,
 								 BicycleList.class,
-								 BicycleQuery.class,
 								 BicycleSetting.class,
 								 BicycleMore.class
 								};

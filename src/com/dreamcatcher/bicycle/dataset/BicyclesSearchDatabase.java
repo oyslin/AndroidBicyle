@@ -3,10 +3,6 @@ package com.dreamcatcher.bicycle.dataset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.dreamcatcher.bicycle.BicycleApp;
-import com.dreamcatcher.bicycle.util.Utils;
-import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
-
 import android.app.SearchManager;
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,6 +11,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
+
+import com.dreamcatcher.bicycle.BicycleApp;
+import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 
 public class BicyclesSearchDatabase {
 	private static final String DATABASE_NAME = "bicyclestation";
@@ -26,7 +25,16 @@ public class BicyclesSearchDatabase {
     private static final HashMap<String,String> mColumnMap = buildColumnMap();    
     private final BicycleSearchOpenHelper mBicycleSearchOpenHelper;
     
-    public BicyclesSearchDatabase(){
+    private static BicyclesSearchDatabase mInstance = null;
+    
+    public static BicyclesSearchDatabase getInstance(){
+    	if(mInstance == null){
+    		mInstance = new BicyclesSearchDatabase();
+    	}
+    	return mInstance;
+    }
+    
+    private BicyclesSearchDatabase(){
     	mBicycleSearchOpenHelper = new BicycleSearchOpenHelper(BicycleApp.getInstance());
     }
     
@@ -76,8 +84,7 @@ public class BicyclesSearchDatabase {
             return null;
         }
         return cursor;
-    }
-    
+    }    
     
     private static class BicycleSearchOpenHelper extends SQLiteOpenHelper{
         private SQLiteDatabase mDatabase;
@@ -105,8 +112,7 @@ public class BicyclesSearchDatabase {
 					for(int i = 0, n = arrayList.size(); i < n; i++){
 						BicycleStationInfo bicycleStationInfo = arrayList.get(i);
 						int id = bicycleStationInfo.getId();
-						String name = bicycleStationInfo.getName();
-						name = Utils.getPinyinCaptalLetter(name);
+						String name = bicycleStationInfo.getName();						
 						addBicycleName(id, name);
 					}					
 				}

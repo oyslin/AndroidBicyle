@@ -16,7 +16,6 @@
     
     <string name="tab_map">地图</string>
     <string name="tab_settings">设置</string>
-    <string name="tab_query">信息查询</string>
     <string name="tab_list">列表</string>
     <string name="tab_more">更多</string>
     
@@ -24,7 +23,6 @@
     <string name="title_setting">设置</string>
     <string name="title_list">停放点列表</string>
     <string name="title_info">关于</string>
-    <string name="title_query">信息查询</string>
     <string name="title_select_city">选择城市</string>
     <string name="title_change_city">切换城市</string>
     <string name="title_feedback">反馈意见</string>
@@ -45,7 +43,6 @@
     <string name="list_avaibike">可借车数: </string>
     <string name="list_avaipark">可停车位: </string>
     
-    <string name="setting_search">查询设置</string>
     <string name="setting_map">地图设置</string>
     <string name="setting_return_reminder">还车提醒</string>
     <string name="setting_favorite">兴趣点设置</string>
@@ -84,7 +81,6 @@
     <string name="return_bicycle_reminder_cancel_dialog_msg">还车时间到了，请及时归还自行车</string>
     
     <string name="info_version_label">软件版本：</string>
-    <string name="info_version">1.0.0.0</string>   
     <string name="info_available_system_label">适用系统：</string>
     <string name="info_available_system">Android2.1及2.1以上操作系统</string>    
     <string name="info_copyright_en_company">Copyright © 2012 Dream Catcher Studio.</string>
@@ -116,8 +112,5 @@
 	<string name="notification_content_title">还车提醒</string>
 	<string name="notification_content_text">还车时间到了，请及时归还</string>
 	
-	<string name="feedback_edittext_hint">说点什么吧......</string>
-	
-	<string name="search_label">查询自行车点</string>
-	<string name="search_hint">请输入站点名称或拼音首字母</string>
+	<string name="feedback_edittext_hint">说点什么吧......</string>	
 </resources>
