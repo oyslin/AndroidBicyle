@@ -33,6 +33,11 @@ public class BicycleMore extends Activity implements IHttpEvent{
 		init();
 	}
 	
+	@Override
+	public void onBackPressed() {
+		this.getParent().onBackPressed();
+	}
+	
 	private void init(){
 		mInflater = getLayoutInflater();
 		

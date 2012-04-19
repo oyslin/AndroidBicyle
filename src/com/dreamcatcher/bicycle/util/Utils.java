@@ -263,14 +263,15 @@ public class Utils {
 				stringBuilder.append(line);
 			}
 			String jsonStr = stringBuilder.toString();
-			setToDataset(jsonStr);
+			//get name capital
+			setToDataset(jsonStr, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
 	
-	public static void setToDataset(String jsonStr){
+	public static void setToDataset(String jsonStr, boolean updateNameCapital){
 		try {
 			BicycleDataset dataset = BicycleDataset.getInstance();
 			JSONObject jsonObject = new JSONObject(jsonStr);			
@@ -285,16 +286,25 @@ public class Utils {
 				int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
 				String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);				
 				
-				BicycleStationInfo bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);
+				String nameCapital = "";
+				if(updateNameCapital){
+					nameCapital = PinyinUtil.getPinyinCapital(name);
+				}
+				
+				BicycleStationInfo bicycleInfo = new BicycleStationInfo(id, name, nameCapital, latitude, longitude, capacity, available, address);
 				dataset.addBicycleInfo(id, bicycleInfo);
 			}
 		} catch (Exception e) {			
 			e.printStackTrace();
-		}		
+		}
 	}
 	
 	public static void clearDataset(){
 		BicycleDataset.getInstance().clearData();
+	}
+	
+	public static String getPinyinCaptalLetter(String bicycleName){
+		return null;
 	}
 	
 }

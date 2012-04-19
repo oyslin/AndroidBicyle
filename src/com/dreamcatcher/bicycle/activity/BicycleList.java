@@ -80,7 +80,7 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 		mProgressDialog = new ProgressDialog(this);
 		mProgressDialog.setMessage(getText(R.string.list_progress_dialog_msg));
 		mProgressDialog.show();
-		BicycleService.getInstance().getHttpService().getAllBicyclesInfo();
+		BicycleService.getInstance().getHttpService().getAllBicyclesInfo(false);
 	}
 
 	public void onAllBicyclesInfoReceived(int resultCode) {

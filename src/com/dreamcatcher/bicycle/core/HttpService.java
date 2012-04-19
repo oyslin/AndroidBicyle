@@ -77,11 +77,11 @@ public class HttpService implements IHttpService {
 		};
 	}
 	
-	public void getAllBicyclesInfo() {
+	public void getAllBicyclesInfo(final boolean updateNameCapital) {
 			mExecutorService.execute(new Runnable() {
 				public void run() {
 					try {
-						HttpUtils.getAllBicyclesInfoFromServer();
+						HttpUtils.getAllBicyclesInfoFromServer(updateNameCapital);
 						mHandler.sendEmptyMessage(ALL_SUCCESS);						
 					} catch (IOException e) {
 						mHandler.sendEmptyMessage(ALL_HTTP_FAILED);						

@@ -6,15 +6,20 @@ import android.os.Parcelable;
 public class BicycleStationInfo implements Parcelable{
 	private int mId = 1;
 	private String mName = "";
+	private String mNameCapital = "";
 	private double mLatitude = 0.0;
 	private double mLongitude = 0.0;
 	private int mCapacity = 0;
 	private int mAvailable = 0;
 	private String mAddress = "";
 	
-	public BicycleStationInfo(int id, String name, double latitude, double longitude, int capacity, int available, String address){
+	public BicycleStationInfo(int id, String name, String nameCapital, double latitude, double longitude, int capacity, int available, String address){
 		this.mId = id;
 		this.mName = name;
+		//if null, do not update
+		if(!nameCapital.equals("")){
+			this.mNameCapital = nameCapital;
+		}
 		this.mLatitude = latitude;
 		this.mLongitude = longitude;
 		this.mCapacity = capacity;
@@ -34,6 +39,15 @@ public class BicycleStationInfo implements Parcelable{
 	public void setName(String mName) {
 		this.mName = mName;
 	}
+	
+	public String getNameCapital(){
+		return mNameCapital;
+	}
+	
+	public void setNameCapital(String nameCapital){
+		this.mNameCapital = nameCapital;
+	}
+	
 	public double getLatitude() {
 		return mLatitude;
 	}
@@ -72,6 +86,7 @@ public class BicycleStationInfo implements Parcelable{
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(mId);
 		dest.writeString(mName);
+		dest.writeString(mNameCapital);
 		dest.writeDouble(mLatitude);
 		dest.writeDouble(mLongitude);
 		dest.writeInt(mCapacity);
@@ -97,6 +112,7 @@ public class BicycleStationInfo implements Parcelable{
 	private void readFromParce(Parcel in){
 		this.mId = in.readInt();
 		this.mName = in.readString();
+		this.mNameCapital = in.readString();
 		this.mLatitude = in.readDouble();
 		this.mLongitude = in.readDouble();
 		this.mCapacity = in.readInt();
