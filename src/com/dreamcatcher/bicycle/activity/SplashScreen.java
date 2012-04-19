@@ -59,7 +59,7 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 		if(jsonStr == null || jsonStr.equals("")){
 			return false;
 		}
-		Utils.setToDataset(jsonStr, true);
+		Utils.setToDataset(jsonStr);
 		return true;
 	}
 

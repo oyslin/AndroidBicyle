@@ -30,7 +30,7 @@ public class HttpUtils {
 	/**
 	 * update bicycles info from server and save it to local
 	 */
-	public static boolean getAllBicyclesInfoFromServer(boolean updateNameCapital) throws IOException, NetworkException{
+	public static boolean getAllBicyclesInfoFromServer() throws IOException, NetworkException{
 		if(Utils.getNetworkInfo() == Constants.NetworkInfo.DISCONNECT){
 			throw new NetworkException();
 		}
@@ -60,7 +60,7 @@ public class HttpUtils {
 				}
 				jsonStr = jsonStr.substring(firstBrace);
 				
-				Utils.setToDataset(jsonStr, updateNameCapital);
+				Utils.setToDataset(jsonStr);
 				Utils.storeStringDataToLocal(Constants.LocalStoreTag.ALL_BICYCLE, jsonStr);
 				success = true;			
 			}			
@@ -111,8 +111,7 @@ public class HttpUtils {
 					int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
 					String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);
 					
-					//set name capital to "", for this does not need to update
-					bicycleInfo = new BicycleStationInfo(id, name, "", latitude, longitude, capacity, available, address);				
+					bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);				
 				}
 			}			
 			

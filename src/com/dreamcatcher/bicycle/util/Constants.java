@@ -98,7 +98,7 @@ public class Constants {
 	}
 	
 	public interface BaiduApi{
-		String KEY = "1ABD83087C2F91F0F12E912BA87705648F714363";
+		String KEY = "CA277C4B9F34905473026E3D8D8716014CA91D03";
 	}
 	
 	public interface SettingListViewItem{
@@ -106,15 +106,15 @@ public class Constants {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
 									R.drawable.ic_setting_favorite,
-									R.drawable.ic_reminder
-//									R.drawable.ic_setting_search
+									R.drawable.ic_reminder,
+									R.drawable.ic_setting_recommend
 		};
 		String[] SETTING_ITEM_TEXT = {
 									Utils.getText(R.string.setting_map),
 									Utils.getText(R.string.setting_changecity),
 									Utils.getText(R.string.setting_favorite),
-									Utils.getText(R.string.setting_return_reminder)
-//									Utils.getText(R.string.setting_search)									
+									Utils.getText(R.string.setting_return_reminder),
+									Utils.getText(R.string.setting_recommend)									
 		};
 		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
 		
@@ -123,15 +123,15 @@ public class Constants {
 									MapSettingActivity.class,
 									ChangeCityActivity.class,
 									FavoriteSettingActivity.class,
-									null
-//									SearchSettingActivity.class,									
+									null,
+									null,									
 		};
 		
 		int[] MARGIN_TOP_IN_DIP = {
 									0,
 									-1,
 									-1,
-//									-1,
+									-1,
 									-1
 		};
 		
@@ -139,7 +139,7 @@ public class Constants {
 									R.drawable.setting_listitem_bg_top,
 									R.drawable.setting_listitem_bg_middle,
 									R.drawable.setting_listitem_bg_middle,
-//									R.drawable.setting_listitem_bg_middle,
+									R.drawable.setting_listitem_bg_middle,
 									R.drawable.setting_listitem_bg_bottom				
 		};
 	}

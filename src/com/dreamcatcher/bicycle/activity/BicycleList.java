@@ -3,6 +3,7 @@ package com.dreamcatcher.bicycle.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
 import com.dreamcatcher.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
+import com.waps.AdView;
 
 public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	private ActivityTitle mActivityTitle = null;
@@ -48,6 +50,9 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 		mListView = (ListView) findViewById(R.id.bicycle_listview);		
 		mAdapter = new BicycleListAdapter();
 		mListView.setAdapter(mAdapter);
+		
+		LinearLayout container =(LinearLayout)findViewById(R.id.AdLinearLayout); 
+		new AdView(this,container).DisplayAd();
 	}
 	
 	
@@ -87,7 +92,7 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 		mProgressDialog = new ProgressDialog(this);
 		mProgressDialog.setMessage(getText(R.string.list_progress_dialog_msg));
 		mProgressDialog.show();
-		BicycleService.getInstance().getHttpService().getAllBicyclesInfo(false);
+		BicycleService.getInstance().getHttpService().getAllBicyclesInfo();
 	}
 
 	public void onAllBicyclesInfoReceived(int resultCode) {

@@ -7,11 +7,10 @@
     <color name="grey">#cccccc</color>
     <color name="dark_grey">#333333</color>
     <color name="light_grey">#7f7f7f</color>
-    <color name="red">#ffff0000</color>
     <color name="blue">#0000ff</color>
     <color name="light_red">#D20000</color>
     <color name="light_green">#66C537</color>
-    <color name="dark_green">#007700</color>
+    <color name="activity_bg">#F0F0F0</color>
     <color name="listview_divider_color">#CECECE</color>
     <color name="setting_listview_bg_color">#F5F5F5</color>
     <color name="setting_listview_border_color">#CECECE</color>
@@ -22,5 +21,4 @@
     
     <color name="activity_bg_start_color">#78BF41</color>
     <color name="activity_bg_end_color">#55991F</color>
-    <color name="activity_image_split_color">#5F9833</color>
 </resources>

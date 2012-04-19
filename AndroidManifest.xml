@@ -16,6 +16,7 @@
 	<uses-permission android:name="android.permission.CALL_PHONE"/>
 	<uses-permission android:name="android.permission.SEND_SMS"/>
 	<uses-permission android:name="android.permission.VIBRATE"/>
+	<uses-permission android:name="android.permission.GET_TASKS" /> 
 
     <application
         android:icon="@drawable/ic_launcher" android:name=".BicycleApp"
@@ -150,8 +151,16 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>       
-        
+        </activity>        
+        <activity
+            android:name="com.waps.OffersWebView"
+            android:configChanges="keyboardHidden|orientation" />
+        <meta-data
+            android:name="WAPS_ID"
+            android:value="e52943764db4440b5de30c57717c4fff" />
+        <meta-data
+            android:name="WAPS_PID"
+            android:value="WAPS" />
     </application>
 
 </manifest>

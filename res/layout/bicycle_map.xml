@@ -8,12 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
-    </com.dreamcatcher.bicycle.view.ActivityTitle>    
+    </com.dreamcatcher.bicycle.view.ActivityTitle>
+
     <com.baidu.mapapi.MapView 
         android:id="@+id/bicycle_mapview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        android:layout_below="@id/bicycle_title"
-        android:apiKey="0NR04mmJm6F8LDzbw4iudCl42egGlwQWjoRz0HQ"/>
+        android:layout_below="@+id/bicycle_title"
+        android:apiKey="0NR04mmJm6F8LDzbw4iudCl42egGlwQWjoRz0HQ" 
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

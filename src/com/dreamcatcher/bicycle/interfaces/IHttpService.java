@@ -4,7 +4,7 @@ public interface IHttpService {
 	/**
 	 * get all bicycle infos from server
 	 */
-	public void getAllBicyclesInfo(boolean updateNameCapital);
+	public void getAllBicyclesInfo();
 	
 	/**
 	 * get single bicycle info from server

@@ -45,7 +45,7 @@ public class SettingService implements ISettingService {
 					//reload bicycles info from assets
 					Utils.loadBicyclesInfoFromAssets();
 					//reload bicycles from server
-					HttpUtils.getAllBicyclesInfoFromServer(true);
+					HttpUtils.getAllBicyclesInfoFromServer();
 					mHandler.sendEmptyMessage(SETTING_SUCCESS);
 				} catch (Exception e) {
 					e.printStackTrace();

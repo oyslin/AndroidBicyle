@@ -84,7 +84,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		
 		mCitySetting = GlobalSetting.getInstance().getCitySetting();
 		mHttpService = BicycleService.getInstance().getHttpService();
-		mHttpService.getAllBicyclesInfo(true);
+		mHttpService.getAllBicyclesInfo();
 		
 		mBMapManager = BicycleApp.getInstance().getMapManager();
 		if(mBMapManager == null){

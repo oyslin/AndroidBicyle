@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">环保自行车</string>
+    <string name="app_name">环保公共自行车点查询系统</string>
     <string name="version_name">1.0</string>
     
     <string name="city_name_suzhou">苏州</string>
@@ -37,7 +37,6 @@
     <string name="map_pop_address">地址: </string>
     
     <string name="progress_dialog_loading_msg">正在加载数据，请稍等..</string>
-    <string name="progress_dialog_locateing">正在定位，请稍等..</string>
     
     <string name="list_progress_dialog_msg">正在更新数据，请稍等..</string>
     <string name="list_avaibike">可借车数: </string>
@@ -52,13 +51,13 @@
     <string name="setting_about">关于</string>
     <string name="setting_update">检查更新</string>
     <string name="setting_rating">去市场打分</string>
+    <string name="setting_recommend">软件推荐</string>
     
     <string name="map_setting_auto_locate">程序启动自动定位</string>
     <string name="map_setting_download_offline_map">下载离线地图</string>
     <string name="map_setting_show_nearest_spots">显示附近自行车点</string>
     
     <string name="map_setting_show_favorites">突出显示兴趣点</string>
-    <string name="map_setting_show_direction">显示行进路线</string>
     <string name="map_setting_download_offline_map_network_not_wifi_msg">地图数据太大，请在Wifi网络下下载离线地图</string>
     <string name="map_setting_download_offline_map_started">开始后台下载离线地图..</string>
     <string name="map_setting_download_offline_map_start_failed">开始后台下载离线地图失败，请稍后重试</string>
@@ -68,7 +67,6 @@
     <string name="map_setting_download_offline_map_percentage">( %d%% )</string>
     
     <string name="return_bicycle_reminder_time_label">提醒时间：</string>
-    <string name="return_bicycle_reminder_time_value">%d</string>
     <string name="return_bicycle_reminder_time_unit">分钟</string>
     <string name="return_bicycle_reminder_dialog_title">还车提醒设置</string>
     <string name="return_bicycle_reminder_sound">响铃</string>
@@ -91,9 +89,6 @@
 	<string name="share_message">Hi, 我刚使用了环保自行车手机客户端查看自行车站点分布，还可以实时查询各站点的自行车借还情况，真的很方便呢。你也来试试吧，在Google Android市场搜索环保自行车即可下载。</string>
 	<string name="share_chooser_title">请选择分享方式</string>
 	
-	<string name="error_msg_no_connection">无法获取服务器信息</string>
-	
-	<string name="change_city_title">切换城市</string>
 	<string name="change_city_restart">重新加载数据</string>
 	<string name="change_city_same_city_toast_msg">所选城市与当前城市相同，请重新选择</string>
 	<string name="change_city_progress_dialog_msg">正在加载数据，请稍等..</string>

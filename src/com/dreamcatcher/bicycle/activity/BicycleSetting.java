@@ -24,6 +24,7 @@ import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.ReminderNotification;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
+import com.waps.AppConnect;
 
 public class BicycleSetting extends Activity {
 	private LayoutInflater mInflater = null;
@@ -52,6 +53,7 @@ public class BicycleSetting extends Activity {
 		
 		mListContainer = (LinearLayout) findViewById(R.id.bicycle_setting_list_container);
 		this.addSettingItem();
+		
 	}
 	
 	private void addSettingItem(){
@@ -80,7 +82,7 @@ public class BicycleSetting extends Activity {
 	private OnClickListener getOnFunctionSettingItemClickListener(int index){
 		OnClickListener listener = null;
 		switch (index) {
-			case 0:
+			case 0:				
 			case 1:
 			case 2:						
 				final Intent intent = new Intent(this, Constants.SettingListViewItem.NEXT_ACTIVITY_ARRAY[index]);
@@ -98,9 +100,12 @@ public class BicycleSetting extends Activity {
 				};				
 				break;
 			case 4:
-				listener = new OnClickListener() {					
-					public void onClick(View v) {
-						setQuery();						
+				listener = new OnClickListener() {
+					public void onClick(View v) {	
+						// TODO Auto-generated method stub
+						AppConnect.getInstance(BicycleSetting.this).showOffers(
+								BicycleSetting.this);
+	
 					}
 				};
 				break;
@@ -187,10 +192,6 @@ public class BicycleSetting extends Activity {
 				});
 		
 		builder.show();		
-	}
-	
-	private void setQuery(){
-		
 	}
 	
 	private void startReminder(int timeValue, boolean soundSelected, boolean vibrateSelected, boolean soundAndVibrateSelected){
