@@ -98,7 +98,7 @@ public class Constants {
 	}
 	
 	public interface BaiduApi{
-		String KEY = "CA277C4B9F34905473026E3D8D8716014CA91D03";
+		String KEY = "1ABD83087C2F91F0F12E912BA87705648F714363";
 	}
 	
 	public interface SettingListViewItem{
