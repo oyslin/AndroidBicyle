@@ -208,8 +208,8 @@ public class Constants {
 	}
 	
 	public interface HttpUrl{
-		String VERSION_INFO_URL = "http://10.224.105.194:8000/versioninfo";
-		String FEEDBACK_URL = "http://10.224.105.194:8000/feedback";
+		String VERSION_INFO_URL = "http://bicycle_proxy.cnodejs.net/versioninfo";
+		String FEEDBACK_URL = "http://bicycle_proxy.cnodejs.net/feedback";
 		String APP_URI = "market://details?id=com.dreamcather.bicycle";
 	}
 }
