@@ -108,4 +108,5 @@
 	<string name="notification_content_text">还车时间到了，请及时归还</string>
 	
 	<string name="feedback_edittext_hint">说点什么吧......</string>	
+	<string name="progress_bar_text">获取信息</string>
 </resources>

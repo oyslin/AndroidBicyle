@@ -2,7 +2,6 @@ package com.dreamcatcher.bicycle.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -201,10 +200,8 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 	
 				break;
 			case MKOfflineMap.TYPE_NEW_OFFLINE:
-				Log.d("OfflineDemo", String.format("add offlinemap num:%d", state));
 				break;
 			case MKOfflineMap.TYPE_VER_UPDATE:
-				Log.d("OfflineDemo", String.format("new offlinemap ver"));
 				break;
 			}
 		

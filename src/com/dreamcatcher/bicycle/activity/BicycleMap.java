@@ -10,6 +10,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private long mCurrentTime = 0;
 	private int mSelectedId = -1;
 	private boolean mAutoLocate = false;
+	private LinearLayout mProgressbarLine = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,8 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		super.initMapActivity(mBMapManager);
 		
 		mDataset = BicycleDataset.getInstance();
+		
+		mProgressbarLine = (LinearLayout) findViewById(R.id.bicycle_map_progress_line);
 		
 		mActivityTitle = (ActivityTitle) findViewById(R.id.bicycle_title);
 		mActivityTitle.setActivityTitle(getText(R.string.title_map));
@@ -363,6 +367,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			if(System.currentTimeMillis() - mCurrentTime > 2000){
 				mCurrentTime = System.currentTimeMillis();
 				mSelectedId = bicycleId;
+				mProgressbarLine.setVisibility(View.VISIBLE);
 				mHttpService.getSingleBicycleInfo(bicycleId);				
 			}
 			return true;
@@ -419,6 +424,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	 */
 	public void onSingleBicycleInfoReceived(
 			BicycleStationInfo bicycleStationInfo, int resultCode) {
+		mProgressbarLine.setVisibility(View.GONE);
 		if(resultCode == Constants.ResultCode.SUCCESS){
 			showPopContent(bicycleStationInfo);
 			mDataset.updateBicycleInfo(mSelectedId, bicycleStationInfo);

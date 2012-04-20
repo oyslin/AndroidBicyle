@@ -131,6 +131,11 @@
     	<item name="android:textColor">@color/light_grey</item>
     </style>
     
+    <style name="Bicycle.TextAppearance.DarkRedSmallNormal">
+    	<item name="android:textSize">@dimen/small_font_size</item>
+    	<item name="android:textColor">@color/dark_red</item>
+    </style>
+    
     <!-- extra small font -->
     <style name="Bicycle.TextAppearance.WhiteExtraSmallBold">
     	<item name="android:textSize">@dimen/xsmall_font_size</item>

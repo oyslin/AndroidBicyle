@@ -89,8 +89,10 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 			Toast.makeText(this, R.string.toast_msg_network_error, Toast.LENGTH_SHORT).show();
 			return;
 		}
-		mProgressDialog = new ProgressDialog(this);
-		mProgressDialog.setMessage(getText(R.string.list_progress_dialog_msg));
+		if(mProgressDialog == null){
+			mProgressDialog = new ProgressDialog(this);
+			mProgressDialog.setMessage(getText(R.string.list_progress_dialog_msg));
+		}		
 		mProgressDialog.show();
 		BicycleService.getInstance().getHttpService().getAllBicyclesInfo();
 	}

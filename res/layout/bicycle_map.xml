@@ -17,5 +17,24 @@
         android:layout_below="@+id/bicycle_title"
         android:apiKey="0NR04mmJm6F8LDzbw4iudCl42egGlwQWjoRz0HQ" 
         android:layout_alignParentBottom="true"/>
+    
+	<LinearLayout
+	    android:id="@+id/bicycle_map_progress_line"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerInParent="true" android:visibility="gone">
+
+	    <ProgressBar
+	        style="?android:attr/progressBarStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" android:layout_gravity="center_vertical"/>
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:text="@string/progress_bar_text"
+	        android:textAppearance="@style/Bicycle.TextAppearance.DarkRedSmallNormal" android:layout_marginLeft="3dip"/>
+	</LinearLayout>
 
 </RelativeLayout>

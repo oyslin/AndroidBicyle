@@ -9,6 +9,7 @@
     <color name="light_grey">#7f7f7f</color>
     <color name="blue">#0000ff</color>
     <color name="light_red">#D20000</color>
+    <color name="dark_red">#BB0000</color>
     <color name="light_green">#66C537</color>
     <color name="activity_bg">#F0F0F0</color>
     <color name="listview_divider_color">#CECECE</color>

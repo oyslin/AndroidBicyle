@@ -5,13 +5,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -223,8 +226,12 @@ public class HttpUtils {
 		}
 		HttpClient httpClient = getHttpClient();
 		HttpPost httpPost = new HttpPost(Constants.HttpUrl.FEEDBACK_URL);
+		
+		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("msg", msg));
+		
 		httpPost.addHeader("charset", Constants.HttpSetting.HTTP_CONT_ENCODE);
-		httpPost.setEntity(new StringEntity(msg, Constants.HttpSetting.HTTP_CONT_ENCODE));
+		httpPost.setEntity(new UrlEncodedFormEntity(params, Constants.HttpSetting.HTTP_CONT_ENCODE));
 		try {
 			HttpResponse response = httpClient.execute(httpPost);
 			int code = response.getStatusLine().getStatusCode();
