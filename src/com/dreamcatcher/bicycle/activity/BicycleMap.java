@@ -231,6 +231,13 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private void addAllBicycleMarkers(){		
         ArrayList<BicycleStationInfo> bicycleInfos = mDataset.getBicycleStationInfos();
         String[] favoriteIds = getFavoriteIds();
+        if(mMarkersOverlay != null){
+        	mMarkersOverlay.clearAllOverlayItem();
+        }
+        if(mFavoriteMarkersOverlay != null){
+        	mFavoriteMarkersOverlay.clearAllOverlayItem();
+        }
+        
         
         for(int i = 0, count = bicycleInfos.size(); i < count; i++){
         	BicycleStationInfo bicycleInfo = bicycleInfos.get(i);
@@ -274,11 +281,11 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	}
 	
 	private void removeAllBicyleMarkers(){
-		if(mMarkersOverlay.size() > 0){
+		if(mMarkersOverlay.size() >= 0){
         	mMapOverLayList.remove(mMarkersOverlay);
         }
         
-        if(mFavoriteMarkersOverlay.size() > 0){        	
+        if(mFavoriteMarkersOverlay.size() >= 0){        	
         	mMapOverLayList.remove(mFavoriteMarkersOverlay);
         }
 	}
@@ -387,6 +394,10 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		public void addOverlayItem(OverlayItem overlayItem){
 			mOverlayItems.add(overlayItem);
 			this.populate();
+		}
+		
+		public void clearAllOverlayItem(){
+			mOverlayItems.clear();
 		}
 	}
 	

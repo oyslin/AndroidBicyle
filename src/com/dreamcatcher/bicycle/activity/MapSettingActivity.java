@@ -184,7 +184,7 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 	private void onShowFavoritesClicked(){
 		boolean selected = mShowFavoriteImage.isSelected();
 		mShowFavoriteImage.setSelected(!selected);
-		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.SHOW_FAVORITE_SPOTS, false);
+		Utils.storeBooleanDataToLocal(Constants.LocalStoreTag.SHOW_FAVORITE_SPOTS, !selected);
 	}
 
 	public void onGetOfflineMapState(int type, int state) {
