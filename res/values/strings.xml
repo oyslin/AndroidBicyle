@@ -50,7 +50,7 @@
     <string name="setting_feedback">反馈意见</string>
     <string name="setting_about">关于</string>
     <string name="setting_update">检查更新</string>
-    <string name="setting_rating">去市场打分</string>
+    <string name="setting_rating">去市场评分</string>
     <string name="setting_recommend">软件推荐</string>
     
     <string name="map_setting_auto_locate">程序启动自动定位</string>
@@ -86,7 +86,7 @@
 	<string name="info_copyright_zh">追梦人工作室版权所有</string>
 	
 	<string name="share_title">分享</string>
-	<string name="share_message">Hi, 我刚使用了环保自行车手机客户端查看自行车站点分布，还可以实时查询各站点的自行车借还情况，真的很方便呢。你也来试试吧，在Google Android市场搜索环保自行车即可下载。</string>
+	<string name="share_message">Hi, 我刚使用了环保自行车手机客户端查看自行车站点分布，还可以实时查询各站点的自行车借还情况，真的很方便呢。你也来试试吧，在Google Play市场搜索环保自行车即可下载。</string>
 	<string name="share_chooser_title">请选择分享方式</string>
 	
 	<string name="change_city_restart">重新加载数据</string>
