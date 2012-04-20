@@ -56,22 +56,10 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <!-- enable the search dialog to send searches to SearchableActivity -->
-        	<meta-data android:name="android.app.default_searchable"
-                   android:value=".activity.SearchBicycleStationActivity" />
+            </intent-filter>            
         </activity>
         <activity
             android:name=".activity.BicycleMap"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.BicycleQuery"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -108,15 +96,6 @@
         </activity>
          <activity
             android:name=".activity.MapSettingActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-         <activity
-            android:name=".activity.SearchSettingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
