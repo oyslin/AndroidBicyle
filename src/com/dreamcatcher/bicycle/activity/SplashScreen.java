@@ -83,6 +83,5 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 			startActivity(new Intent(SplashScreen.this, Main.class));
 			finish();
 		}
-	}
-	
+	}	
 }
