@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">环保自行车</string>
-    <string name="version_name">1.0</string>
+    <string name="app_name">环保自行车</string>    
     
     <string name="city_name_suzhou">苏州</string>
     <string name="city_name_changshu">常熟</string>

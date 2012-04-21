@@ -27,7 +27,7 @@ import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 import com.dreamcatcher.bicycle.vo.CitySetting;
 
 public class HttpUtils {
-	private static final int REQUEST_TIME_OUT = 8 * 1000;
+	private static final int REQUEST_TIME_OUT = 10 * 1000;
 	private static final int SO_TIME_OUT = 10 * 1000;
 	
 	/**
