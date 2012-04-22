@@ -26,14 +26,35 @@ public class Main extends TabActivity implements ISettingEvent{
 	private TabHost mTabHost;
 	private LayoutInflater mLayoutInflater;
 	private long mCurrentTime = 0;
+	private static final int SPLASH_SCREEN_CODE = 1;
+	private static final int SELECT_CITY_CODE = 1;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        this.init();
-    }    
+        startActivityForResult(new Intent(this, SplashScreen.class), SPLASH_SCREEN_CODE);        
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if(requestCode == SPLASH_SCREEN_CODE){
+    		if(resultCode == RESULT_OK){
+    			boolean loadCompleted = data.getBooleanExtra("load_completed", false);
+    			if(loadCompleted){
+    				setContentView(R.layout.main);
+    	            this.init();
+    			}else {
+					startActivityForResult(new Intent(this, SelectCityActivity.class), SELECT_CITY_CODE);
+				}
+    		}
+    	}else if(requestCode == SELECT_CITY_CODE) {
+			if(requestCode == RESULT_OK){
+				setContentView(R.layout.main);
+	            this.init();
+			}
+		}
+    }
     
     @Override
 	protected void onDestroy() {

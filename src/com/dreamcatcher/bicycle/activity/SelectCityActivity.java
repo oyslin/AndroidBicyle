@@ -97,7 +97,9 @@ public class SelectCityActivity extends Activity implements IAssetsEvent{
 
 	public void onBicyclesInfoLoaded(int resultCode) {
 		if (resultCode == Constants.ResultCode.SUCCESS) {
-			startActivity(new Intent(SelectCityActivity.this, Main.class));
+			Intent data = new Intent();
+			data.putExtra("load_completed", true);
+			setResult(RESULT_OK, data);
 			mProgressDialog.dismiss();
 			finish();
 		}		

@@ -49,7 +49,9 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 		if(!success){			 
 			mAssetsService.loadBicyclesInfo();
 		}else {
-			startActivity(new Intent(SplashScreen.this, Main.class));
+			Intent data = new Intent();
+			data.putExtra("load_completed", true);
+			setResult(RESULT_OK, data);
 			finish();
 		}
 	}
@@ -70,7 +72,9 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 		if(resultCode == Constants.ResultCode.SUCCESS){			
 			getBicycleInfo();
 		}else {
-			startActivity(new Intent(SplashScreen.this, SelectCityActivity.class));
+			Intent data = new Intent();
+			data.putExtra("load_completed", false);
+			setResult(RESULT_OK, data);
 			finish();
 		}
 	}
@@ -80,7 +84,9 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 	 */
 	public void onBicyclesInfoLoaded(int resultCode) {
 		if (resultCode == Constants.ResultCode.SUCCESS) {
-			startActivity(new Intent(SplashScreen.this, Main.class));
+			Intent data = new Intent();
+			data.putExtra("load_completed", true);
+			setResult(RESULT_OK, data);
 			finish();
 		}
 	}	

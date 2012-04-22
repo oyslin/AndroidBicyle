@@ -119,7 +119,11 @@ public class BicycleMore extends Activity implements IHttpEvent{
 	}
 	
 	private void goToMarket(){
-		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.HttpUrl.APP_URI)));
+		try {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.HttpUrl.APP_URI)));
+		} catch (Exception e) {
+			Toast.makeText(this, R.string.toast_msg_version_no_market, Toast.LENGTH_SHORT).show();
+		}		
 	}
 	
 	private void checkVersion(){
