@@ -75,6 +75,17 @@ public class Utils {
 		return result;
 	}
 	
+	public static void storeLongDataToLocal(String tagName, long value){
+		mEditor.putLong(tagName, value);
+		mEditor.commit();
+	}
+	
+	public static long getLongDataFromLocal(String tagName, long defaultValue){
+		long result = 0;
+		result = mSharedPreferences.getLong(tagName, defaultValue);
+		return result;
+	}
+	
 	public static void storeIntDataToLocal(String tagName, int value){
 		mEditor.putInt(tagName, value);
 		mEditor.commit();

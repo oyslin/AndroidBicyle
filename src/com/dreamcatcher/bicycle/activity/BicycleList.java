@@ -3,6 +3,7 @@ package com.dreamcatcher.bicycle.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -10,19 +11,23 @@ import android.widget.Toast;
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.adapter.BicycleListAdapter;
 import com.dreamcatcher.bicycle.core.BicycleService;
+import com.dreamcatcher.bicycle.interfaces.IAdEvent;
 import com.dreamcatcher.bicycle.interfaces.IHttpEvent;
 import com.dreamcatcher.bicycle.interfaces.ISettingEvent;
 import com.dreamcatcher.bicycle.util.Constants;
+import com.dreamcatcher.bicycle.util.GlobalSetting;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
 import com.dreamcatcher.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
+import com.dreamcatcher.bicycle.vo.Adsetting;
 import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 import com.waps.AdView;
 
-public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
+public class BicycleList extends Activity implements IHttpEvent, ISettingEvent, IAdEvent{
 	private ActivityTitle mActivityTitle = null;
 	private BicycleListAdapter mAdapter = null;
 	private ListView mListView = null;
+	private LinearLayout mAdLine = null;
 	private ProgressDialog mProgressDialog = null;
 	
 	@Override
@@ -51,8 +56,7 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 		mAdapter = new BicycleListAdapter();
 		mListView.setAdapter(mAdapter);
 		
-		LinearLayout container =(LinearLayout)findViewById(R.id.AdLinearLayout); 
-		new AdView(this,container).DisplayAd();
+		checkAd(true);	
 	}
 	
 	
@@ -60,6 +64,23 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	protected void onDestroy() {
 		this.removeEvent();
 		super.onDestroy();
+	}
+	
+	private void checkAd(boolean create){
+		Adsetting adsetting = GlobalSetting.getInstance().getAdsetting();
+		boolean showAdd = adsetting.isShowAd();
+		long nextShowAdTime = adsetting.getNextShowAdTime();
+		
+		if(showAdd && System.currentTimeMillis() > nextShowAdTime){
+			if(create){
+				mAdLine = (LinearLayout)findViewById(R.id.AdLinearLayout);
+				new AdView(this, mAdLine).DisplayAd();
+			}
+		}else {
+			if(mAdLine != null){
+				mAdLine.setVisibility(View.GONE);
+			}
+		}
 	}
 	
 	@Override
@@ -72,11 +93,13 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	private void addEvent(){
 		BicycleService.getInstance().getHttpEventListener().addEvent(this);
 		BicycleService.getInstance().getSettingEventListener().addEvent(this);
+		BicycleService.getInstance().getAdEventListener().addEvent(this);
 	}
 	
 	private void removeEvent(){
 		BicycleService.getInstance().getHttpEventListener().removeEvent(this);
 		BicycleService.getInstance().getSettingEventListener().removeEvent(this);
+		BicycleService.getInstance().getAdEventListener().removeEvent(this);
 	}
 	
 	@Override
@@ -139,6 +162,16 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	@Override
 	protected void onPause() {		
 		super.onPause();
+	}
+
+	@Override
+	public void onPointsUpdated(String currencyName, int totalPoint) {
+		checkAd(false);		
+	}
+
+	@Override
+	public void onPointsUpdateFailed(String error) {		
+		
 	}
 	
 }

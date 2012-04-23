@@ -2,16 +2,21 @@ package com.dreamcatcher.bicycle.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.dreamcatcher.bicycle.BicycleApp;
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.core.BicycleService;
+import com.dreamcatcher.bicycle.interfaces.IAdEvent;
 import com.dreamcatcher.bicycle.interfaces.IAssetsEvent;
 import com.dreamcatcher.bicycle.interfaces.IAssetsService;
 import com.dreamcatcher.bicycle.util.Constants;
+import com.dreamcatcher.bicycle.util.GlobalSetting;
 import com.dreamcatcher.bicycle.util.Utils;
+import com.waps.AppConnect;
 
-public class SplashScreen extends Activity implements IAssetsEvent{
+public class SplashScreen extends Activity implements IAssetsEvent, IAdEvent{
 	private IAssetsService mAssetsService = null;
 	
 	@Override
@@ -29,19 +34,43 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 	
 	private void addEvent(){
 		BicycleService.getInstance().getAssetsEventListener().addEvent(this);
+		BicycleService.getInstance().getAdEventListener().addEvent(this);
 	}
 	
 	private void removeEvent(){
 		BicycleService.getInstance().getAssetsEventListener().removeEvent(this);
+		BicycleService.getInstance().getAdEventListener().removeEvent(this);
 	}
 
 
 
 	private void init(){
 		this.addEvent();
+		AppConnect.getInstance(this);
 		
-		mAssetsService = BicycleService.getInstance().getAssertsService();		
-		mAssetsService.loadCitySetting();
+		//get ad config from server
+		new GetConfigTask().execute();		
+	}	
+	
+	private class GetConfigTask extends AsyncTask<Void, Void, Boolean>{
+		private boolean showAd = false;
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			String showAdSetting = AppConnect.getInstance(BicycleApp.getInstance()).getConfig(Constants.AdSetting.SHOW_AD);
+			if("true".equalsIgnoreCase(showAdSetting)){
+				showAd = true;
+			}else {
+				showAd = false;
+			}
+			return true;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			GlobalSetting.getInstance().getAdsetting().setShowAd(showAd);
+			//get points from server
+			BicycleService.getInstance().getAdService().getPoints();
+		}		
 	}
 	
 	private void getBicycleInfo(){
@@ -89,5 +118,23 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 			setResult(RESULT_OK, data);
 			finish();
 		}
+	}
+
+	@Override
+	public void onPointsUpdated(String currencyName, int totalPoint) {
+		GlobalSetting.getInstance().getAdsetting().setPointTotal(totalPoint);
+		
+		//get next ad shown time
+	    long nextShowAdTime = Utils.getLongDataFromLocal(Constants.LocalStoreTag.NEXT_AD_SHOWN_TIME, 0);
+	    GlobalSetting.getInstance().getAdsetting().setNextShowAdTime(nextShowAdTime);
+	    
+	    mAssetsService = BicycleService.getInstance().getAssertsService();		
+		mAssetsService.loadCitySetting();
+	}
+
+	@Override
+	public void onPointsUpdateFailed(String error) {		
+		mAssetsService = BicycleService.getInstance().getAssertsService();		
+		mAssetsService.loadCitySetting();
 	}	
 }

@@ -29,6 +29,7 @@ import com.dreamcatcher.bicycle.BicycleApp;
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.core.BicycleService;
 import com.dreamcatcher.bicycle.dataset.BicycleDataset;
+import com.dreamcatcher.bicycle.interfaces.IAdEvent;
 import com.dreamcatcher.bicycle.interfaces.IHttpEvent;
 import com.dreamcatcher.bicycle.interfaces.IHttpService;
 import com.dreamcatcher.bicycle.interfaces.ISettingEvent;
@@ -37,10 +38,12 @@ import com.dreamcatcher.bicycle.util.GlobalSetting;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
 import com.dreamcatcher.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
+import com.dreamcatcher.bicycle.vo.Adsetting;
 import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 import com.dreamcatcher.bicycle.vo.CitySetting;
+import com.waps.AdView;
 
-public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent{
+public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent, IAdEvent{
 	private BMapManager mBMapManager = null;
 	private MKLocationManager mLocationManager = null;
 	private LocationListener mLocationListener = null;
@@ -55,6 +58,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private TextView mMapPopAvailParks = null;
 	private TextView mMapPopAddress = null;
 	private Drawable mMarker = null;
+	private LinearLayout mAdLine = null;
 	private ItemizedBicycleOverlay mMarkersOverlay = null;
 	private int mMarkerWidth = 0;
 	private int mMarkerHeight = 0;
@@ -70,7 +74,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private long mCurrentTime = 0;
 	private int mSelectedId = -1;
 	private boolean mAutoLocate = false;
-	private LinearLayout mProgressbarLine = null;
+	private LinearLayout mProgressbarLine = null;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +144,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         mFavoriteMarkersOverlay = new ItemizedBicycleOverlay(mFavoriteMarker, this);
         
         //add all bicycle marks
-        addAllBicycleMarkers();        
+        addAllBicycleMarkers(); 
 
 		IActivityTitleRightImageClickEvent rightImageClickEvent = new IActivityTitleRightImageClickEvent() {			
 			public void onRightImageClicked() {
@@ -155,6 +159,25 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			addMyLocation();
 			enalbeMyLocation();
 		}
+		//check whether need show ad
+		checkAd(true);
+	}
+	
+	private void checkAd(boolean create){
+		Adsetting adsetting = GlobalSetting.getInstance().getAdsetting();
+		boolean showAdd = adsetting.isShowAd();
+		long nextShowAdTime = adsetting.getNextShowAdTime();
+		
+		if(showAdd && System.currentTimeMillis() > nextShowAdTime){
+			if(create){
+				mAdLine = (LinearLayout)findViewById(R.id.AdLinearLayout);
+				new AdView(this, mAdLine).DisplayAd();
+			}
+		}else {
+			if(mAdLine != null){
+				mAdLine.setVisibility(View.GONE);				
+			}
+		}
 	}
 	
 	private void setMapSenter(){
@@ -168,11 +191,13 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private void addEvent(){
 		BicycleService.getInstance().getHttpEventListener().addEvent(this);
 		BicycleService.getInstance().getSettingEventListener().addEvent(this);
+		BicycleService.getInstance().getAdEventListener().addEvent(this);
 	}
 	
 	private void removeEvent(){
 		BicycleService.getInstance().getHttpEventListener().removeEvent(this);
 		BicycleService.getInstance().getSettingEventListener().removeEvent(this);
+		BicycleService.getInstance().getAdEventListener().removeEvent(this);
 	}
 	
 	private void onRightImageClicked(){
@@ -463,5 +488,16 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		removeAllBicyleMarkers();
 		addAllBicycleMarkers();
 		mMapView.invalidate();
+	}
+
+	@Override
+	public void onPointsUpdated(String currencyName, int totalPoint) {
+		//check whether need to show ad
+		checkAd(false);		
+	}
+
+	@Override
+	public void onPointsUpdateFailed(String error) {		
+		
 	}
 }

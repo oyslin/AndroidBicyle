@@ -99,9 +99,8 @@ public class Main extends TabActivity implements ISettingEvent{
     		mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
     		if(!inArray(i, tabs)){
     			mTabHost.getTabWidget().getChildAt(i).setVisibility(View.GONE);
-    		}    		
-    	}
-    	AppConnect.getInstance(this);
+    		}
+    	}    	
     }
     
     private void addEvent(){
@@ -180,13 +179,13 @@ public class Main extends TabActivity implements ISettingEvent{
     private Intent getTabItemIntent(int index){
     	Intent intent = new Intent(this, Constants.TabSetting.CONTENT_ARRAY[index]);    	
     	return intent;
-    }
+    }    
     
     /**
      * load bicycles info from server via thread
      */
     private void loadBicycleInfoFromServer(){
-//    	BicycleService.getInstance().getHttpService().getAllBicyclesInfo();
+    	
     }
 
 	public void onCitySettingChanged(int resultCode) {

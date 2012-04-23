@@ -91,6 +91,7 @@ public class Constants {
 		String SHOW_FAVORITE_SPOTS = "show_favorite_spots";
 		String FAVORITE_IDS = "favorite_ids";
 		String OFFLINE_MAP_PERCENTAGE = "offline_map_percentage";
+		String NEXT_AD_SHOWN_TIME = "next_ad_shown_time";
 	}
 	
 	public interface IntentExtraTag{
@@ -106,15 +107,15 @@ public class Constants {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
 									R.drawable.ic_setting_favorite,
-									R.drawable.ic_reminder,
-									R.drawable.ic_setting_recommend
+									R.drawable.ic_setting_recommend,
+									R.drawable.ic_reminder									
 		};
 		String[] SETTING_ITEM_TEXT = {
 									Utils.getText(R.string.setting_map),
 									Utils.getText(R.string.setting_changecity),
-									Utils.getText(R.string.setting_favorite),
-									Utils.getText(R.string.setting_return_reminder),
-									Utils.getText(R.string.setting_recommend)									
+									Utils.getText(R.string.setting_favorite),									
+									Utils.getText(R.string.setting_recommend),
+									Utils.getText(R.string.setting_return_reminder)
 		};
 		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
 		
@@ -205,11 +206,20 @@ public class Constants {
 	public interface ParcelableTag{
 		String BICYCLE_STATION_INFO = "bicycle_station_info";
 		String VERSION_NEED_UPDATE = "need_update";
+		String CURRENCY_NAME = "currency_name";
+		String TOTAL_POINT = "total_point";
+		String GET_POINT_ERROR_MSG = "get_point_error_msg";
 	}
 	
 	public interface HttpUrl{
 		String VERSION_INFO_URL = "http://waltoy.cnodejs.net/versioninfo";
 		String FEEDBACK_URL = "http://waltoy.cnodejs.net/feedback";
 		String APP_URI = "market://details?id=com.dreamcatcher.bicycle";
+	}
+	
+	public interface AdSetting{
+		String SHOW_AD = "showAd";
+		int REMOVE_AD_MIN_POINT = 10;
+		long MONTH_TIME = 2592000000L;
 	}
 }
