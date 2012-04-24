@@ -219,7 +219,7 @@ public class Constants {
 	
 	public interface AdSetting{
 		String SHOW_AD = "showAd";
-		int REMOVE_AD_MIN_POINT = 10;
+		int REMOVE_AD_MIN_POINT = 200;
 		long MONTH_TIME = 2592000000L;
 	}
 }
