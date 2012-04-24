@@ -35,6 +35,8 @@
     <string name="map_pop_available_bicycles">可借车数: </string>
     <string name="map_pop_available_parks">可停车位: </string>
     <string name="map_pop_address">地址: </string>
+    <string name="map_pop_btn_to">到这里去</string>
+    <string name="map_pop_btn_from">从这里出发</string>
     
     <string name="progress_dialog_loading_msg">正在加载数据，请稍等..</string>
     
@@ -109,6 +111,8 @@
 	<string name="toast_msg_version_is_checking">正在检测新版本，请稍后</string>
 	<string name="toast_msg_version_no_market">无法进入市场，请通过电脑或其他设备进入市场</string>
 	<string name="toast_msg_ad_remove_success">广告已成功消除</string>
+	<string name="toast_msg_warking_router_search_failed">查询路线失败</string>
+	<string name="toast_msg_is_search_router">正在查询路线，请稍候</string>
 	
 	<string name="notification_ticket_text">还车时间到了</string>
 	<string name="notification_content_title">还车提醒</string>

@@ -9,7 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,13 +20,22 @@ import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.ItemizedOverlay;
 import com.baidu.mapapi.LocationListener;
+import com.baidu.mapapi.MKAddrInfo;
+import com.baidu.mapapi.MKDrivingRouteResult;
 import com.baidu.mapapi.MKLocationManager;
+import com.baidu.mapapi.MKPlanNode;
+import com.baidu.mapapi.MKPoiResult;
+import com.baidu.mapapi.MKSearch;
+import com.baidu.mapapi.MKSearchListener;
+import com.baidu.mapapi.MKTransitRouteResult;
+import com.baidu.mapapi.MKWalkingRouteResult;
 import com.baidu.mapapi.MapActivity;
 import com.baidu.mapapi.MapController;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.MyLocationOverlay;
 import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.OverlayItem;
+import com.baidu.mapapi.RouteOverlay;
 import com.dreamcatcher.bicycle.BicycleApp;
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.core.BicycleService;
@@ -57,6 +68,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private TextView mMapPopAvailBicycles = null;
 	private TextView mMapPopAvailParks = null;
 	private TextView mMapPopAddress = null;
+	private Button mMapPopBtnTo = null;
 	private Drawable mMarker = null;
 	private LinearLayout mAdLine = null;
 	private ItemizedBicycleOverlay mMarkersOverlay = null;
@@ -74,7 +86,11 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private long mCurrentTime = 0;
 	private int mSelectedId = -1;
 	private boolean mAutoLocate = false;
-	private LinearLayout mProgressbarLine = null;	
+	private LinearLayout mProgressbarLine = null;
+	private boolean mNeedSearch = false;
+	private GeoPoint mMyPoint = null;
+	private MKSearch mMkSearch = null;
+	private RouteOverlay mRouteOverlay = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +114,9 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		}
 		mBMapManager.start();
 		super.initMapActivity(mBMapManager);
+		//init search
+		mMkSearch = new MKSearch();
+		mMkSearch.init(mBMapManager, new MySearchListener());
 		
 		mDataset = BicycleDataset.getInstance();
 		
@@ -120,7 +139,15 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		mMapPopName = (TextView) mPopView.findViewById(R.id.map_pop_name);
 		mMapPopAvailBicycles = (TextView) mPopView.findViewById(R.id.map_pop_available_bicycles);
 		mMapPopAvailParks = (TextView) mPopView.findViewById(R.id.map_pop_available_parks);
-		mMapPopAddress = (TextView) mPopView.findViewById(R.id.map_pop_address);		
+		mMapPopAddress = (TextView) mPopView.findViewById(R.id.map_pop_address);
+		mMapPopBtnTo = (Button) mPopView.findViewById(R.id.map_pop_btn_to);
+		
+		mMapPopBtnTo.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				onMapPopBtnToClicked();				
+			}
+		});
 		
 		mMapView.addView(mPopView, new MapView.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, null,
@@ -148,7 +175,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 
 		IActivityTitleRightImageClickEvent rightImageClickEvent = new IActivityTitleRightImageClickEvent() {			
 			public void onRightImageClicked() {
-				BicycleMap.this.onRightImageClicked();		
+				BicycleMap.this.displayMyLocation();		
 			}
 		};
 		mActivityTitle.setRightImage(R.drawable.ic_titlebar_locate, rightImageClickEvent);
@@ -200,7 +227,24 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		BicycleService.getInstance().getAdEventListener().removeEvent(this);
 	}
 	
-	private void onRightImageClicked(){
+	private void onMapPopBtnToClicked(){
+		Toast.makeText(this, R.string.toast_msg_is_search_router, Toast.LENGTH_SHORT).show();
+		GeoPoint geoPoint = this.mSelectedOverlayItem.getPoint();
+		if(mMyPoint == null){
+			displayMyLocation();
+			mNeedSearch = true;
+		}else {
+			MKPlanNode start = new MKPlanNode();
+			start.pt = mMyPoint;
+			MKPlanNode end = new MKPlanNode();
+			end.pt = geoPoint;
+			
+			mMkSearch.walkingSearch(null, start, null, end);
+			mNeedSearch = false;
+		}
+	}
+	
+	private void displayMyLocation(){
 		if (!mMyLocationAdded) {
 			addMyLocation();
 		}
@@ -240,7 +284,11 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         
         mLocationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
-				mMapController.animateTo(new GeoPoint((int)(location.getLatitude() * RAT), (int)(location.getLongitude() * RAT)));
+				mMyPoint = new GeoPoint((int)(location.getLatitude() * RAT), (int)(location.getLongitude() * RAT));
+				mMapController.animateTo(mMyPoint);
+				if(mNeedSearch){
+					onMapPopBtnToClicked();
+				}
 			}
 		};
 		
@@ -444,6 +492,51 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		mMapView.updateViewLayout(mPopView, new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
 				toShowPoint, MapView.LayoutParams.BOTTOM));
 		mPopView.setVisibility(View.VISIBLE);			
+	}
+	
+	private class MySearchListener implements MKSearchListener{
+
+		@Override
+		public void onGetAddrResult(MKAddrInfo result, int error) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onGetDrivingRouteResult(MKDrivingRouteResult result, int error) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onGetPoiResult(MKPoiResult result, int type, int error) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onGetTransitRouteResult(MKTransitRouteResult result, int error) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onGetWalkingRouteResult(MKWalkingRouteResult result, int error) {
+			if(error != 0 || result == null){
+				Toast.makeText(BicycleMap.this, R.string.toast_msg_warking_router_search_failed, Toast.LENGTH_SHORT).show();
+				return;
+			}else {
+				if(mRouteOverlay != null){
+					mMapOverLayList.remove(mRouteOverlay);
+				}
+				mRouteOverlay = new RouteOverlay(BicycleMap.this, mMapView);
+				mRouteOverlay.setData(result.getPlan(0).getRoute(0));
+				mMapOverLayList.add(mRouteOverlay);
+				mMapView.invalidate();
+				mPopView.setVisibility(View.GONE);
+			}			
+		}
+		
 	}
 
 	/**

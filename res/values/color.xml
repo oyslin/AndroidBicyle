@@ -20,6 +20,10 @@
     <color name="green_btn_end_color">#55991F</color>
     <color name="green_btn_border_color">#338709</color>
     
+    <color name="map_pop_btn_start_color">#FAFAFA</color>
+    <color name="map_pop_btn_end_color">#DDDDDD</color>
+    <color name="map_pop_btn_border_color">#CCCCCC</color>
+    
     <color name="activity_bg_start_color">#78BF41</color>
     <color name="activity_bg_end_color">#55991F</color>
 </resources>

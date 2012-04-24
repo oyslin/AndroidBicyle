@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/map_pop_name"
-        android:text="@string/map_pop_available_bicycles" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+        android:text="@string/map_pop_available_bicycles" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginLeft="4dip"/>
 
     <TextView
         android:id="@+id/map_pop_available_bicycles"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/map_pop_available_bicycles_label"
-        android:text="@string/map_pop_available_parks" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+        android:text="@string/map_pop_available_parks" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginLeft="4dip"/>
 
     <TextView
         android:id="@+id/map_pop_available_parks"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/map_pop_available_parks_label"
-        android:text="@string/map_pop_address" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+        android:text="@string/map_pop_address" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginLeft="4dip"/>
 
     <TextView
         android:id="@+id/map_pop_address"
@@ -54,5 +54,10 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/map_pop_address_label"
         android:layout_toRightOf="@+id/map_pop_address_label" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+    <Button android:id="@+id/map_pop_btn_to"
+        android:layout_width="wrap_content"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_height="wrap_content" android:text="@string/map_pop_btn_to" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_below="@id/map_pop_address_label" android:background="@drawable/map_pop_btn_bg" android:drawableLeft="@drawable/ic_pop_to" android:layout_marginTop="2dip" android:layout_marginLeft="4dip"/>
+
 
 </RelativeLayout>
