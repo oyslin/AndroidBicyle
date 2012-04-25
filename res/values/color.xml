@@ -26,4 +26,12 @@
     
     <color name="activity_bg_start_color">#78BF41</color>
     <color name="activity_bg_end_color">#55991F</color>
+    
+    <color name="searchbar_bg_start_color">#F6F7F9</color>
+    <color name="searchbar_bg_end_color">#E1E5EB</color>
+    <color name="searchbar_border_color">#8094B2</color>
+    
+    <color name="search_input_bg_start_color">#F0F0F0</color>
+    <color name="search_input_bg_end_color">#FCFCFC</color>
+    <color name="search_input_border_color">#A0AFC7</color>
 </resources>

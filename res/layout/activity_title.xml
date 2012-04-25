@@ -16,13 +16,33 @@
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:scaleType="fitCenter"
-        android:visibility="gone" android:padding="5dip" android:background="@drawable/activity_image_bg"/>
+        android:visibility="gone" 
+        android:padding="5dip" 
+        android:background="@drawable/activity_image_bg"/>
 
     <ImageView
-        android:id="@+id/activity_title_image_split"
+        android:id="@+id/activity_title_right_image_split"
         android:layout_width="2dip"
         android:layout_height="@dimen/activity_title_image_split_height"
         android:layout_toLeftOf="@+id/activity_title_right_image"
         android:background="@drawable/activity_imag_split"
         android:visibility="gone" />
+    
+    <ImageView
+        android:id="@+id/activity_title_left_image"
+        android:layout_width="@dimen/activity_title_image_width"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:visibility="gone" 
+        android:padding="5dip"
+        android:background="@drawable/activity_image_bg" 
+        android:layout_alignParentLeft="true"/>
+
+    <ImageView
+        android:id="@+id/activity_title_left_image_split"
+        android:layout_width="2dip"
+        android:layout_height="@dimen/activity_title_image_split_height"
+        android:background="@drawable/activity_imag_split"
+        android:visibility="gone" 
+        android:layout_toRightOf="@+id/activity_title_left_image"/>
 </RelativeLayout>

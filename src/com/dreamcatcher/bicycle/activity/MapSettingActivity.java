@@ -112,6 +112,9 @@ public class MapSettingActivity extends Activity implements MKOfflineMapListener
 	}
 	
 	private void showOfflineMapPercentage(int percentage){
+		if(percentage == 0){
+			return;
+		}
 		mOfflineMapPercentage.setText(String.format(getText(R.string.map_setting_download_offline_map_percentage).toString(), percentage));
 	}
 

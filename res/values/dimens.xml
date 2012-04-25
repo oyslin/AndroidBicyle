@@ -28,4 +28,6 @@
     <dimen name="favorite_setting_listitem_name_height">30dip</dimen>
     <dimen name="favorite_setting_listitem_address_height">20dip</dimen>
     <dimen name="favorite_setting_listitem_favorite_image_width">50dip</dimen>
+    
+    <dimen name="search_bar_height">50dip</dimen>
 </resources>

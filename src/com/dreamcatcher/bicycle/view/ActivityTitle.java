@@ -14,7 +14,10 @@ import com.dreamcatcher.bicycle.R;
 public class ActivityTitle extends LinearLayout {
 	private TextView mTitleText = null;
 	private ImageView mRightImage = null;
-	private ImageView mImageSplit = null;
+	private ImageView mRightImageSplit = null;
+	
+	private ImageView mLeftImageView = null;
+	private ImageView mLeftImageSplit = null;
 
 	public ActivityTitle(Context context) {
 		super(context);
@@ -31,7 +34,9 @@ public class ActivityTitle extends LinearLayout {
 		inflater.inflate(R.layout.activity_title, this, true);
 		mTitleText = (TextView) findViewById(R.id.activity_title_text);
 		mRightImage = (ImageView) findViewById(R.id.activity_title_right_image);	
-		mImageSplit = (ImageView) findViewById(R.id.activity_title_image_split);
+		mRightImageSplit = (ImageView) findViewById(R.id.activity_title_right_image_split);
+		mLeftImageView = (ImageView) findViewById(R.id.activity_title_left_image);
+		mLeftImageSplit = (ImageView) findViewById(R.id.activity_title_left_image_split);
 	}
 	
 	/**
@@ -53,7 +58,7 @@ public class ActivityTitle extends LinearLayout {
 	public void setRightImage(int resId, final IActivityTitleRightImageClickEvent rightImageClickEvent){
 		mRightImage.setImageResource(resId);
 		mRightImage.setVisibility(View.VISIBLE);
-		mImageSplit.setVisibility(View.VISIBLE);
+		mRightImageSplit.setVisibility(View.VISIBLE);
 		if(rightImageClickEvent != null){
 			mRightImage.setOnClickListener(new OnClickListener() {				
 				public void onClick(View v) {
@@ -63,8 +68,26 @@ public class ActivityTitle extends LinearLayout {
 		}
 	}
 	
+	public void setLeftImage(int resId, final IActivityTitleLeftImageClickEvent leftImageClickEvent){
+		mLeftImageView.setImageResource(resId);
+		mLeftImageView.setVisibility(View.VISIBLE);
+		mLeftImageSplit.setVisibility(View.VISIBLE);
+		
+		if(leftImageClickEvent != null){
+			mLeftImageView.setOnClickListener(new OnClickListener() {				
+				@Override
+				public void onClick(View v) {
+					leftImageClickEvent.onLeftImageClicked();					
+				}
+			});
+		}
+	}
+	
 	public interface IActivityTitleRightImageClickEvent{
 		void onRightImageClicked();
 	}
 	
+	public interface IActivityTitleLeftImageClickEvent{
+		void onLeftImageClicked();
+	}
 }
