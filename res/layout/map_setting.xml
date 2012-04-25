@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
     <com.dreamcatcher.bicycle.view.ActivityTitle
         android:id="@+id/bicycle_title"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
     </com.dreamcatcher.bicycle.view.ActivityTitle>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@+id/bicycle_title"
         android:orientation="vertical" android:padding="20dip" android:background="@drawable/activity_bg">
         <RelativeLayout
             android:id="@+id/map_setting_auto_locate"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="@dimen/setting_item_height" 
             android:background="@drawable/setting_listitem_bg_top" 
             android:paddingLeft="5dip" android:clickable="true">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" 
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" 
                 android:layout_toLeftOf="@+id/map_setting_auto_locate_image" 
                 android:gravity="center_vertical" 
                 android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" 
@@ -36,14 +36,14 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/map_setting_download_offline_map"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="@dimen/setting_item_height"
             android:background="@drawable/setting_listitem_bg_middle"
             android:paddingLeft="5dip" android:layout_marginTop="-1dip" android:clickable="true">
             <TextView
                 android:id="@+id/map_setting_download_offline_map_label"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
                 android:text="@string/map_setting_download_offline_map"
@@ -51,8 +51,8 @@
 
             <TextView
                 android:id="@+id/map_setting_download_offline_map_percentage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_toLeftOf="@+id/map_setting_download_offline_map_image"
                 android:layout_toRightOf="@+id/map_setting_download_offline_map_label" android:gravity="center_vertical" android:paddingLeft="5dip" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
 
@@ -68,13 +68,13 @@
         
         <RelativeLayout
             android:id="@+id/map_setting_show_nearest_spots"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="@dimen/setting_item_height"
             android:background="@drawable/setting_listitem_bg_middle"
             android:paddingLeft="5dip" android:layout_marginTop="-1dip" android:clickable="true" android:visibility="gone">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_toLeftOf="@+id/map_setting_download_offline_map_image"
                 android:gravity="center_vertical"
                 android:text="@string/map_setting_show_nearest_spots"
@@ -89,13 +89,13 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/map_setting_show_favorites"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="@dimen/setting_item_height"
             android:background="@drawable/setting_listitem_bg_bottom"
             android:paddingLeft="5dip" android:layout_marginTop="-1dip" android:clickable="true">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_toLeftOf="@+id/map_setting_download_offline_map_image"
                 android:gravity="center_vertical"
                 android:text="@string/map_setting_show_favorites"

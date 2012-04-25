@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="@drawable/activity_bg">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:background="@drawable/activity_bg">
     <com.dreamcatcher.bicycle.view.ActivityTitle
         android:id="@+id/bicycle_title"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
     </com.dreamcatcher.bicycle.view.ActivityTitle>
 
     <EditText
         android:id="@+id/feedback_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@+id/bicycle_title"
         android:ems="10"
         android:inputType="textMultiLine" 
@@ -24,7 +24,7 @@
 
     <Button
         android:id="@+id/feedback_send_btn"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
         android:layout_marginLeft="20dip"

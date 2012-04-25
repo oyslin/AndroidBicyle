@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
     <com.dreamcatcher.bicycle.view.ActivityTitle
         android:id="@+id/bicycle_title"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
     </com.dreamcatcher.bicycle.view.ActivityTitle>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@+id/bicycle_title"
         android:background="@drawable/about_bg" >
 
         <ImageView
             android:id="@+id/bicycle_info_logo"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="50dip"
@@ -68,7 +68,7 @@
 
         <TextView
             android:id="@+id/bicycle_info_copyright_company"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/info_copyright_en_company"
@@ -76,7 +76,7 @@
             android:layout_above="@+id/bicycle_info_copyright_right"/>
 		<TextView
             android:id="@+id/bicycle_info_copyright_right"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10px"
@@ -85,7 +85,7 @@
             android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyTinyNormal" />
         <TextView
             android:id="@+id/bicycle_info_copyright_zh"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/bicycle_info_copyright_company"
             android:gravity="center"

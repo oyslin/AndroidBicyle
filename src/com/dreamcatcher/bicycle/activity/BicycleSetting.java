@@ -105,7 +105,7 @@ public class BicycleSetting extends Activity implements IAdEvent{
 			view.setOnClickListener(getOnFunctionSettingItemClickListener(i));
 			
 			view.setBackgroundResource(Constants.SettingListViewItem.BACKGROUND_IMAGE[i]);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 			params.setMargins(0, Utils.dip2px(Constants.SettingListViewItem.MARGIN_TOP_IN_DIP[i]), 0, 0);
 			view.setLayoutParams(params);
 			

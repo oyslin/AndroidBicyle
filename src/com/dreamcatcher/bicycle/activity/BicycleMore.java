@@ -64,7 +64,7 @@ public class BicycleMore extends Activity implements IHttpEvent{
 			view.setOnClickListener(getOnFunctionSettingItemClickListener(i));
 			
 			view.setBackgroundResource(Constants.MoreListviewItem.BACKGROUND_IMAGE[i]);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 			params.setMargins(0, Utils.dip2px(Constants.MoreListviewItem.MARGIN_TOP_IN_DIP[i]), 0, 0);
 			view.setLayoutParams(params);
 			

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:android1="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/activity_bg"
     android:padding="5dip" >
 
@@ -36,7 +36,7 @@
 
     <SeekBar
         android:id="@+id/return_bicycle_reminder_seekbar"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/return_bicycle_reminder_time_label"
@@ -47,7 +47,7 @@
 
     <RelativeLayout
         android:id="@+id/return_bicycle_reminder_sound_line"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="40dip"
         android:layout_below="@+id/return_bicycle_reminder_seekbar"
         android:layout_marginTop="5dip"
@@ -55,8 +55,8 @@
         android:clickable="true" >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="8dip"
             android:gravity="center_vertical"
             android:text="@string/return_bicycle_reminder_sound"
@@ -65,14 +65,14 @@
         <ImageView
             android:id="@+id/return_bicycle_reminder_sound_image"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
             android:src="@drawable/select_check" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/return_bicycle_reminder_vibrate_line"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="40dip"
         android:layout_below="@+id/return_bicycle_reminder_sound_line"
         android:layout_marginTop="-1dip"
@@ -80,8 +80,8 @@
         android:clickable="true" >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="8dip"
             android:gravity="center_vertical"
             android:text="@string/return_bicycle_reminder_vibrate"
@@ -90,14 +90,14 @@
         <ImageView
             android:id="@+id/return_bicycle_reminder_vibrate_image"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
             android:src="@drawable/select_check" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/return_bicycle_reminder_sound_and_vibrate_line"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="40dip"
         android:layout_below="@+id/return_bicycle_reminder_vibrate_line"
         android:layout_marginTop="-1dip"
@@ -105,8 +105,8 @@
         android:clickable="true" >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="8dip"
             android:gravity="center_vertical"
             android:text="@string/return_bicycle_reminder_sound_and_vibrate"
@@ -115,7 +115,7 @@
         <ImageView
             android:id="@+id/return_bicycle_reminder_sound_and_vibrate_image"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
             android:src="@drawable/select_check" />
     </RelativeLayout>

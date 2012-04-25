@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" 
     android:background="@drawable/activity_bg">
     <com.dreamcatcher.bicycle.view.ActivityTitle
         android:id="@+id/bicycle_title"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">      
 
     </com.dreamcatcher.bicycle.view.ActivityTitle>
     <ListView
         android:id="@+id/select_city_list"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dip"
         android:background="@drawable/listview_bg"
@@ -25,7 +25,7 @@
 
     <Button
         android:id="@+id/select_city_next_btn"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dip"
