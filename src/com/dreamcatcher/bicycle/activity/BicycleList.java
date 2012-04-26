@@ -50,7 +50,7 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent, 
 			}
 		};
 		
-		mActivityTitle.setRightImage(R.drawable.ic_titlebar_refresh, rightImageClickEvent);
+		mActivityTitle.setRightImage(R.drawable.ic_titlebar_refresh, rightImageClickEvent, false);
 		
 		mListView = (ListView) findViewById(R.id.bicycle_listview);		
 		mAdapter = new BicycleListAdapter();

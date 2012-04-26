@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-	android:text="@string/map_pop_btn_to" 
-    android:background="@drawable/poi_bubble" 
-    android:id="@+id/poi_bubble_btn" 
-    android:drawableLeft="@drawable/ic_pop_to" 
-    android:gravity="center_vertical" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreySmallNormal">
-</TextView>
+    android:layout_height="wrap_content"	 
+    android:background="@drawable/poi_bubble">
+    <TextView android:id="@+id/poi_bubble_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_marginLeft="4dip"/>
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/poi_bubble_address_lable" android:text="@string/map_pop_address" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_below="@id/poi_bubble_name" android:layout_marginLeft="4dip"/>
+    <TextView android:id="@+id/poi_bubble_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_toRightOf="@id/poi_bubble_address_lable" android:layout_alignTop="@id/poi_bubble_address_lable" android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/poi_bubble_btn_to"
+        android:drawableLeft="@drawable/ic_pop_to"
+        android:text="@string/map_pop_btn_to"
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreySmallNormal" 
+        android:layout_below="@id/poi_bubble_address" android:background="@drawable/map_pop_btn_bg" android:layout_marginLeft="4dip" android:layout_marginTop="2dip"/>
+</RelativeLayout>

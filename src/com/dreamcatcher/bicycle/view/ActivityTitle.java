@@ -18,6 +18,9 @@ public class ActivityTitle extends LinearLayout {
 	
 	private ImageView mLeftImageView = null;
 	private ImageView mLeftImageSplit = null;
+	
+	private boolean mRightImageSelected = false;
+	private boolean mLeftImageSelected = false;
 
 	public ActivityTitle(Context context) {
 		super(context);
@@ -55,20 +58,24 @@ public class ActivityTitle extends LinearLayout {
 		mTitleText.setText(strId);
 	}
 	
-	public void setRightImage(int resId, final IActivityTitleRightImageClickEvent rightImageClickEvent){
+	public void setRightImage(int resId, final IActivityTitleRightImageClickEvent rightImageClickEvent, final boolean changImage){
 		mRightImage.setImageResource(resId);
 		mRightImage.setVisibility(View.VISIBLE);
 		mRightImageSplit.setVisibility(View.VISIBLE);
 		if(rightImageClickEvent != null){
-			mRightImage.setOnClickListener(new OnClickListener() {				
+			mRightImage.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					rightImageClickEvent.onRightImageClicked();
+					if(changImage){
+						mRightImageSelected = !mRightImageSelected;
+						mRightImage.setSelected(mRightImageSelected);
+					}
 				}
 			});
 		}
 	}
 	
-	public void setLeftImage(int resId, final IActivityTitleLeftImageClickEvent leftImageClickEvent){
+	public void setLeftImage(int resId, final IActivityTitleLeftImageClickEvent leftImageClickEvent, final boolean changeImage){
 		mLeftImageView.setImageResource(resId);
 		mLeftImageView.setVisibility(View.VISIBLE);
 		mLeftImageSplit.setVisibility(View.VISIBLE);
@@ -77,7 +84,11 @@ public class ActivityTitle extends LinearLayout {
 			mLeftImageView.setOnClickListener(new OnClickListener() {				
 				@Override
 				public void onClick(View v) {
-					leftImageClickEvent.onLeftImageClicked();					
+					leftImageClickEvent.onLeftImageClicked();
+					if(changeImage){
+						mLeftImageSelected = !mLeftImageSelected;
+						mLeftImageView.setSelected(mLeftImageSelected);
+					}
 				}
 			});
 		}
