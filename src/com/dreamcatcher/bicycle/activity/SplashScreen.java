@@ -2,10 +2,8 @@ package com.dreamcatcher.bicycle.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.dreamcatcher.bicycle.BicycleApp;
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.core.BicycleService;
 import com.dreamcatcher.bicycle.interfaces.IAdEvent;
@@ -14,7 +12,7 @@ import com.dreamcatcher.bicycle.interfaces.IAssetsService;
 import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.GlobalSetting;
 import com.dreamcatcher.bicycle.util.Utils;
-import com.waps.AppConnect;
+import com.uucun.adsdk.UUAppConnect;
 
 public class SplashScreen extends Activity implements IAssetsEvent, IAdEvent{
 	private IAssetsService mAssetsService = null;
@@ -46,33 +44,12 @@ public class SplashScreen extends Activity implements IAssetsEvent, IAdEvent{
 
 	private void init(){
 		this.addEvent();
-		AppConnect.getInstance(this);
+		UUAppConnect.getInstance(this).initSdk();
 		
 		//get ad config from server
-		new GetConfigTask().execute();		
+		BicycleService.getInstance().getAdService().getPoints();	
 	}	
-	
-	private class GetConfigTask extends AsyncTask<Void, Void, Boolean>{
-		private boolean showAd = false;
-		@Override
-		protected Boolean doInBackground(Void... params) {
-			String showAdSetting = AppConnect.getInstance(BicycleApp.getInstance()).getConfig(Constants.AdSetting.SHOW_AD);
-			if("true".equalsIgnoreCase(showAdSetting)){
-				showAd = true;
-			}else {
-				showAd = false;
-			}
-			return true;
-		}
 		
-		@Override
-		protected void onPostExecute(Boolean result) {
-			GlobalSetting.getInstance().getAdsetting().setShowAd(showAd);
-			//get points from server
-			BicycleService.getInstance().getAdService().getPoints();
-		}		
-	}
-	
 	private void getBicycleInfo(){
 		boolean success = loadAllBicyclesInfoFromLocal();		
 		if(!success){			 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">环保自行车</string>    
+    <string name="app_name">环保自行车助手</string>    
     
     <string name="city_name_suzhou">苏州</string>
     <string name="city_name_changshu">常熟</string>
@@ -53,7 +53,7 @@
     <string name="setting_about">关于</string>
     <string name="setting_update">检查更新</string>
     <string name="setting_rating">去市场评分</string>
-    <string name="setting_recommend">积分去广告</string>
+    <string name="setting_recommend">精品推荐</string>
     
     <string name="dialog_remove_ad_msg_not_enough">您当前积分为：%d分，只需消耗200积分即可消除广告30天</string>
     <string name="dialog_remove_ad_msg_enough">您当前积分为：%d分，已满足消耗200积分消除广告30天</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:umadsdk="http://schemas.android.com/apk/res/com.dreamcatcher.bicycle"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -9,13 +10,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
     </com.dreamcatcher.bicycle.view.ActivityTitle>
-    
-	<LinearLayout
+	<net.youmi.android.AdView
         android:id="@+id/AdLinearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" 
-        android:layout_below="@+id/bicycle_title"/>
+        umadsdk:backgroundColor="#4076AA"
+        umadsdk:backgroundTransparent="255"
+        umadsdk:textColor="#ffffff"
+        android:layout_below="@+id/bicycle_title" >
+    </net.youmi.android.AdView>
 	<RelativeLayout 
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
@@ -60,7 +63,7 @@
 			    android:layout_height="fill_parent" 
 			    android:layout_alignParentRight="true" 
 			    android:background="@drawable/map_pop_btn_bg" 
-			    android:src="@drawable/ic_searchbar_up"/>			
+			    android:src="@drawable/ic_searchbar_up"/>
 		</RelativeLayout>
 	</RelativeLayout>    
 	<LinearLayout

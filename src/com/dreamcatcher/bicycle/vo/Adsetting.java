@@ -1,7 +1,7 @@
 package com.dreamcatcher.bicycle.vo;
 
 public class Adsetting {
-	private boolean mShowAd = false;
+	private boolean mShowAd = true;
 	private int mPointTotal = 0;
 	private long mNextShowAdTime = 0;
 	
