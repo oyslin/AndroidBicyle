@@ -37,7 +37,7 @@
 
 	         <EditText
 	             android:id="@+id/bicycle_map_search_input"
-	             android:layout_width="match_parent"
+	             android:layout_width="fill_parent"
 	             android:layout_height="fill_parent"
 	             android:layout_alignParentLeft="true"
 	             android:layout_alignParentTop="true"
@@ -50,14 +50,14 @@
 	         </EditText>
 	         <ImageButton android:id="@+id/bicycle_map_search_btn"
 	             android:layout_width="wrap_content"
-	             android:layout_height="match_parent" 
+	             android:layout_height="fill_parent" 
 	             android:layout_toLeftOf="@+id/bicycle_map_search_btn_hide" 
 	             android:background="@drawable/map_pop_btn_bg" 
 	             android:layout_marginRight="4dip" 
 	             android:src="@drawable/ic_searchbar_search"/>
 			<ImageButton android:id="@+id/bicycle_map_search_btn_hide"
 			    android:layout_width="wrap_content"
-			    android:layout_height="match_parent" 
+			    android:layout_height="fill_parent" 
 			    android:layout_alignParentRight="true" 
 			    android:background="@drawable/map_pop_btn_bg" 
 			    android:src="@drawable/ic_searchbar_up"/>			
