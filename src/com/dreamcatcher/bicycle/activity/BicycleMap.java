@@ -3,6 +3,8 @@ package com.dreamcatcher.bicycle.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.youmi.android.AdManager;
+import net.youmi.android.AdView;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
@@ -62,7 +64,6 @@ import com.dreamcatcher.bicycle.view.ActivityTitle.IActivityTitleRightImageClick
 import com.dreamcatcher.bicycle.vo.Adsetting;
 import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 import com.dreamcatcher.bicycle.vo.CitySetting;
-import com.waps.AdView;
 
 public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent, IAdEvent{
 	private BMapManager mBMapManager = null;
@@ -80,7 +81,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private TextView mBicyclePopAddress = null;
 	private Button mBicyclePopBtnTo = null;
 	private Drawable mMarker = null;
-	private LinearLayout mAdLine = null;
+	private AdView mAdLine = null;
 	private ItemizedBicycleOverlay mMarkersOverlay = null;
 	private int mMarkerWidth = 0;
 	private int mMarkerHeight = 0;
@@ -256,13 +257,12 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	
 	private void checkAd(boolean create){
 		Adsetting adsetting = GlobalSetting.getInstance().getAdsetting();
-		boolean showAdd = adsetting.isShowAd();
 		long nextShowAdTime = adsetting.getNextShowAdTime();
 		
-		if(showAdd && System.currentTimeMillis() > nextShowAdTime){
+		if(System.currentTimeMillis() > nextShowAdTime){
 			if(create){
-				mAdLine = (LinearLayout)findViewById(R.id.AdLinearLayout);
-				new AdView(this, mAdLine).DisplayAd();
+				mAdLine = (AdView)findViewById(R.id.AdLinearLayout);
+				AdManager.init(this, "1eee45f1c2e37b1b", "92537a922838d9e8", 30, false);
 			}
 		}else {
 			if(mAdLine != null){

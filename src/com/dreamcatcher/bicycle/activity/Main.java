@@ -20,7 +20,7 @@ import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.GlobalSetting;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.vo.CitySetting;
-import com.waps.AppConnect;
+import com.uucun.adsdk.UUAppConnect;
 
 public class Main extends TabActivity implements ISettingEvent{
 	private TabHost mTabHost;
@@ -59,7 +59,7 @@ public class Main extends TabActivity implements ISettingEvent{
     @Override
 	protected void onDestroy() {
 		this.removeEvent();
-		AppConnect.getInstance(this).finalize();
+		UUAppConnect.getInstance(this).exitSdk();
 		super.onDestroy();
 	}    
 

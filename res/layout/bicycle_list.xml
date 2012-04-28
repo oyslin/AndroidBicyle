@@ -8,18 +8,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
     </com.dreamcatcher.bicycle.view.ActivityTitle>
-    <LinearLayout
-        android:id="@+id/AdLinearLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal" 
-        android:layout_below="@+id/bicycle_title"/>
+
     <ListView
         android:id="@+id/bicycle_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/AdLinearLayout"
+        android:layout_below="@+id/bicycle_title"
         android:background="@drawable/activity_bg"
         android:cacheColorHint="@color/transparent"
         android:clickable="true"

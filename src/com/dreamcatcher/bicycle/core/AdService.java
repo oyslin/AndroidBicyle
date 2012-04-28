@@ -7,10 +7,10 @@ import android.os.Message;
 import com.dreamcatcher.bicycle.BicycleApp;
 import com.dreamcatcher.bicycle.interfaces.IAdService;
 import com.dreamcatcher.bicycle.util.Constants;
-import com.waps.AppConnect;
-import com.waps.UpdatePointsNotifier;
+import com.uucun.adsdk.UUAppConnect;
+import com.uucun.adsdk.UpdatePointListener;
 
-public class AdService implements IAdService, UpdatePointsNotifier {
+public class AdService implements IAdService, UpdatePointListener {
 	private BicycleApp mApp = BicycleApp.getInstance();
 	private Handler mHandler = null;
 	private final static int GET_POINTS_SUCCESS = 0;
@@ -41,34 +41,33 @@ public class AdService implements IAdService, UpdatePointsNotifier {
 	
 	@Override
 	public void getPoints() {
-		AppConnect.getInstance(mApp).getPoints(this);
+		UUAppConnect.getInstance(mApp).getPoints(this);
 	}
 
 	@Override
 	public void spendPoints(int point) {
-		AppConnect.getInstance(mApp).spendPoints(point, this);
+		UUAppConnect.getInstance(mApp).spendPoints(point, this);
 	}
 
 	@Override
 	public void awardPoint(int point) {
-		AppConnect.getInstance(mApp).awardPoints(point, this);
 	}
 
 	@Override
-	public void getUpdatePoints(String currencyName, int totalPoint) {
+	public void onError(String error) {
+		Message msg = Message.obtain();
+		Bundle data = new Bundle();
+		data.putString(Constants.ParcelableTag.GET_POINT_ERROR_MSG, error);
+		msg.setData(data);
+		mHandler.sendMessage(msg);			
+	}
+
+	@Override
+	public void onSuccess(String currencyName, int totalPoint) {
 		Message msg = Message.obtain();
 		Bundle data = new Bundle();
 		data.putString(Constants.ParcelableTag.CURRENCY_NAME, currencyName);
 		data.putInt(Constants.ParcelableTag.TOTAL_POINT, totalPoint);
-		msg.setData(data);
-		mHandler.sendMessage(msg);
-	}
-
-	@Override
-	public void getUpdatePointsFailed(String error) {
-		Message msg = Message.obtain();
-		Bundle data = new Bundle();
-		data.putString(Constants.ParcelableTag.GET_POINT_ERROR_MSG, error);
 		msg.setData(data);
 		mHandler.sendMessage(msg);		
 	}

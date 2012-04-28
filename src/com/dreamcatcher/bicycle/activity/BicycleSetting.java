@@ -15,12 +15,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.core.BicycleService;
@@ -31,7 +31,7 @@ import com.dreamcatcher.bicycle.util.ReminderNotification;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
 import com.dreamcatcher.bicycle.vo.Adsetting;
-import com.waps.AppConnect;
+import com.uucun.adsdk.UUAppConnect;
 
 public class BicycleSetting extends Activity implements IAdEvent{
 	private LayoutInflater mInflater = null;
@@ -108,11 +108,7 @@ public class BicycleSetting extends Activity implements IAdEvent{
 			LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 			params.setMargins(0, Utils.dip2px(Constants.SettingListViewItem.MARGIN_TOP_IN_DIP[i]), 0, 0);
 			view.setLayoutParams(params);
-			
-			if(!GlobalSetting.getInstance().getAdsetting().isShowAd() && i == 3){
-				view.setVisibility(View.GONE);
-			}
-			
+						
 			mListContainer.addView(view);
 		}
 	}
@@ -152,17 +148,16 @@ public class BicycleSetting extends Activity implements IAdEvent{
 	
 	private void showAdOffers(){
 		Adsetting adsetting = GlobalSetting.getInstance().getAdsetting();
-		boolean showAdd = adsetting.isShowAd();
 		int currentPoint = adsetting.getPointTotal();
 		long nextShowAdTime = adsetting.getNextShowAdTime();
 		
-		if(showAdd && System.currentTimeMillis() > nextShowAdTime && currentPoint < Constants.AdSetting.REMOVE_AD_MIN_POINT ){
+		if(System.currentTimeMillis() > nextShowAdTime && currentPoint < Constants.AdSetting.REMOVE_AD_MIN_POINT ){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(String.format(getText(R.string.dialog_remove_ad_msg_not_enough).toString(), currentPoint))
 				   .setPositiveButton(R.string.dialog_remove_ad_btn_earn_points, new DialogInterface.OnClickListener() {					
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							AppConnect.getInstance(BicycleSetting.this).showOffers(BicycleSetting.this);							
+							UUAppConnect.getInstance(BicycleSetting.this).showOffers();
 						}
 					})
 					.setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {						
@@ -173,7 +168,7 @@ public class BicycleSetting extends Activity implements IAdEvent{
 					})
 					.show();
 			
-		} else if(showAdd && System.currentTimeMillis() > nextShowAdTime){
+		} else if(System.currentTimeMillis() > nextShowAdTime){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(String.format(getText(R.string.dialog_remove_ad_msg_enough).toString(), currentPoint))
 					.setPositiveButton(R.string.dialog_remove_ad_btn_remove_ad, new DialogInterface.OnClickListener() {						
@@ -185,7 +180,7 @@ public class BicycleSetting extends Activity implements IAdEvent{
 				   .setNeutralButton(R.string.dialog_remove_ad_btn_earn_points, new DialogInterface.OnClickListener() {					
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							AppConnect.getInstance(BicycleSetting.this).showOffers(BicycleSetting.this);							
+							UUAppConnect.getInstance(BicycleSetting.this).showOffers();						
 						}
 					})
 					.setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {						
@@ -196,7 +191,7 @@ public class BicycleSetting extends Activity implements IAdEvent{
 					})
 					.show();
 		} else {
-			AppConnect.getInstance(BicycleSetting.this).showOffers(BicycleSetting.this);
+			UUAppConnect.getInstance(BicycleSetting.this).showOffers();
 		}
 	}
 	
