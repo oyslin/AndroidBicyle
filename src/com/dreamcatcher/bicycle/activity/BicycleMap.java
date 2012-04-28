@@ -332,7 +332,9 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			getMyLocation();			
 		}else {
 			mProgressbarLine.setVisibility(View.VISIBLE);
-			mMkSearch.poiSearchInCity(mCityName, searchKey);
+//			mMkSearch.poiSearchInCity(mCityName, searchKey);
+			//search 50km
+			mMkSearch.poiSearchNearBy(searchKey, mMyPoint, 50000);
 			mNeedUpdateCity = false;
 		}		
 	}
