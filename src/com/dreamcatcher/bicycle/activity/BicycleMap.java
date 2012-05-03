@@ -266,7 +266,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			}
 		}else {
 			if(mAdLine != null){
-				mAdLine.setVisibility(View.GONE);				
+				mAdLine.setVisibility(View.GONE);
 			}
 		}
 	}
@@ -562,7 +562,12 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 				mCurrentTime = System.currentTimeMillis();
 				mSelectedId = bicycleId;
 				mProgressbarLine.setVisibility(View.VISIBLE);
-				mHttpService.getSingleBicycleInfo(bicycleId);				
+				
+				//show bicycle info first
+				BicycleStationInfo bicycleStationInfo = mDataset.getBicycleInfo(mSelectedId);
+				showBicyclePopContent(bicycleStationInfo);
+				mHttpService.getSingleBicycleInfo(bicycleId);
+				
 			}
 			return true;
 		}

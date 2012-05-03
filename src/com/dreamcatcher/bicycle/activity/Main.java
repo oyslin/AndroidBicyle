@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.core.BicycleService;
+import com.dreamcatcher.bicycle.interfaces.IAdEvent;
 import com.dreamcatcher.bicycle.interfaces.ISettingEvent;
 import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.GlobalSetting;
@@ -22,7 +23,7 @@ import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.vo.CitySetting;
 import com.uucun.adsdk.UUAppConnect;
 
-public class Main extends TabActivity implements ISettingEvent{
+public class Main extends TabActivity implements ISettingEvent, IAdEvent{
 	private TabHost mTabHost;
 	private LayoutInflater mLayoutInflater;
 	private long mCurrentTime = 0;
@@ -79,8 +80,6 @@ public class Main extends TabActivity implements ISettingEvent{
 
 	private void init(){
     	this.addEvent();
-    	//first load bicycle station info from server
-    	loadBicycleInfoFromServer();
     	
     	mTabHost = getTabHost();
     	mLayoutInflater = LayoutInflater.from(this);
@@ -100,15 +99,22 @@ public class Main extends TabActivity implements ISettingEvent{
     		if(!inArray(i, tabs)){
     			mTabHost.getTabWidget().getChildAt(i).setVisibility(View.GONE);
     		}
-    	}    	
+    	}
+    	
+		UUAppConnect.getInstance(this).initSdk();
+		
+		//get ad config from server
+		BicycleService.getInstance().getAdService().getPoints();
     }
     
     private void addEvent(){
     	BicycleService.getInstance().getSettingEventListener().addEvent(this);
+    	BicycleService.getInstance().getAdEventListener().addEvent(this);
     }
     
     private void removeEvent(){
     	BicycleService.getInstance().getSettingEventListener().removeEvent(this);
+    	BicycleService.getInstance().getAdEventListener().removeEvent(this);
     }
     
     private boolean inArray(int data, int[] array){
@@ -179,13 +185,6 @@ public class Main extends TabActivity implements ISettingEvent{
     private Intent getTabItemIntent(int index){
     	Intent intent = new Intent(this, Constants.TabSetting.CONTENT_ARRAY[index]);    	
     	return intent;
-    }    
-    
-    /**
-     * load bicycles info from server via thread
-     */
-    private void loadBicycleInfoFromServer(){
-    	
     }
 
 	public void onCitySettingChanged(int resultCode) {
@@ -193,6 +192,16 @@ public class Main extends TabActivity implements ISettingEvent{
 	}
 	
 	public void onFavoriteIdsChanged() {
+		
+	}
+
+	@Override
+	public void onPointsUpdated(String currencyName, int totalPoint) {
+		GlobalSetting.getInstance().getAdsetting().setPointTotal(totalPoint);		
+	}
+
+	@Override
+	public void onPointsUpdateFailed(String error) {	
 		
 	}
     

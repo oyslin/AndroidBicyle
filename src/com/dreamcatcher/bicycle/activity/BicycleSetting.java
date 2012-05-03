@@ -126,14 +126,14 @@ public class BicycleSetting extends Activity implements IAdEvent{
 					}
 				};
 				break;			
-			case 3:
+			case 4:
 				listener = new OnClickListener() {
 					public void onClick(View v) {	
 						showAdOffers();	
 					}
 				};
 				break;
-			case 4:
+			case 3:
 				listener = new OnClickListener() {				
 					public void onClick(View v) {
 						reminder();				
@@ -158,6 +158,7 @@ public class BicycleSetting extends Activity implements IAdEvent{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							UUAppConnect.getInstance(BicycleSetting.this).showOffers();
+							dialog.dismiss();
 						}
 					})
 					.setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {						
@@ -174,13 +175,15 @@ public class BicycleSetting extends Activity implements IAdEvent{
 					.setPositiveButton(R.string.dialog_remove_ad_btn_remove_ad, new DialogInterface.OnClickListener() {						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							removeAd();							
+							removeAd();
+							dialog.dismiss();
 						}
 					})
 				   .setNeutralButton(R.string.dialog_remove_ad_btn_earn_points, new DialogInterface.OnClickListener() {					
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							UUAppConnect.getInstance(BicycleSetting.this).showOffers();						
+							UUAppConnect.getInstance(BicycleSetting.this).showOffers();
+							dialog.dismiss();
 						}
 					})
 					.setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {						

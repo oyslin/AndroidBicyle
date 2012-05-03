@@ -106,16 +106,16 @@ public class Constants {
 		int[] SETTING_ITEM_IMAGE = {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
-									R.drawable.ic_setting_favorite,
-									R.drawable.ic_setting_recommend,
-									R.drawable.ic_reminder									
+									R.drawable.ic_setting_favorite,									
+									R.drawable.ic_reminder,
+									R.drawable.ic_setting_recommend
 		};
 		String[] SETTING_ITEM_TEXT = {
 									Utils.getText(R.string.setting_map),
 									Utils.getText(R.string.setting_changecity),
-									Utils.getText(R.string.setting_favorite),									
-									Utils.getText(R.string.setting_recommend),
-									Utils.getText(R.string.setting_return_reminder)
+									Utils.getText(R.string.setting_favorite),
+									Utils.getText(R.string.setting_return_reminder),
+									Utils.getText(R.string.setting_recommend)									
 		};
 		int SETTING_ITEM_NEXT_INDICATOR = R.drawable.ic_setting_next_indicator;
 		

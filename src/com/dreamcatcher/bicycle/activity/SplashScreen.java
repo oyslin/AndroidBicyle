@@ -6,15 +6,13 @@ import android.os.Bundle;
 
 import com.dreamcatcher.bicycle.R;
 import com.dreamcatcher.bicycle.core.BicycleService;
-import com.dreamcatcher.bicycle.interfaces.IAdEvent;
 import com.dreamcatcher.bicycle.interfaces.IAssetsEvent;
 import com.dreamcatcher.bicycle.interfaces.IAssetsService;
 import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.GlobalSetting;
 import com.dreamcatcher.bicycle.util.Utils;
-import com.uucun.adsdk.UUAppConnect;
 
-public class SplashScreen extends Activity implements IAssetsEvent, IAdEvent{
+public class SplashScreen extends Activity implements IAssetsEvent{
 	private IAssetsService mAssetsService = null;
 	
 	@Override
@@ -32,22 +30,24 @@ public class SplashScreen extends Activity implements IAssetsEvent, IAdEvent{
 	
 	private void addEvent(){
 		BicycleService.getInstance().getAssetsEventListener().addEvent(this);
-		BicycleService.getInstance().getAdEventListener().addEvent(this);
 	}
 	
 	private void removeEvent(){
 		BicycleService.getInstance().getAssetsEventListener().removeEvent(this);
-		BicycleService.getInstance().getAdEventListener().removeEvent(this);
 	}
 
 
 
 	private void init(){
 		this.addEvent();
-		UUAppConnect.getInstance(this).initSdk();
 		
-		//get ad config from server
-		BicycleService.getInstance().getAdService().getPoints();	
+		mAssetsService = BicycleService.getInstance().getAssertsService();		
+		mAssetsService.loadCitySetting();
+		
+		//get next ad shown time
+	    long nextShowAdTime = Utils.getLongDataFromLocal(Constants.LocalStoreTag.NEXT_AD_SHOWN_TIME, 0);
+	    
+	    GlobalSetting.getInstance().getAdsetting().setNextShowAdTime(nextShowAdTime);		
 	}	
 		
 	private void getBicycleInfo(){
@@ -96,22 +96,4 @@ public class SplashScreen extends Activity implements IAssetsEvent, IAdEvent{
 			finish();
 		}
 	}
-
-	@Override
-	public void onPointsUpdated(String currencyName, int totalPoint) {
-		GlobalSetting.getInstance().getAdsetting().setPointTotal(totalPoint);
-		
-		//get next ad shown time
-	    long nextShowAdTime = Utils.getLongDataFromLocal(Constants.LocalStoreTag.NEXT_AD_SHOWN_TIME, 0);
-	    GlobalSetting.getInstance().getAdsetting().setNextShowAdTime(nextShowAdTime);
-	    
-	    mAssetsService = BicycleService.getInstance().getAssertsService();		
-		mAssetsService.loadCitySetting();
-	}
-
-	@Override
-	public void onPointsUpdateFailed(String error) {		
-		mAssetsService = BicycleService.getInstance().getAssertsService();		
-		mAssetsService.loadCitySetting();
-	}	
 }
