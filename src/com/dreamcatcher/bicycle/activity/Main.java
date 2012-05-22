@@ -21,6 +21,7 @@ import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.GlobalSetting;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.vo.CitySetting;
+import com.kuguo.ad.PushAdsManager;
 import com.uucun.adsdk.UUAppConnect;
 
 public class Main extends TabActivity implements ISettingEvent, IAdEvent{
@@ -105,6 +106,10 @@ public class Main extends TabActivity implements ISettingEvent, IAdEvent{
 		
 		//get ad config from server
 		BicycleService.getInstance().getAdService().getPoints();
+		
+		//get push ad
+		PushAdsManager paManager = PushAdsManager.getInstance();
+		paManager.receivePushMessage(this, true);
     }
     
     private void addEvent(){

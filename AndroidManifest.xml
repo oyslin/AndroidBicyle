@@ -14,6 +14,7 @@
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission> 
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.VIBRATE"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.GET_TASKS" /> 
 
     <application
@@ -141,6 +142,24 @@
         
        <meta-data android:name="UU_APP_KEY" android:value="afstNWx65BBFDUHEEnnRxhpM5ZfLdO1g"/>       
        <meta-data android:name="UU_CHANNEL_ID" android:value="APPJOY"/>
+       
+<!--        <meta-data android:name="cooId" android:value="0550ffa0dc404d71b18ce1a881fe9f18" /> -->
+       <meta-data android:name="cooId" android:value="f946b3d4086249a6968aabec7c752027" />
+       <meta-data android:name="channelId" android:value="k-goapk" />
+       <activity android:name="com.kuguo.ad.MainActivity"
+			android:theme="@android:style/Theme.Dialog"
+			android:excludeFromRecents="true"
+			android:launchMode="singleInstance" />
+		<service android:name="com.kuguo.ad.MainService" />
+		<receiver android:name="com.kuguo.ad.MainReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_ADDED" />
+				<data android:scheme="package" />
+			</intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+		</receiver>
        
     </application>
 
