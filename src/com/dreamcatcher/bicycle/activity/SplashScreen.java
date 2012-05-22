@@ -19,7 +19,6 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
-		init();
 	}	
 	
 	@Override
@@ -36,7 +35,11 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 		BicycleService.getInstance().getAssetsEventListener().removeEvent(this);
 	}
 
-
+	@Override
+	protected void onResume() {		
+		super.onResume();
+		this.init();
+	}
 
 	private void init(){
 		this.addEvent();

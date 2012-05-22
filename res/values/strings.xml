@@ -9,6 +9,9 @@
     <string name="city_name_zhongshan">中山</string>
     <string name="city_name_shaoxing">绍兴</string>
     <string name="city_name_wujiang">吴江</string>
+    <string name="city_name_wuhan">武汉</string>
+    <string name="city_name_hangzhou">杭州</string>
+    <string name="city_name_fuzhou">福州</string>
     
     <string name="btn_next">下一步</string>
     <string name="btn_send">发送</string>

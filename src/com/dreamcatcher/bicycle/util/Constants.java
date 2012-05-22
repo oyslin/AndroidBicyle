@@ -35,7 +35,7 @@ public class Constants {
 	
 	public interface CitySetting{
 		String CITY_SETTING_FILENAME = "setting/citysetting.json";
-		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "zhongshan", "shaoxing"};
+		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "zhongshan", "shaoxing", "wuhan"};
 		int CITY_NAME_RESID[] = {
 				R.string.city_name_suzhou,
 				R.string.city_name_changshu,
@@ -43,7 +43,8 @@ public class Constants {
 				R.string.city_name_nantong,
 				R.string.city_name_wujiang,				
 				R.string.city_name_zhongshan,
-				R.string.city_name_shaoxing
+				R.string.city_name_shaoxing,
+				R.string.city_name_wuhan
 		};
 		int CITY_MAP_ID[] = {
 				224,
