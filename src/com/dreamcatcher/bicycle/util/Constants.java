@@ -82,6 +82,8 @@ public class Constants {
 		String OFFSET_LATITUDE= "offsetLatitude";
 		String OFFSET_LONGITUDE= "offsetLongitude";
 		String ASSETS_FILE_NAME= "assetsFileName";
+		String SHOW_BICYCLE_NUMBER = "showBicycleNumber";
+		String REFRESH_POP = "refreshPop";
 	}
 	
 	public interface LocalStoreTag{
@@ -107,7 +109,7 @@ public class Constants {
 		int[] SETTING_ITEM_IMAGE = {
 									R.drawable.ic_setting_map,
 									R.drawable.ic_setting_changecity,
-									R.drawable.ic_setting_favorite,									
+									R.drawable.ic_setting_favorite,
 									R.drawable.ic_reminder,
 									R.drawable.ic_setting_recommend
 		};
@@ -126,7 +128,7 @@ public class Constants {
 									ChangeCityActivity.class,
 									FavoriteSettingActivity.class,
 									null,
-									null,									
+									null,
 		};
 		
 		int[] MARGIN_TOP_IN_DIP = {

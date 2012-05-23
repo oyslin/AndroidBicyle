@@ -251,7 +251,10 @@ public class Utils {
 				double offsetLatitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LATITUDE);
 				double offsetLongitude = cityJson.getDouble(Constants.SettingJsonTag.OFFSET_LONGITUDE);
 				String assetsFileName = cityJson.getString(Constants.SettingJsonTag.ASSETS_FILE_NAME);
-				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName);
+				boolean showBicycleNumber = cityJson.getBoolean(Constants.SettingJsonTag.SHOW_BICYCLE_NUMBER);
+				boolean refreshPop = cityJson.getBoolean(Constants.SettingJsonTag.REFRESH_POP);
+				
+				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName, showBicycleNumber, refreshPop);
 				GlobalSetting.getInstance().setCitySetting(citySetting);
 				result = true;
 			}

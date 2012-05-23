@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="@dimen/bicycle_listview_height" >
+    android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/bicycle_listview_index"
         android:layout_width="@dimen/bicycle_listview_index_width"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal"/>
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" 
+        android:layout_alignTop="@+id/bicycle_listview_name" 
+        android:layout_alignBottom="@+id/bicycle_listview_address"/>
 
     <TextView
         android:id="@+id/bicycle_listview_name"
@@ -24,11 +26,10 @@
     <LinearLayout
         android:id="@+id/bicycle_listview_count_line"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/bicycle_listview_address"
+        android:layout_height="@dimen/bicycle_listview_bicycle_number_line_height"
         android:layout_below="@id/bicycle_listview_name"
         android:layout_toRightOf="@id/bicycle_listview_index"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/bicycle_listview_avaibike"
@@ -45,8 +46,7 @@
         android:id="@+id/bicycle_listview_address"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/bicycle_listview_address_height"
-        android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/bicycle_listview_index"
-        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal"/>
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyExtraSmallNormal" android:layout_below="@id/bicycle_listview_count_line"/>
 
 </RelativeLayout>

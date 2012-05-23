@@ -13,6 +13,7 @@
     
     <dimen name="bicycle_listview_height">70dip</dimen>
     <dimen name="bicycle_listview_name_height">30dip</dimen>
+    <dimen name="bicycle_listview_bicycle_number_line_height">20dip</dimen>
     <dimen name="bicycle_listview_address_height">20dip</dimen>
     <dimen name="bicycle_listview_index_width">50dip</dimen>
     
