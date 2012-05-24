@@ -65,7 +65,7 @@ public class HttpUtils {
 				
 				Utils.setToDataset(jsonStr);
 				Utils.storeStringDataToLocal(Constants.LocalStoreTag.ALL_BICYCLE, jsonStr);
-				success = true;			
+				success = true;
 			}			
 			
 		} catch (IOException e) {
@@ -139,6 +139,11 @@ public class HttpUtils {
 				stringBuilder.append(line);
 			}
 			jsonStr = stringBuilder.toString();
+			
+			boolean needDecode = GlobalSetting.getInstance().getCitySetting().isNeedDecode();
+			if(needDecode){
+				jsonStr = Utils.decodeSZCode(jsonStr);
+			}			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

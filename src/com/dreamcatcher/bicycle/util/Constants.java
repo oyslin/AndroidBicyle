@@ -84,6 +84,7 @@ public class Constants {
 		String ASSETS_FILE_NAME= "assetsFileName";
 		String SHOW_BICYCLE_NUMBER = "showBicycleNumber";
 		String REFRESH_POP = "refreshPop";
+		String NEED_DECODE = "needDecode";
 	}
 	
 	public interface LocalStoreTag{
