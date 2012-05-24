@@ -9,11 +9,13 @@ public class CitySetting {
 	private double mOffsetLatitude = 0;
 	private double mOffsetLongitude = 0;
 	private String mAssetsFileName = "";
+	private boolean mShowBicycleNumber = true;
+	private boolean mRefreshPop = true;
 	
 	public CitySetting(String tabStr, String allBicyclesUrl,
 			String bicycleDetailUrl, double defaultLatitude,
 			double defaultLongitude, double offsetLatitude,
-			double offsetLongitude, String assetsFileName) {		
+			double offsetLongitude, String assetsFileName, boolean showBicycleNumber, boolean refreshPop) {		
 		this.mTabs = convertToArray(tabStr);
 		this.mAllBicyclesUrl = allBicyclesUrl;
 		this.mBicycleDetailUrl = bicycleDetailUrl;
@@ -22,6 +24,8 @@ public class CitySetting {
 		this.mOffsetLatitude = offsetLatitude;
 		this.mOffsetLongitude = offsetLongitude;
 		this.mAssetsFileName = assetsFileName;
+		this.mShowBicycleNumber = showBicycleNumber;
+		this.mRefreshPop = refreshPop;
 	}
 	
 	private int[] convertToArray(String tabStr){
@@ -32,8 +36,24 @@ public class CitySetting {
 			result[i] = Integer.parseInt(strArrayStrings[i]);
 		}
 		return result;
-	}
+	}	
 	
+	public boolean isShowBicycleNumber() {
+		return mShowBicycleNumber;
+	}
+
+	public void setShowBicycleNumber(boolean showBicycleNumber) {
+		this.mShowBicycleNumber = showBicycleNumber;
+	}
+
+	public boolean isRefreshPop() {
+		return mRefreshPop;
+	}
+
+	public void setRefreshPop(boolean refreshPop) {
+		this.mRefreshPop = refreshPop;
+	}
+
 	public int[] getTabs() {
 		return mTabs;
 	}
@@ -82,7 +102,5 @@ public class CitySetting {
 	}
 	public void setAssetsFileName(String mAssetsFileName) {
 		this.mAssetsFileName = mAssetsFileName;
-	}
-	
-	
+	}	
 }

@@ -80,6 +80,8 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private TextView mBicyclePopAvailParks = null;
 	private TextView mBicyclePopAddress = null;
 	private Button mBicyclePopBtnTo = null;
+	private TextView mBicyclePopAvailBicycleLabel = null;
+	private TextView mBicyclePopAvailParkLabel = null;
 	private Drawable mMarker = null;
 	private AdView mAdLine = null;
 	private ItemizedBicycleOverlay mMarkersOverlay = null;
@@ -104,9 +106,10 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	private PoiOverlay mPoiOverlay = null;
 	private ArrayList<MKPoiInfo> mPoiInfos = null;
 	private RelativeLayout mSearchBar = null;
+	private boolean mSearchBarShown = false;
 	private EditText mSearchInput = null;
 	private String mCityName = "";	
-	private boolean mNeedUpdateCity = false;
+	private boolean mNeedUpdateCity = false;	
 	private View mPoiPopview = null;
 	private TextView mPoiPopName = null;
 	private TextView mPoiPopAddress = null;
@@ -126,7 +129,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		this.addEvent();
 		
 		mCitySetting = GlobalSetting.getInstance().getCitySetting();
-		mHttpService = BicycleService.getInstance().getHttpService();
+		mHttpService = BicycleService.getInstance().getHttpService();		
 		mHttpService.getAllBicyclesInfo();
 		
 		mBMapManager = BicycleApp.getInstance().getMapManager();
@@ -156,7 +159,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		activityTitle.setLeftImage(R.drawable.ic_titlebar_search, new IActivityTitleLeftImageClickEvent() {			
 			@Override
 			public void onLeftImageClicked() {
-				BicycleMap.this.showSearchBar();				
+				BicycleMap.this.toggleSearchBar();				
 			}
 		}, false);
 		
@@ -196,6 +199,8 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		mBicyclePopAvailParks = (TextView) mBicyclePopView.findViewById(R.id.map_pop_available_parks);
 		mBicyclePopAddress = (TextView) mBicyclePopView.findViewById(R.id.map_pop_address);
 		mBicyclePopBtnTo = (Button) mBicyclePopView.findViewById(R.id.map_pop_btn_to);
+		mBicyclePopAvailBicycleLabel = (TextView) mBicyclePopView.findViewById(R.id.map_pop_available_bicycles_label);
+		mBicyclePopAvailParkLabel = (TextView) mBicyclePopView.findViewById(R.id.map_pop_available_parks_label);
 		
 		mBicyclePopBtnTo.setOnClickListener(new OnClickListener() {			
 			@Override
@@ -244,7 +249,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         //add all bicycle marks
         addAllBicycleMarkers();
         
-		mAutoLocate = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.AUTO_LOCATE_ON_STARTUP, false);
+		mAutoLocate = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.AUTO_LOCATE_ON_STARTUP, true);
 		
 		//add my location if auto locate set
 		if(mAutoLocate){
@@ -271,10 +276,15 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		}
 	}
 	
-	private void showSearchBar(){
-		Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
-		mSearchBar.setVisibility(View.VISIBLE);
-		mSearchBar.startAnimation(animation);
+	private void toggleSearchBar(){
+		if(mSearchBarShown){
+			hideSearchBar();
+		}else {
+			Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+			mSearchBar.setVisibility(View.VISIBLE);
+			mSearchBar.startAnimation(animation);
+			mSearchBarShown = true;
+		}		
 	}
 	
 	private void setMapSenter(){
@@ -343,6 +353,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		Animation animation = AnimationUtils.loadAnimation(BicycleMap.this, R.anim.slide_up);
 		mSearchBar.startAnimation(animation);
 		mSearchBar.setVisibility(View.GONE);
+		mSearchBarShown = false;
 	}
 	
 	private void getMyLocation(){
@@ -560,14 +571,17 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 			
 			if(System.currentTimeMillis() - mCurrentTime > 2000){
 				mCurrentTime = System.currentTimeMillis();
-				mSelectedId = bicycleId;
-				mProgressbarLine.setVisibility(View.VISIBLE);
+				mSelectedId = bicycleId;				
 				
 				//show bicycle info first
 				BicycleStationInfo bicycleStationInfo = mDataset.getBicycleInfo(mSelectedId);
 				showBicyclePopContent(bicycleStationInfo);
-				mHttpService.getSingleBicycleInfo(bicycleId);
 				
+				//if need refresh single bicycle info, get from server
+				if(mCitySetting.isRefreshPop()){
+					mProgressbarLine.setVisibility(View.VISIBLE);
+					mHttpService.getSingleBicycleInfo(bicycleId);
+				}				
 			}
 			return true;
 		}
@@ -597,10 +611,22 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		if(bicycleStationInfo == null){
 			return;
 		}
-		mBicyclePopName.setText(bicycleStationInfo.getName());
-		mBicyclePopAvailBicycles.setText(String.valueOf(bicycleStationInfo.getAvailable()));
-		mBicyclePopAvailParks.setText(String.valueOf(bicycleStationInfo.getCapacity() - bicycleStationInfo.getAvailable()));			
+		mBicyclePopName.setText(bicycleStationInfo.getName());					
 		mBicyclePopAddress.setText(bicycleStationInfo.getAddress());
+		
+		if(mCitySetting.isShowBicycleNumber()){
+			mBicyclePopAvailBicycles.setText(String.valueOf(bicycleStationInfo.getAvailable()));
+			mBicyclePopAvailParks.setText(String.valueOf(bicycleStationInfo.getCapacity() - bicycleStationInfo.getAvailable()));
+			mBicyclePopAvailBicycleLabel.setVisibility(View.VISIBLE);
+			mBicyclePopAvailBicycles.setVisibility(View.VISIBLE);
+			mBicyclePopAvailParkLabel.setVisibility(View.VISIBLE);
+			mBicyclePopAvailParks.setVisibility(View.VISIBLE);
+		}else{			
+			mBicyclePopAvailBicycleLabel.setVisibility(View.GONE);
+			mBicyclePopAvailBicycles.setVisibility(View.GONE);
+			mBicyclePopAvailParkLabel.setVisibility(View.GONE);
+			mBicyclePopAvailParks.setVisibility(View.GONE);
+		}		
 		
 		GeoPoint geoPoint = this.mSelectedBicycleItem.getPoint();
 		Point point = mMapView.getProjection().toPixels(geoPoint, null);
