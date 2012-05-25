@@ -299,7 +299,6 @@ public class Utils {
 				int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
 				String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);				
 				
-				
 				BicycleStationInfo bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);
 				dataset.addBicycleInfo(id, bicycleInfo);
 			}
