@@ -253,8 +253,10 @@ public class Utils {
 				String assetsFileName = cityJson.getString(Constants.SettingJsonTag.ASSETS_FILE_NAME);
 				boolean showBicycleNumber = cityJson.getBoolean(Constants.SettingJsonTag.SHOW_BICYCLE_NUMBER);
 				boolean refreshPop = cityJson.getBoolean(Constants.SettingJsonTag.REFRESH_POP);
+				boolean needDecode = cityJson.getBoolean(Constants.SettingJsonTag.NEED_DECODE);
 				
-				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, offsetLatitude, offsetLongitude, assetsFileName, showBicycleNumber, refreshPop);
+				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, 
+							offsetLatitude, offsetLongitude, assetsFileName, showBicycleNumber, refreshPop,needDecode);
 				GlobalSetting.getInstance().setCitySetting(citySetting);
 				result = true;
 			}
@@ -299,6 +301,7 @@ public class Utils {
 				int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
 				String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);				
 				
+				
 				BicycleStationInfo bicycleInfo = new BicycleStationInfo(id, name, latitude, longitude, capacity, available, address);
 				dataset.addBicycleInfo(id, bicycleInfo);
 			}
@@ -313,6 +316,50 @@ public class Utils {
 	
 	public static String getPinyinCaptalLetter(String bicycleName){
 		return null;
+	}
+	
+	public static String decodeSZCode(String str) {
+	    int len = str.length() / 2;	    
+	    int i = 1;
+	    StringBuffer sb = new StringBuffer();
+	    int key = getIntegerValue(str.charAt(0)) * 16  + getIntegerValue(str.charAt(1));
+	    System.out.println("key = " + key);
+	    int ivalue = 0;
+	    int jvalue = 0;
+	    while (i < len) {
+	    	ivalue = getIntegerValue(str.charAt(i * 2)) * 16 + getIntegerValue(str.charAt(i * 2 + 1));	        
+	    	ivalue = key ^ ivalue;
+	    	System.out.println("ivalue = " + ivalue);
+	        if (ivalue == 2) {
+	            i = i + 1;
+	            key = Getkey(key, ivalue);
+	            ivalue = getIntegerValue(str.charAt(i * 2)) * 16 + getIntegerValue(str.charAt(i * 2 + 1));
+	            ivalue = key ^ ivalue;
+	            jvalue = ivalue;
+	            i = i + 1;
+	            key = Getkey(key, ivalue);
+	            ivalue = getIntegerValue(str.charAt(i * 2)) * 16 + getIntegerValue(str.charAt(i * 2 + 1));
+	            ivalue = key ^ ivalue;
+	            jvalue = jvalue * 256 + ivalue;
+	            sb.append((char)jvalue);
+	        } else {
+	        	sb.append((char)ivalue);
+	        }
+	        i = i + 1;	        
+	        key = Getkey(key, ivalue);
+	    }
+	    return sb.toString();
+	}
+	private static int Getkey(int key, int sc) {
+	    return (key * 0x0063 + sc) % 0x100;
+	}
+	
+	private static int getIntegerValue(char ch){
+		if(ch >= 65 && ch <= 70){
+			return ch - 55;
+		}else{
+			return ch - 48;
+		}
 	}
 	
 }

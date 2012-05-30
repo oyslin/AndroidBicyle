@@ -35,7 +35,7 @@ public class Constants {
 	
 	public interface CitySetting{
 		String CITY_SETTING_FILENAME = "setting/citysetting.json";
-		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "zhongshan", "shaoxing", "wuhan"};
+		String CITY_TAG[] = {"suzhou", "changshu", "kunshan", "nantong", "wujiang", "zhongshan", "shaoxing", "wuhan", "fuzhou", "hangzhou"};
 		int CITY_NAME_RESID[] = {
 				R.string.city_name_suzhou,
 				R.string.city_name_changshu,
@@ -44,7 +44,9 @@ public class Constants {
 				R.string.city_name_wujiang,				
 				R.string.city_name_zhongshan,
 				R.string.city_name_shaoxing,
-				R.string.city_name_wuhan
+				R.string.city_name_wuhan,
+				R.string.city_name_fuzhou,
+				R.string.city_name_hangzhou
 		};
 		int CITY_MAP_ID[] = {
 				224,
@@ -53,7 +55,10 @@ public class Constants {
 				161,
 				2284,
 				187,
-				293
+				293,
+				218,
+				300,
+				179
 		};
 	}
 
@@ -84,6 +89,7 @@ public class Constants {
 		String ASSETS_FILE_NAME= "assetsFileName";
 		String SHOW_BICYCLE_NUMBER = "showBicycleNumber";
 		String REFRESH_POP = "refreshPop";
+		String NEED_DECODE = "needDecode";
 	}
 	
 	public interface LocalStoreTag{

@@ -40,6 +40,12 @@ public class SplashScreen extends Activity implements IAssetsEvent{
 		super.onResume();
 		this.init();
 	}
+	
+	@Override
+	public void onBackPressed() {
+//		super.onBackPressed();
+		Utils.exitApplication();
+	}
 
 	private void init(){
 		this.addEvent();

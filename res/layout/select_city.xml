@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
     android:background="@drawable/activity_bg">
     <com.dreamcatcher.bicycle.view.ActivityTitle
         android:id="@+id/bicycle_title"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">      
-
-    </com.dreamcatcher.bicycle.view.ActivityTitle>
+        android:layout_height="wrap_content">
+    </com.dreamcatcher.bicycle.view.ActivityTitle>    
     <ListView
         android:id="@+id/select_city_list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/bicycle_title"
+        android:layout_above="@+id/select_city_next_btn"
         android:layout_margin="20dip"
         android:background="@drawable/listview_bg"
         android:cacheColorHint="@color/transparent"
         android:divider="@drawable/setting_listview_divider"
         android:dividerHeight="@dimen/select_city_listview_divider"
         android:listSelector="@drawable/listview_selector_transparent"
-        android:padding="1dip" android:choiceMode="singleChoice">
+        android:padding="1dip" android:choiceMode="singleChoice" android:scrollbarAlwaysDrawVerticalTrack="true" android:scrollbars="vertical">
     </ListView>
-
     <Button
         android:id="@+id/select_city_next_btn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dip"
         android:layout_marginLeft="40dip"
         android:layout_marginRight="40dip"
         android:background="@drawable/button_bg"
         android:text="@string/btn_next"
-        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" />    
-</LinearLayout>
+        android:textAppearance="@style/Bicycle.TextAppearance.DarkGreyMediumNomal" /> 
+</RelativeLayout>

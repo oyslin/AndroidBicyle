@@ -120,10 +120,8 @@
 	
 	<string name="notification_ticket_text">还车时间到了</string>
 	<string name="notification_content_title">还车提醒</string>
-	<string name="notification_content_text">还车时间到了，请及时归还</string>
-	
+	<string name="notification_content_text">还车时间到了，请及时归还</string>	
 	<string name="feedback_edittext_hint">请留下您的意见和建议，以及所在的城市，以方便我们为您提供更好的服务......</string>	
-	<string name="progress_bar_text">获取信息</string>
-	
+	<string name="progress_bar_text">获取信息</string>	
 	<string name="search_input_hint">搜索地点</string>
 </resources>
