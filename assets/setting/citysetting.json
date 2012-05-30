@@ -85,6 +85,7 @@
 			  "showBicycleNumber" : "false",
 			  "refreshPop" : "false",
 			  "needDecode" : "false",
+<<<<<<< HEAD
 			  "assetsFileName" : "bicycles/bicycles_wuhan.json"},
  "fuzhou" : 	{"tabs" : "0|1|2|3", 
 			  "allBicyclesUrl" : "http://waltoy.cnodejs.net/fuzhoubicycleinfo",
@@ -108,4 +109,7 @@
 			  "refreshPop" : "false",
 			  "needDecode" : "false",
 			  "assetsFileName" : "bicycles/bicycles_hangzhou.json"}
+=======
+			  "assetsFileName" : "bicycles/bicycles_wuhan.json"}
+>>>>>>> e154b104753b732324c632006e4ab804ef800c33
 }
