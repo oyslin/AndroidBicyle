@@ -107,12 +107,8 @@ public class HttpUtils {
 				
 				for(int i = 0, total = jsonArray.length(); i < total; i++){
 					JSONObject jsonItem = jsonArray.getJSONObject(i);				
-//					String name = jsonItem.getString(Constants.BicycleJsonTag.NAME);
-//					double latitude = jsonItem.getDouble(Constants.BicycleJsonTag.LATITUDE);
-//					double longitude = jsonItem.getDouble(Constants.BicycleJsonTag.LONGITUDE);
 					int capacity = jsonItem.getInt(Constants.BicycleJsonTag.CAPACITY);
 					int available = jsonItem.getInt(Constants.BicycleJsonTag.AVAIABLE);
-//					String address = jsonItem.getString(Constants.BicycleJsonTag.ADDRESS);
 					
 					bicycleNumberInfo = new BicycleNumberInfo(id, capacity, available);				
 				}

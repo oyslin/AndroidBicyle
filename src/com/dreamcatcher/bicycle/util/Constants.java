@@ -93,6 +93,7 @@ public class Constants {
 		String SHOW_BICYCLE_NUMBER = "showBicycleNumber";
 		String REFRESH_SINGLE = "refreshSingle";
 		String NEED_DECODE = "needDecode";
+		String DEFAULT_ZOOM = "defaultZoom";
 	}
 	
 	public interface LocalStoreTag{

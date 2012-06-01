@@ -12,13 +12,14 @@ public class CitySetting {
 	private boolean mShowBicycleNumber = true;
 	private boolean mRefreshSingle = true;
 	private boolean mNeedDecode = false;
+	private int mDefaultZoom = 15;
 	
 	public CitySetting(String tabStr, String allBicyclesUrl,
 			String bicycleDetailUrl, double defaultLatitude,
 			double defaultLongitude, double offsetLatitude,
 			double offsetLongitude, String assetsFileName, 
 			boolean showBicycleNumber, boolean refreshSingle,
-			boolean needDecode) {		
+			boolean needDecode, int defaultZoom) {		
 		this.mTabs = convertToArray(tabStr);
 		this.mAllBicyclesUrl = allBicyclesUrl;
 		this.mBicycleDetailUrl = bicycleDetailUrl;
@@ -30,6 +31,7 @@ public class CitySetting {
 		this.mShowBicycleNumber = showBicycleNumber;
 		this.mRefreshSingle = refreshSingle;
 		this.mNeedDecode = needDecode;
+		this.mDefaultZoom = defaultZoom;
 	}
 	
 	private int[] convertToArray(String tabStr){
@@ -41,8 +43,15 @@ public class CitySetting {
 		}
 		return result;
 	}	
-	
-		
+			
+	public int getDefaultZoom() {
+		return mDefaultZoom;
+	}
+
+	public void setDefaultZoom(int defaultZoom) {
+		this.mDefaultZoom = defaultZoom;
+	}
+
 	public boolean isNeedDecode() {
 		return mNeedDecode;
 	}

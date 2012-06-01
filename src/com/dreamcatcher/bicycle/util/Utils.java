@@ -254,9 +254,10 @@ public class Utils {
 				boolean showBicycleNumber = cityJson.getBoolean(Constants.SettingJsonTag.SHOW_BICYCLE_NUMBER);
 				boolean refreshSingle = cityJson.getBoolean(Constants.SettingJsonTag.REFRESH_SINGLE);
 				boolean needDecode = cityJson.getBoolean(Constants.SettingJsonTag.NEED_DECODE);
+				int defaultZoom = cityJson.getInt(Constants.SettingJsonTag.DEFAULT_ZOOM);
 				
 				CitySetting citySetting = new CitySetting(tabs, allBicyclesUrl, bicycleDetailUrl, defaultLatitude, defaultLongitude, 
-							offsetLatitude, offsetLongitude, assetsFileName, showBicycleNumber, refreshSingle, needDecode);
+							offsetLatitude, offsetLongitude, assetsFileName, showBicycleNumber, refreshSingle, needDecode, defaultZoom);
 				GlobalSetting.getInstance().setCitySetting(citySetting);
 				result = true;
 			}

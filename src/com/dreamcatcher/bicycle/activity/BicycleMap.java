@@ -190,7 +190,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		mMapView.setBuiltInZoomControls(true);
 		
 		mMapController = mMapView.getController();
-		mMapController.setZoom(15);
+		mMapController.setZoom(mCitySetting.getDefaultZoom());
 		
 		setMapSenter();		
 		
