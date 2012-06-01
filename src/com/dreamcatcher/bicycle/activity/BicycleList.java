@@ -15,7 +15,7 @@ import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
 import com.dreamcatcher.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
-import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
+import com.dreamcatcher.bicycle.vo.BicycleNumberInfo;
 
 public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 	private ActivityTitle mActivityTitle = null;
@@ -106,8 +106,8 @@ public class BicycleList extends Activity implements IHttpEvent, ISettingEvent{
 		}
 	}
 
-	public void onSingleBicycleInfoReceived(
-			BicycleStationInfo bicycleStationInfo, int resultCode) {		
+	public void onSingleBicycleNumberInfoReceived(
+			BicycleNumberInfo bicycleNumberInfo, int resultCode) {		
 	}
 	
 	public void onNewVersionCheckCompleted(boolean needUpdate, int resultCode) {

@@ -37,12 +37,6 @@ public class SelectCityActivity extends Activity implements IAssetsEvent{
 		this.removeEvent();
 		super.onDestroy();
 	}
-	
-	@Override
-	public void onBackPressed() {
-//		super.onBackPressed();
-		Utils.exitApplication();
-	}
 
 	private void init(){
 		this.addEvent();

@@ -20,7 +20,7 @@ import com.dreamcatcher.bicycle.interfaces.IHttpEvent;
 import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.Utils;
 import com.dreamcatcher.bicycle.view.ActivityTitle;
-import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
+import com.dreamcatcher.bicycle.vo.BicycleNumberInfo;
 
 public class BicycleMore extends Activity implements IHttpEvent{
 	private LayoutInflater mInflater = null;
@@ -150,8 +150,8 @@ public class BicycleMore extends Activity implements IHttpEvent{
 		
 	}
 
-	public void onSingleBicycleInfoReceived(
-			BicycleStationInfo bicycleStationInfo, int resultCode) {
+	public void onSingleBicycleNumberInfoReceived(
+			BicycleNumberInfo bicycleNumberInfo, int resultCode) {
 		
 	}
 

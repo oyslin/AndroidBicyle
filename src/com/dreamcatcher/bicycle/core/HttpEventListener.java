@@ -3,7 +3,7 @@ package com.dreamcatcher.bicycle.core;
 import java.util.Vector;
 
 import com.dreamcatcher.bicycle.interfaces.IHttpEvent;
-import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
+import com.dreamcatcher.bicycle.vo.BicycleNumberInfo;
 
 public class HttpEventListener implements IHttpEvent {
 	private Vector<IHttpEvent> mEvents = null;
@@ -18,10 +18,10 @@ public class HttpEventListener implements IHttpEvent {
 		}
 	}
 
-	public void onSingleBicycleInfoReceived(
-			BicycleStationInfo bicycleStationInfo, int resultCode) {
+	public void onSingleBicycleNumberInfoReceived(
+			BicycleNumberInfo bicycleNumberInfo, int resultCode) {
 		for(IHttpEvent event : mEvents){
-			event.onSingleBicycleInfoReceived(bicycleStationInfo, resultCode);
+			event.onSingleBicycleNumberInfoReceived(bicycleNumberInfo, resultCode);
 		}
 	}
 	

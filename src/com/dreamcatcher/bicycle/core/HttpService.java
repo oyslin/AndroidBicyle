@@ -14,7 +14,7 @@ import com.dreamcatcher.bicycle.exception.NetworkException;
 import com.dreamcatcher.bicycle.interfaces.IHttpService;
 import com.dreamcatcher.bicycle.util.Constants;
 import com.dreamcatcher.bicycle.util.HttpUtils;
-import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
+import com.dreamcatcher.bicycle.vo.BicycleNumberInfo;
 
 public class HttpService implements IHttpService {
 	private ExecutorService mExecutorService = null;
@@ -46,19 +46,19 @@ public class HttpService implements IHttpService {
 					BicycleService.getInstance().getHttpEventListener().onAllBicyclesInfoReceived(Constants.ResultCode.NETWORK_DISCONNECT);	
 					break;
 				case SINGLE_SUCCESS:
-					BicycleStationInfo bicycleStationInfo = null;
-					bicycleStationInfo = msg.getData().getParcelable(Constants.ParcelableTag.BICYCLE_STATION_INFO);
+					BicycleNumberInfo bicycleNumberInfo = null;
+					bicycleNumberInfo = msg.getData().getParcelable(Constants.ParcelableTag.BICYCLE_STATION_INFO);
 					
-					BicycleService.getInstance().getHttpEventListener().onSingleBicycleInfoReceived(bicycleStationInfo, Constants.ResultCode.SUCCESS);
+					BicycleService.getInstance().getHttpEventListener().onSingleBicycleNumberInfoReceived(bicycleNumberInfo, Constants.ResultCode.SUCCESS);
 					break;
 				case SINGLE_HTTP_FAILED:
-					BicycleService.getInstance().getHttpEventListener().onSingleBicycleInfoReceived(null, Constants.ResultCode.HTTP_REQUEST_FAILED);
+					BicycleService.getInstance().getHttpEventListener().onSingleBicycleNumberInfoReceived(null, Constants.ResultCode.HTTP_REQUEST_FAILED);
 					break;
 				case SINGLE_JSON_FAILED:
-					BicycleService.getInstance().getHttpEventListener().onSingleBicycleInfoReceived(null, Constants.ResultCode.JSON_PARSER_FAILED);
+					BicycleService.getInstance().getHttpEventListener().onSingleBicycleNumberInfoReceived(null, Constants.ResultCode.JSON_PARSER_FAILED);
 					break;
 				case SINGLE_DISCONNECT:
-					BicycleService.getInstance().getHttpEventListener().onSingleBicycleInfoReceived(null, Constants.ResultCode.NETWORK_DISCONNECT);
+					BicycleService.getInstance().getHttpEventListener().onSingleBicycleNumberInfoReceived(null, Constants.ResultCode.NETWORK_DISCONNECT);
 					break;
 				case CHECK_VERSION_COMPLETE:
 					boolean needUpdate = msg.getData().getBoolean(Constants.ParcelableTag.VERSION_NEED_UPDATE);
@@ -96,9 +96,9 @@ public class HttpService implements IHttpService {
 		mExecutorService.execute(new Runnable() {			
 			public void run() {
 				try {
-					BicycleStationInfo bicycleStationInfo = HttpUtils.getSingleBicycleInfoFromHttp(bicycleId);
+					BicycleNumberInfo bicycleNumberInfo = HttpUtils.getSingleBicycleInfoFromHttp(bicycleId);
 					Bundle data = new Bundle();
-					data.putParcelable(Constants.ParcelableTag.BICYCLE_STATION_INFO, bicycleStationInfo);
+					data.putParcelable(Constants.ParcelableTag.BICYCLE_STATION_INFO, bicycleNumberInfo);
 					Message message = Message.obtain();
 					message.setData(data);
 					message.what = SINGLE_SUCCESS;

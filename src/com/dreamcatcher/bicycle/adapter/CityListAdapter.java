@@ -16,7 +16,7 @@ import com.dreamcatcher.bicycle.util.Utils;
 public class CityListAdapter extends BaseAdapter {
 	private LayoutInflater mLayoutInflater = null;
 	private int[] cityNameResIdArray = null;
-	private View selectedView = null;
+	private ViewHolder mSelectedViewHolder = null;
 	private ICityListEvent mCityListEvent;
 	private int mDefaultSelection = -1;
 	
@@ -40,38 +40,55 @@ public class CityListAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if(convertView == null){
-			final int index = position;
+		ViewHolder holder = null;
+		if(convertView == null){			
 			convertView = mLayoutInflater.inflate(R.layout.select_city_item, parent, false);			
-			
-			convertView.setOnClickListener(new OnClickListener() {					
-				public void onClick(View v) {
-					CityListAdapter.this.onItemClicked(v, index);
-				}
-			});
-			
-			if(position == mDefaultSelection){
-				onItemClicked(convertView, mDefaultSelection);
-			}
+			holder = new ViewHolder(convertView);
+			convertView.setTag(holder);			
+		}else{
+			holder = (ViewHolder) convertView.getTag();
 		}
-		TextView cityTextView = (TextView) convertView.findViewById(R.id.select_city_item_name);
-		cityTextView.setText(Utils.getText(cityNameResIdArray[position]));
 		
+		holder.cityTextView.setText(Utils.getText(cityNameResIdArray[position]));
+		if(position == mDefaultSelection){
+			holder.selectImageView.setSelected(true);
+			mSelectedViewHolder = holder;
+			
+		}else {
+			holder.selectImageView.setSelected(false);
+		}		
+		
+		final int index = position;		
+		convertView.setOnClickListener(new OnClickListener() {					
+			public void onClick(View v) {
+				CityListAdapter.this.onItemClicked(v, index);
+			}
+		});
+	
 		return convertView;
 	}
 	
 	private void onItemClicked(View view, int index){
-		if(selectedView != null){
-			ImageView selectImageView = (ImageView) selectedView.findViewById(R.id.select_city_item_check);
-			selectImageView.setSelected(false);
+		if(mSelectedViewHolder != null){			
+			mSelectedViewHolder.selectImageView.setSelected(false);
 		}
-		selectedView = view;
-		ImageView selectImageView = (ImageView) selectedView.findViewById(R.id.select_city_item_check);
-		selectImageView.setSelected(true);
+		mSelectedViewHolder = (ViewHolder)view.getTag();
+		mSelectedViewHolder.selectImageView.setSelected(true);
+		
 		mCityListEvent.onCityItemClicked(index);
 	}
 	
 	public interface ICityListEvent{
 		void onCityItemClicked(int index);
+	}
+	
+	private static class ViewHolder{
+		public TextView cityTextView;
+		public ImageView selectImageView;
+		
+		public ViewHolder(View parent){
+			cityTextView = (TextView) parent.findViewById(R.id.select_city_item_name);
+			selectImageView = (ImageView) parent.findViewById(R.id.select_city_item_check);
+		}
 	}
 }

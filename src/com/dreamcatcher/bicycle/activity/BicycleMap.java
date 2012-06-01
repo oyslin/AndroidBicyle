@@ -62,6 +62,7 @@ import com.dreamcatcher.bicycle.view.ActivityTitle;
 import com.dreamcatcher.bicycle.view.ActivityTitle.IActivityTitleLeftImageClickEvent;
 import com.dreamcatcher.bicycle.view.ActivityTitle.IActivityTitleRightImageClickEvent;
 import com.dreamcatcher.bicycle.vo.Adsetting;
+import com.dreamcatcher.bicycle.vo.BicycleNumberInfo;
 import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
 import com.dreamcatcher.bicycle.vo.CitySetting;
 
@@ -249,7 +250,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
         //add all bicycle marks
         addAllBicycleMarkers();
         
-		mAutoLocate = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.AUTO_LOCATE_ON_STARTUP, true);
+		mAutoLocate = Utils.getBooleanDataFromLocal(Constants.LocalStoreTag.AUTO_LOCATE_ON_STARTUP, false);
 		
 		//add my location if auto locate set
 		if(mAutoLocate){
@@ -578,7 +579,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 				showBicyclePopContent(bicycleStationInfo);
 				
 				//if need refresh single bicycle info, get from server
-				if(mCitySetting.isRefreshPop()){
+				if(mCitySetting.isRefreshSingle()){
 					mProgressbarLine.setVisibility(View.VISIBLE);
 					mHttpService.getSingleBicycleInfo(bicycleId);
 				}				
@@ -800,10 +801,16 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 	/**
 	 * on single bicycle info received
 	 */
-	public void onSingleBicycleInfoReceived(
-			BicycleStationInfo bicycleStationInfo, int resultCode) {
+	public void onSingleBicycleNumberInfoReceived(
+			BicycleNumberInfo bicycleNumberInfo, int resultCode) {
 		mProgressbarLine.setVisibility(View.GONE);
 		if(resultCode == Constants.ResultCode.SUCCESS){
+			int id = bicycleNumberInfo.getId();
+			BicycleStationInfo bicycleStationInfo = mDataset.getBicycleInfo(id);
+			//update bicycle number
+			bicycleStationInfo.setCapacity(bicycleNumberInfo.getCapacity());
+			bicycleStationInfo.setAvailable(bicycleNumberInfo.getAvailable());
+			
 			showBicyclePopContent(bicycleStationInfo);
 			mDataset.updateBicycleInfo(mSelectedId, bicycleStationInfo);
 		}else if(resultCode == Constants.ResultCode.NETWORK_DISCONNECT){
@@ -826,7 +833,7 @@ public class BicycleMap extends MapActivity implements IHttpEvent, ISettingEvent
 		}
 	}
 	
-	public void onFavoriteIdsChanged() {		
+	public void onFavoriteIdsChanged() {
 		removeAllBicyleMarkers();
 		addAllBicycleMarkers();
 		mMapView.invalidate();

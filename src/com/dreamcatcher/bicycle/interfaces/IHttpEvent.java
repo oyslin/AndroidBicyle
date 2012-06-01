@@ -1,6 +1,6 @@
 package com.dreamcatcher.bicycle.interfaces;
 
-import com.dreamcatcher.bicycle.vo.BicycleStationInfo;
+import com.dreamcatcher.bicycle.vo.BicycleNumberInfo;
 
 public interface IHttpEvent {
 	/**
@@ -14,7 +14,7 @@ public interface IHttpEvent {
 	 * @param bicycleStationInfo
 	 * @param resultCode
 	 */
-	public void onSingleBicycleInfoReceived(BicycleStationInfo bicycleStationInfo, int resultCode);
+	public void onSingleBicycleNumberInfoReceived(BicycleNumberInfo bicycleNumberInfo, int resultCode);
 	
 	/**
 	 * called on new version check completed
